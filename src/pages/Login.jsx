@@ -12,9 +12,6 @@ export const Login = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [showForgotModal, setShowForgotModal] = useState(false);
-  const [forgotEmail, setForgotEmail] = useState('');
-  const [forgotMsg, setForgotMsg] = useState('');
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -31,10 +28,6 @@ export const Login = () => {
     }
   };
 
-  const handleQuickAdmin = () => {
-    setUsername('admin');
-    setPassword('admin');
-    setError('');
   };
 
   return (
@@ -57,19 +50,7 @@ export const Login = () => {
           </p>
         </div>
 
-        {/* Quick Demo Info Box */}
-        <div 
-          onClick={handleQuickAdmin}
-          className="mb-6 p-3.5 rounded-2xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/50 text-xs flex items-center justify-center cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-all group"
-        >
-          <div className="flex items-center gap-2.5">
-            <ShieldCheck className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
-            <div>
-              <span className="font-semibold text-slate-700 dark:text-slate-300">Admin login/parol:</span>{' '}
-              <code className="bg-white dark:bg-slate-800 px-1.5 py-0.5 rounded text-blue-700 dark:text-blue-300 font-mono border border-slate-200 dark:border-slate-700">admin</code> / <code className="bg-white dark:bg-slate-800 px-1.5 py-0.5 rounded text-blue-700 dark:text-blue-300 font-mono border border-slate-200 dark:border-slate-700">admin</code>
-            </div>
-          </div>
-        </div>
+
 
         {error && (
           <div className="mb-6 p-3.5 rounded-xl bg-rose-500/10 border border-rose-500/20 text-rose-400 text-xs font-semibold text-center">
@@ -119,19 +100,7 @@ export const Login = () => {
             </div>
           </div>
 
-          <div className="flex items-center justify-between text-xs pt-1">
-            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300 font-bold hover:text-slate-700 dark:text-slate-200">
-              <input type="checkbox" defaultChecked className="rounded border-slate-700 bg-slate-800 text-blue-600 focus:ring-0" />
-              Eslab qolish
-            </label>
-            <button
-              type="button"
-              onClick={() => setShowForgotModal(true)}
-              className="text-blue-700 dark:text-blue-400 hover:underline font-semibold"
-            >
-              Parolni unutdingizmi?
-            </button>
-          </div>
+
 
           <button
             type="submit"
@@ -149,59 +118,5 @@ export const Login = () => {
           </button>
         </form>
       </div>
-
-      {/* Forgot Password Modal */}
-      {showForgotModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-50 dark:bg-slate-950/80 backdrop-blur-sm">
-          <div className="w-full max-w-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-2xl text-left">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-700 dark:text-blue-400">
-                <KeyRound className="w-5 h-5" />
-              </div>
-              <h3 className="text-base font-bold text-slate-900 dark:text-white">Parolni tiklash</h3>
-            </div>
-            {forgotMsg ? (
-              <div className="text-xs text-blue-700 dark:text-blue-400 bg-blue-500/10 p-3 rounded-xl border border-blue-500/20 mb-4">
-                {forgotMsg}
-              </div>
-            ) : (
-              <div className="space-y-4">
-                <p className="text-xs text-slate-700 dark:text-slate-300 font-bold">
-                  Tizimda ro'yxatdan o'tgan e-mail manzilingizni kiriting.
-                </p>
-                <input
-                  type="email"
-                  value={forgotEmail}
-                  onChange={(e) => setForgotEmail(e.target.value)}
-                  placeholder="admin@filial.uz"
-                  className="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-slate-100 text-xs focus:outline-none focus:border-blue-500"
-                />
-              </div>
-            )}
-            <div className="flex items-center justify-end gap-2 mt-6">
-              <button
-                type="button"
-                onClick={() => {
-                  setShowForgotModal(false);
-                  setForgotMsg('');
-                }}
-                className="px-4 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 font-bold hover:text-slate-900 dark:text-white"
-              >
-                Yopish
-              </button>
-              {!forgotMsg && (
-                <button
-                  type="button"
-                  onClick={() => setForgotMsg("Tiklash kodi elektron pochtangizga yuborildi.")}
-                  className="px-4 py-2 text-xs font-semibold text-slate-900 dark:text-white bg-blue-600 hover:bg-blue-500 rounded-xl"
-                >
-                  Yuborish
-                </button>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
   );
 };
