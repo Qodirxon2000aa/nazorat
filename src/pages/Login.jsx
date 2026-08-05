@@ -60,7 +60,7 @@ export const Login = () => {
         {/* Quick Demo Info Box */}
         <div 
           onClick={handleQuickAdmin}
-          className="mb-6 p-3.5 rounded-2xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/50 text-xs flex items-center justify-between cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-all group"
+          className="mb-6 p-3.5 rounded-2xl bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800/50 text-xs flex items-center justify-center cursor-pointer hover:bg-blue-100 dark:hover:bg-blue-900/40 transition-all group"
         >
           <div className="flex items-center gap-2.5">
             <ShieldCheck className="w-4 h-4 text-blue-600 dark:text-blue-400 shrink-0" />
@@ -69,7 +69,6 @@ export const Login = () => {
               <code className="bg-white dark:bg-slate-800 px-1.5 py-0.5 rounded text-blue-700 dark:text-blue-300 font-mono border border-slate-200 dark:border-slate-700">admin</code> / <code className="bg-white dark:bg-slate-800 px-1.5 py-0.5 rounded text-blue-700 dark:text-blue-300 font-mono border border-slate-200 dark:border-slate-700">admin</code>
             </div>
           </div>
-          <span className="text-[10px] text-blue-600 dark:text-blue-400 group-hover:underline font-bold">Kiritish</span>
         </div>
 
         {error && (
@@ -91,7 +90,7 @@ export const Login = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="masalan: admin"
-                className="w-full pl-10 pr-4 py-3 bg-slate-800/80 border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-xl text-slate-100 text-sm placeholder-slate-500 focus:outline-none transition-all"
+                className="w-full pl-10 pr-4 py-3 bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-xl text-slate-900 dark:text-slate-100 text-sm placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none transition-all"
               />
             </div>
           </div>
@@ -108,7 +107,7 @@ export const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full pl-10 pr-10 py-3 bg-slate-800/80 border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-xl text-slate-100 text-sm placeholder-slate-500 focus:outline-none transition-all"
+                className="w-full pl-10 pr-10 py-3 bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-xl text-slate-900 dark:text-slate-100 text-sm placeholder-slate-400 dark:placeholder-slate-500 focus:outline-none transition-all"
               />
               <button
                 type="button"
