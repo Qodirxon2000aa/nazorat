@@ -14,8 +14,10 @@ import { TableSkeleton } from '../components/Skeleton';
 import { EmptyState } from '../components/EmptyState';
 
 export const Reports = () => {
-  const [reportDate, setReportDate] = useState(new Date().toISOString().split('T')[0]);
+  const [reportType, setReportType] = useState('monthly');
   const [selectedBranchId, setSelectedBranchId] = useState('');
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
 
   const [branches, setBranches] = useState([]);
   const [employees, setEmployees] = useState([]);
@@ -48,10 +50,33 @@ export const Reports = () => {
 
   // Filter ratings according to selected date criteria & branch
   const getFilteredReportData = () => {
-    let list = ratings.filter((r) => r.date === reportDate);
+    let list = ratings;
 
     if (selectedBranchId) {
       list = list.filter((r) => r.branchId === selectedBranchId);
+    }
+
+    const today = new Date();
+    if (reportType === 'daily') {
+      const todayStr = today.toISOString().split('T')[0];
+      list = list.filter((r) => r.date === todayStr);
+    } else if (reportType === 'weekly') {
+      const lastWeek = new Date();
+      lastWeek.setDate(lastWeek.getDate() - 7);
+      list = list.filter((r) => new Date(r.date) >= lastWeek);
+    } else if (reportType === 'monthly') {
+      const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+      list = list.filter((r) => new Date(r.date) >= startOfMonth);
+    } else if (reportType === 'yearly') {
+      const startOfYear = new Date(today.getFullYear(), 0, 1);
+      list = list.filter((r) => new Date(r.date) >= startOfYear);
+    } else if (reportType === 'custom' && startDate && endDate) {
+      const s = new Date(startDate);
+      const e = new Date(endDate);
+      list = list.filter((r) => {
+        const d = new Date(r.date);
+        return d >= s && d <= e;
+      });
     }
 
     if (search) {
@@ -69,9 +94,9 @@ export const Reports = () => {
 
   const reportRows = getFilteredReportData();
 
-  // Calculate ALL-TIME employee totals for the report display
+  // Calculate employee totals for the current filtered period
   const empTotals = {};
-  ratings.forEach((r) => {
+  reportRows.forEach((r) => {
     empTotals[r.employeeId] = (empTotals[r.employeeId] || 0) + r.stars;
   });
 
@@ -83,7 +108,7 @@ export const Reports = () => {
       'Xodim': r.employeeName,
       'Filial': r.branchName,
       'Baho (1-5)': `${r.stars} ⭐`,
-      "Umumiy Jami Ball": `${empTotals[r.employeeId]} ⭐`,
+      "Davr bo'yicha jami ball": `${empTotals[r.employeeId]} ⭐`,
       'Izoh': r.comment,
       'Baholadi': r.ratedByName,
     }));
@@ -112,7 +137,7 @@ export const Reports = () => {
 
   // Export CSV
   const exportToCSV = () => {
-    const headers = ['№,Sana,Xodim,Filial,Baho,Umumiy Jami Ball,Izoh,Baholadi\n'];
+    const headers = ['№,Sana,Xodim,Filial,Baho,Jami Ball,Izoh,Baholadi\n'];
     const rows = reportRows.map((r, i) =>
       [
         i + 1,
@@ -159,7 +184,7 @@ export const Reports = () => {
     doc.text('Xodim', 50, y);
     doc.text('Filial', 110, y);
     doc.text('Baho', 160, y);
-    doc.text('Umumiy Ball', 180, y);
+    doc.text('Jami Ball', 180, y);
     doc.text('Baholadi', 210, y);
 
     y += 4;
@@ -214,7 +239,7 @@ export const Reports = () => {
             <span>Tizim Hisobotlari Markazi</span>
           </h1>
           <p className="text-xs text-slate-700 dark:text-slate-300 font-bold mt-1">
-            Kunlik hisobotlarni shakllantirish va export qilish
+            Kunlik, haftalik, oylik va yillik hisobotlarni shakllantirish va export qilish
           </p>
         </div>
 
@@ -258,16 +283,20 @@ export const Reports = () => {
       <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xl space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5 flex items-center gap-1">
-              <Calendar className="w-3.5 h-3.5" />
-              <span>Hisobot sanasi:</span>
+            <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5">
+              Hisobot turi:
             </label>
-            <input
-              type="date"
-              value={reportDate}
-              onChange={(e) => setReportDate(e.target.value)}
+            <select
+              value={reportType}
+              onChange={(e) => setReportType(e.target.value)}
               className="w-full px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white font-bold focus:outline-none cursor-pointer"
-            />
+            >
+              <option value="daily" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Kunlik Hisobot</option>
+              <option value="weekly" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Haftalik Hisobot</option>
+              <option value="monthly" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Oylik Hisobot</option>
+              <option value="yearly" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Yillik Hisobot</option>
+              <option value="custom" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Ixtiyoriy sana oralig'i</option>
+            </select>
           </div>
 
           <div>
@@ -305,7 +334,31 @@ export const Reports = () => {
           </div>
         </div>
 
-        </div>
+        {reportType === 'custom' && (
+          <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-200 dark:border-slate-700">
+            <div className="flex items-center gap-2">
+              <Calendar className="w-4 h-4 text-blue-700 dark:text-blue-400" />
+              <span className="text-xs text-slate-700 dark:text-slate-300 font-bold">Boshlanish:</span>
+              <input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                className="px-3 py-1.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:outline-none"
+              />
+            </div>
+            <span className="text-xs text-slate-700 dark:text-slate-300 font-bold">—</span>
+            <div className="flex items-center gap-2">
+              <span className="text-xs text-slate-700 dark:text-slate-300 font-bold">Tugash:</span>
+              <input
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                className="px-3 py-1.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:outline-none"
+              />
+            </div>
+          </div>
+        )}
+      </div>
 
       {/* Report Table */}
       {loading ? (
@@ -336,7 +389,7 @@ export const Reports = () => {
                   <th className="px-4 py-3">Xodim</th>
                   <th className="px-4 py-3">Filial</th>
                   <th className="px-4 py-3">Qo'yilgan Baho</th>
-                  <th className="px-4 py-3">Umumiy Jami Ball</th>
+                  <th className="px-4 py-3">Davrdagi Jami Ball</th>
                   <th className="px-4 py-3">Menejer Izohi</th>
                   <th className="px-4 py-3">Baholadi</th>
                 </tr>
