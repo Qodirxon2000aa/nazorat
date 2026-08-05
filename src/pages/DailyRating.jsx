@@ -148,11 +148,19 @@ export const DailyRatingPage = () => {
   const totalEmps = employees.length;
   const progressPercent = totalEmps > 0 ? Math.round((ratedCount / totalEmps) * 100) : 0;
 
-  const filteredEmployees = employees.filter((e) =>
-    `${e.firstName} ${e.lastName} ${e.position}`
-      .toLowerCase()
-      .includes(search.toLowerCase())
-  );
+  const filteredEmployees = employees
+    .filter((e) =>
+      `${e.firstName} ${e.lastName} ${e.position}`
+        .toLowerCase()
+        .includes(search.toLowerCase())
+    )
+    .sort((a, b) => {
+      const aRated = todayRatings.some((r) => r.employeeId === a.id);
+      const bRated = todayRatings.some((r) => r.employeeId === b.id);
+      if (aRated && !bRated) return 1;
+      if (!aRated && bRated) return -1;
+      return 0;
+    });
 
   return (
     <div className="p-4 sm:p-6 md:p-8 max-w-7xl mx-auto space-y-6">
