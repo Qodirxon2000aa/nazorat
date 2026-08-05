@@ -92,40 +92,86 @@ export const Reports = () => {
     return list;
   };
 
-  const reportRows = getFilteredReportData();
+  const rawRows = getFilteredReportData();
 
-  // Calculate employee totals for the current filtered period
+  // Group data if not daily
+  let reportRows = rawRows;
+  const isDaily = reportType === 'daily';
+
+  if (!isDaily) {
+    const grouped = {};
+    rawRows.forEach((r) => {
+      if (!grouped[r.employeeId]) {
+        grouped[r.employeeId] = {
+          ...r,
+          totalStars: 0,
+          ratingsCount: 0,
+        };
+      }
+      grouped[r.employeeId].totalStars += r.stars;
+      grouped[r.employeeId].ratingsCount += 1;
+    });
+    reportRows = Object.values(grouped).sort((a, b) => b.totalStars - a.totalStars);
+  } else {
+    // If daily, calculate total stars specifically for this day
+    reportRows.forEach((r) => {
+      r.totalStars = r.stars;
+      r.ratingsCount = 1;
+    });
+  }
+
+  // Calculate overall totals for display
   const empTotals = {};
-  reportRows.forEach((r) => {
+  rawRows.forEach((r) => {
     empTotals[r.employeeId] = (empTotals[r.employeeId] || 0) + r.stars;
   });
 
   // Export Excel (.xlsx)
   const exportToExcel = () => {
-    const excelData = reportRows.map((r, i) => ({
-      '№': i + 1,
-      'Sana': r.date,
-      'Xodim': r.employeeName,
-      'Filial': r.branchName,
-      'Baho (1-5)': `${r.stars} ⭐`,
-      "Davr bo'yicha jami ball": `${empTotals[r.employeeId]} ⭐`,
-      'Izoh': r.comment,
-      'Baholadi': r.ratedByName,
-    }));
+    const excelData = reportRows.map((r, i) => {
+      const row = {
+        '№': i + 1,
+        'Xodim': r.employeeName,
+        'Filial': r.branchName,
+      };
+      
+      if (isDaily) {
+        row['Sana'] = r.date;
+        row['Baho (1-5)'] = `${r.stars} ⭐`;
+      }
+      
+      row["Davrdagi jami ball"] = `${r.totalStars} ⭐`;
+      
+      if (isDaily) {
+        row['Izoh'] = r.comment;
+        row['Baholadi'] = r.ratedByName;
+      } else {
+        row['Baholanishlar soni'] = `${r.ratingsCount} marta`;
+      }
+      
+      return row;
+    });
 
     const worksheet = XLSX.utils.json_to_sheet(excelData);
     
     // Set column widths for better formatting
-    worksheet['!cols'] = [
+    const cols = [
       { wch: 5 },  // №
-      { wch: 15 }, // Sana
       { wch: 30 }, // Xodim
       { wch: 25 }, // Filial
-      { wch: 15 }, // Baho
-      { wch: 25 }, // Jami ball
-      { wch: 40 }, // Izoh
-      { wch: 20 }, // Baholadi
     ];
+    
+    if (isDaily) {
+      cols.splice(1, 0, { wch: 15 }); // Sana
+      cols.push({ wch: 15 }); // Baho
+      cols.push({ wch: 25 }); // Jami ball
+      cols.push({ wch: 40 }); // Izoh
+      cols.push({ wch: 20 }); // Baholadi
+    } else {
+      cols.push({ wch: 25 }); // Jami ball
+      cols.push({ wch: 25 }); // Soni
+    }
+    worksheet['!cols'] = cols;
 
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Hisobot');
@@ -137,19 +183,32 @@ export const Reports = () => {
 
   // Export CSV
   const exportToCSV = () => {
-    const headers = ['№,Sana,Xodim,Filial,Baho,Jami Ball,Izoh,Baholadi\n'];
-    const rows = reportRows.map((r, i) =>
-      [
-        i + 1,
-        `"${r.date}"`,
-        `"${r.employeeName}"`,
-        `"${r.branchName}"`,
-        `"${r.stars}"`,
-        `"${empTotals[r.employeeId]}"`,
-        `"${r.comment.replace(/"/g, '""')}"`,
-        `"${r.ratedByName}"`,
-      ].join(',')
-    );
+    const headers = isDaily 
+      ? ['№,Sana,Xodim,Filial,Baho,Jami Ball,Izoh,Baholadi\n']
+      : ['№,Xodim,Filial,Jami Ball,Baholanishlar Soni\n'];
+      
+    const rows = reportRows.map((r, i) => {
+      if (isDaily) {
+        return [
+          i + 1,
+          `"${r.date}"`,
+          `"${r.employeeName}"`,
+          `"${r.branchName}"`,
+          `"${r.stars}"`,
+          `"${r.totalStars}"`,
+          `"${r.comment.replace(/"/g, '""')}"`,
+          `"${r.ratedByName}"`,
+        ].join(',');
+      } else {
+        return [
+          i + 1,
+          `"${r.employeeName}"`,
+          `"${r.branchName}"`,
+          `"${r.totalStars}"`,
+          `"${r.ratingsCount}"`,
+        ].join(',');
+      }
+    });
 
     const blob = new Blob([headers.concat(rows.join('\n')).join('')], {
       type: 'text/csv;charset=utf-8;',
@@ -165,7 +224,7 @@ export const Reports = () => {
 
   // Export PDF
   const exportToPDF = () => {
-    const doc = new jsPDF('landscape'); // use landscape for more columns
+    const doc = new jsPDF('landscape');
     
     // Header
     doc.setFont('helvetica', 'bold');
@@ -180,12 +239,18 @@ export const Reports = () => {
     // Table Header (Bold)
     doc.setFontSize(10);
     doc.text('№', 14, y);
-    doc.text('Sana', 24, y);
+    if (isDaily) doc.text('Sana', 24, y);
     doc.text('Xodim', 50, y);
     doc.text('Filial', 110, y);
-    doc.text('Baho', 160, y);
-    doc.text('Jami Ball', 180, y);
-    doc.text('Baholadi', 210, y);
+    
+    if (isDaily) {
+      doc.text('Baho', 160, y);
+      doc.text('Jami Ball', 180, y);
+      doc.text('Baholadi', 210, y);
+    } else {
+      doc.text('Jami Ball', 160, y);
+      doc.text('Baholanish Soni', 200, y);
+    }
 
     y += 4;
     doc.setLineWidth(0.5);
@@ -203,17 +268,21 @@ export const Reports = () => {
         y = 30;
       }
       doc.text(`${idx + 1}`, 14, y);
-      doc.text(r.date, 24, y);
+      if (isDaily) doc.text(r.date, 24, y);
       doc.text(r.employeeName.substring(0, 30), 50, y);
       doc.text(r.branchName.substring(0, 25), 110, y);
       
-      // Make rating text bold
       doc.setFont('helvetica', 'bold');
-      doc.text(`${r.stars} yulduz`, 160, y);
-      doc.text(`${empTotals[r.employeeId]} ball`, 180, y);
-      doc.setFont('helvetica', 'normal');
-      
-      doc.text(r.ratedByName.substring(0, 25), 210, y);
+      if (isDaily) {
+        doc.text(`${r.stars} yulduz`, 160, y);
+        doc.text(`${r.totalStars} ball`, 180, y);
+        doc.setFont('helvetica', 'normal');
+        doc.text(r.ratedByName.substring(0, 25), 210, y);
+      } else {
+        doc.text(`${r.totalStars} ball`, 160, y);
+        doc.setFont('helvetica', 'normal');
+        doc.text(`${r.ratingsCount} marta`, 200, y);
+      }
       
       y += 8;
       doc.setDrawColor(200, 200, 200);
@@ -373,9 +442,9 @@ export const Reports = () => {
             </span>
             <span className="text-blue-700 dark:text-blue-400 font-mono">
               O'rtacha Tizim Balli:{' '}
-              {(
-                reportRows.reduce((s, r) => s + r.stars, 0) / reportRows.length
-              ).toFixed(1)}{' '}
+              {reportRows.length > 0
+                ? (reportRows.reduce((s, r) => s + (isDaily ? r.stars : r.totalStars), 0) / (isDaily ? reportRows.length : reportRows.reduce((s,r) => s+r.ratingsCount, 0))).toFixed(1)
+                : 0}{' '}
               ⭐
             </span>
           </div>
@@ -385,38 +454,59 @@ export const Reports = () => {
               <thead className="bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">
                 <tr>
                   <th className="px-4 py-3">№</th>
-                  <th className="px-4 py-3">Sana</th>
+                  {isDaily && <th className="px-4 py-3">Sana</th>}
                   <th className="px-4 py-3">Xodim</th>
                   <th className="px-4 py-3">Filial</th>
-                  <th className="px-4 py-3">Qo'yilgan Baho</th>
+                  {isDaily && <th className="px-4 py-3">Qo'yilgan Baho</th>}
                   <th className="px-4 py-3">Davrdagi Jami Ball</th>
-                  <th className="px-4 py-3">Menejer Izohi</th>
-                  <th className="px-4 py-3">Baholadi</th>
+                  {isDaily ? (
+                    <>
+                      <th className="px-4 py-3">Menejer Izohi</th>
+                      <th className="px-4 py-3">Baholadi</th>
+                    </>
+                  ) : (
+                    <th className="px-4 py-3">Baholanish Soni</th>
+                  )}
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5 font-bold text-slate-700 dark:text-slate-200">
                 {reportRows.map((r, idx) => (
-                  <tr key={r.id} className="hover:bg-slate-100 dark:bg-white/5 transition-colors">
+                  <tr key={isDaily ? r.id : r.employeeId} className="hover:bg-slate-100 dark:bg-white/5 transition-colors">
                     <td className="px-4 py-3 text-slate-700 font-bold font-mono">{idx + 1}</td>
-                    <td className="px-4 py-3 font-semibold text-slate-600 dark:text-slate-300">
-                      {r.date}
-                    </td>
+                    {isDaily && (
+                      <td className="px-4 py-3 font-semibold text-slate-600 dark:text-slate-300">
+                        {r.date}
+                      </td>
+                    )}
                     <td className="px-4 py-3 font-bold text-slate-900 dark:text-white">
                       {r.employeeName}
                     </td>
                     <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{r.branchName}</td>
-                    <td className="px-4 py-3">
-                      <span className="inline-flex items-center gap-1 font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-md">
-                        {r.stars} ⭐
-                      </span>
-                    </td>
+                    
+                    {isDaily && (
+                      <td className="px-4 py-3">
+                        <span className="inline-flex items-center gap-1 font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-md">
+                          {r.stars} ⭐
+                        </span>
+                      </td>
+                    )}
+                    
                     <td className="px-4 py-3 font-extrabold text-blue-700 dark:text-blue-400">
-                      {empTotals[r.employeeId]} ⭐
+                      {r.totalStars} ⭐
                     </td>
-                    <td className="px-4 py-3 text-slate-600 dark:text-slate-300 italic max-w-xs truncate">
-                      "{r.comment}"
-                    </td>
-                    <td className="px-4 py-3 text-slate-700 dark:text-slate-300 font-bold">{r.ratedByName}</td>
+                    
+                    {isDaily ? (
+                      <>
+                        <td className="px-4 py-3 text-slate-600 dark:text-slate-300 italic max-w-xs truncate">
+                          "{r.comment}"
+                        </td>
+                        <td className="px-4 py-3 text-slate-700 dark:text-slate-300 font-bold">{r.ratedByName}</td>
+                      </>
+                    ) : (
+                      <td className="px-4 py-3 text-slate-600 dark:text-slate-300">
+                        {r.ratingsCount} marta
+                      </td>
+                    )}
                   </tr>
                 ))}
               </tbody>
