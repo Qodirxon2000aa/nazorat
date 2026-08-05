@@ -11,7 +11,6 @@ import { Employees } from './pages/Employees';
 import { DailyRatingPage } from './pages/DailyRating';
 import { Statistics } from './pages/Statistics';
 import { Reports } from './pages/Reports';
-import { ActivityLogPage } from './pages/ActivityLog';
 import { SettingsPage } from './pages/Settings';
 import { initSSE } from './services/sse';
 
@@ -55,7 +54,7 @@ const ProtectedLayout = () => {
             <Route path="/daily-rating" element={<DailyRatingPage />} />
             <Route path="/statistics" element={<Statistics />} />
             <Route path="/reports" element={<Reports />} />
-            <Route path="/activity-log" element={<ActivityLogPage />} />
+
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>

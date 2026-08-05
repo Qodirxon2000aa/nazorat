@@ -7,7 +7,6 @@ import {
   Star,
   BarChart3,
   FileSpreadsheet,
-  History,
   Settings,
   ChevronLeft,
   ChevronRight,
@@ -58,12 +57,7 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
       icon: FileSpreadsheet,
       show: hasPermission('hisobot_view'),
     },
-    {
-      to: '/activity-log',
-      label: 'Faoliyat Jurnali',
-      icon: History,
-      show: hasPermission('log_view') || user?.role === 'Super Admin',
-    },
+
     {
       to: '/settings',
       label: 'Sozlamalar',
