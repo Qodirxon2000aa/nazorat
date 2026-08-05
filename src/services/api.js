@@ -197,6 +197,7 @@ export const api = {
     if (params?.startDate) url.searchParams.append('startDate', params.startDate);
     if (params?.endDate) url.searchParams.append('endDate', params.endDate);
     if (params?.branchId) url.searchParams.append('branchId', params.branchId);
+    if (params?.branchType) url.searchParams.append('branchType', params.branchType);
 
     const res = await fetch(url.toString(), { headers: getHeaders() });
     return parseResponse(res);
