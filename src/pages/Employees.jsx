@@ -31,6 +31,7 @@ export const Employees = ({ globalQuery }) => {
   const [search, setSearch] = useState('');
   const [selectedBranchFilter, setSelectedBranchFilter] = useState('');
   const [selectedStatusFilter, setSelectedStatusFilter] = useState('');
+  const [typeFilters, setTypeFilters] = useState({ zavod: false, filial: false });
 
   // Add/Edit Modal
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -169,7 +170,15 @@ export const Employees = ({ globalQuery }) => {
       !selectedBranchFilter || emp.branchId === selectedBranchFilter;
     const matchesStatus =
       !selectedStatusFilter || emp.status === selectedStatusFilter;
-    return matchesSearch && matchesBranch && matchesStatus;
+      
+    const empBranch = branches.find((b) => b.id === emp.branchId);
+    const branchType = empBranch ? (empBranch.type || 'Filial') : 'Filial';
+    const typeMatch =
+      (!typeFilters.zavod && !typeFilters.filial) ||
+      (typeFilters.zavod && branchType === 'Zavod') ||
+      (typeFilters.filial && branchType === 'Filial');
+
+    return matchesSearch && matchesBranch && matchesStatus && typeMatch;
   });
 
   return (
@@ -198,7 +207,7 @@ export const Employees = ({ globalQuery }) => {
       </div>
 
       {/* Filters Bar */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white dark:bg-[#0f172a] p-4 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-white dark:bg-[#0f172a] p-4 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl">
         <div className="relative">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700 dark:text-slate-300 font-bold" />
           <input
@@ -233,6 +242,27 @@ export const Employees = ({ globalQuery }) => {
           <option value="Ta'tilda" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Ta'tilda</option>
           <option value="Nofaol" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Nofaol</option>
         </select>
+
+        <div className="flex items-center gap-4 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2">
+          <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-900 dark:text-white">
+            <input
+              type="checkbox"
+              checked={typeFilters.zavod}
+              onChange={(e) => setTypeFilters({ ...typeFilters, zavod: e.target.checked })}
+              className="rounded border-slate-300 text-blue-500 focus:ring-blue-500 w-4 h-4 cursor-pointer"
+            />
+            Zavod
+          </label>
+          <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-900 dark:text-white">
+            <input
+              type="checkbox"
+              checked={typeFilters.filial}
+              onChange={(e) => setTypeFilters({ ...typeFilters, filial: e.target.checked })}
+              className="rounded border-slate-300 text-blue-500 focus:ring-blue-500 w-4 h-4 cursor-pointer"
+            />
+            Filial
+          </label>
+        </div>
       </div>
 
       {/* Employee Table */}
