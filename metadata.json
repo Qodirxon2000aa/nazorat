@@ -1,0 +1,6 @@
+{
+  "name": "Filiallar Xodimlarini Baholash va Boshqarish Tizimi",
+  "description": "Filiallar va xodimlarni kunlik baholash, statistika, hisobotlar va rollarni boshqarish tizimi",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

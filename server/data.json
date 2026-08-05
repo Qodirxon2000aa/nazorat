@@ -1,0 +1,51 @@
+{
+  "branches": [
+    {
+      "id": "br-1785841772141",
+      "name": "Namangan",
+      "address": "Namangana",
+      "phone": "+998 88 6121234",
+      "managerName": "Jasur",
+      "status": "Faol",
+      "createdAt": "2026-08-04"
+    }
+  ],
+  "employees": [
+    {
+      "id": "emp-1785841897119",
+      "firstName": "Qodirxon",
+      "lastName": "Nodirxonov",
+      "middleName": "Sodirxon ogli",
+      "phone": "+998 88 6121234",
+      "position": "Xodim",
+      "branchId": "br-1785841772141",
+      "branchName": "Namangan",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+      "username": "user",
+      "passwordHash": "$2b$10$b9KK5MxGW7AeFUc3i1RHmu5ULBogVnwM3WURNE0k3P7vxj9qKAuTC",
+      "status": "Faol",
+      "hireDate": "2026-08-04",
+      "averageRating": 5,
+      "totalRatingsCount": 1
+    }
+  ],
+  "ratings": [
+    {
+      "id": "rat-1785841919916",
+      "employeeId": "emp-1785841897119",
+      "employeeName": "Qodirxon Nodirxonov",
+      "branchId": "br-1785841772141",
+      "branchName": "Namangan",
+      "ratedById": "admin_id",
+      "ratedByName": "Super Admin",
+      "stars": 5,
+      "comment": "zor",
+      "date": "2026-08-04",
+      "createdAt": "2026-08-04T11:11:59.918Z"
+    }
+  ],
+  "users": [],
+  "roles": [],
+  "activityLogs": [],
+  "notifications": []
+}

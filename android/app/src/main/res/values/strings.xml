@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Nazorat</string>
+    <string name="title_activity_main">Nazorat</string>
+    <string name="package_name">uz.nodirkhanov.nazorat</string>
+    <string name="custom_url_scheme">uz.nodirkhanov.nazorat</string>
+</resources>

@@ -1,0 +1,190 @@
+import React, { useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import {
+  LayoutDashboard,
+  Building2,
+  Users,
+  Star,
+  BarChart3,
+  FileSpreadsheet,
+  History,
+  Settings,
+  ChevronLeft,
+  ChevronRight,
+  X,
+} from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
+
+export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
+  const [collapsed, setCollapsed] = useState(false);
+  const { user, hasPermission } = useAuth();
+
+  const navItems = [
+    {
+      to: '/',
+      label: 'Boshqaruv paneli',
+      icon: LayoutDashboard,
+      show: true,
+    },
+    {
+      to: '/branches',
+      label: 'Filiallar',
+      icon: Building2,
+      show: hasPermission('filial_view'),
+    },
+    {
+      to: '/employees',
+      label: 'Xodimlar',
+      icon: Users,
+      show: hasPermission('xodim_view'),
+    },
+    {
+      to: '/daily-rating',
+      label: 'Kunlik Baholash',
+      icon: Star,
+      show: hasPermission('baho_add') || user?.role === 'Super Admin',
+      badge: 'Kunlik',
+    },
+    {
+      to: '/statistics',
+      label: 'Statistika',
+      icon: BarChart3,
+      show: hasPermission('statistika_view'),
+    },
+    {
+      to: '/reports',
+      label: 'Hisobotlar',
+      icon: FileSpreadsheet,
+      show: hasPermission('hisobot_view'),
+    },
+    {
+      to: '/activity-log',
+      label: 'Faoliyat Jurnali',
+      icon: History,
+      show: hasPermission('log_view') || user?.role === 'Super Admin',
+    },
+    {
+      to: '/settings',
+      label: 'Sozlamalar',
+      icon: Settings,
+      show: true,
+    },
+  ];
+
+  const sidebarContent = (
+    <div className="flex flex-col h-full bg-[#09090b] text-slate-100 border-r border-white/10 select-none">
+      {/* Brand Header */}
+      <div className="flex items-center justify-between h-20 px-5 border-b border-white/10 shrink-0">
+        <div className="flex items-center gap-3 overflow-hidden">
+          <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-emerald-500 text-black font-black text-xl italic shadow-lg shadow-emerald-500/20 shrink-0">
+            F
+          </div>
+          {(!collapsed || mobileOpen) && (
+            <div className="flex flex-col overflow-hidden">
+              <span className="text-sm font-black tracking-tight text-white truncate">
+                FXBB Tizimi
+              </span>
+              <span className="text-[10px] font-medium text-slate-400 truncate">
+                Filiallar & Xodimlar
+              </span>
+            </div>
+          )}
+        </div>
+
+        {/* Desktop collapse button */}
+        <button
+          onClick={() => setCollapsed(!collapsed)}
+          className="hidden md:flex p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
+          title={collapsed ? 'Kengaytirish' : 'Yig\'ish'}
+        >
+          {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
+        </button>
+
+        {/* Mobile close button */}
+        {setMobileOpen && (
+          <button
+            onClick={() => setMobileOpen(false)}
+            className="md:hidden p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        )}
+      </div>
+
+      {/* Navigation Links */}
+      <nav className="flex-1 px-3 py-5 space-y-1.5 overflow-y-auto custom-scrollbar">
+        {navItems
+          .filter((item) => item.show)
+          .map((item) => {
+            const Icon = item.icon;
+            return (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.to === '/'}
+                onClick={() => setMobileOpen && setMobileOpen(false)}
+                className={({ isActive }) =>
+                  `flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs transition-all relative ${
+                    isActive
+                      ? 'bg-white/5 border border-white/10 text-emerald-400 font-bold shadow-sm'
+                      : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                  }`
+                }
+              >
+                <Icon className="w-5 h-5 shrink-0" />
+                {(!collapsed || mobileOpen) && <span className="truncate">{item.label}</span>}
+                {(!collapsed || mobileOpen) && item.badge && (
+                  <span className="ml-auto text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                    {item.badge}
+                  </span>
+                )}
+              </NavLink>
+            );
+          })}
+      </nav>
+
+      {/* Footer Role Card */}
+      {(!collapsed || mobileOpen) && user && (
+        <div className="p-4 m-3 rounded-2xl bg-emerald-500/5 border border-emerald-500/20 flex items-center justify-between shrink-0">
+          <div>
+            <div className="text-[10px] uppercase tracking-wider font-bold text-slate-400">
+              Faol Rol
+            </div>
+            <div className="text-xs font-extrabold text-emerald-400 truncate mt-0.5">
+              {user.role}
+            </div>
+          </div>
+          <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-md shadow-emerald-400/50" />
+        </div>
+      )}
+    </div>
+  );
+
+  return (
+    <>
+      {/* Desktop Sidebar */}
+      <aside
+        className={`hidden md:flex flex-col h-screen transition-all duration-300 z-40 shrink-0 ${
+          collapsed ? 'w-20' : 'w-64'
+        }`}
+      >
+        {sidebarContent}
+      </aside>
+
+      {/* Mobile Drawer Overlay */}
+      {mobileOpen && (
+        <div className="fixed inset-0 z-50 md:hidden flex">
+          {/* Backdrop */}
+          <div
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm transition-opacity"
+            onClick={() => setMobileOpen && setMobileOpen(false)}
+          />
+          {/* Drawer */}
+          <div className="relative w-72 max-w-[80vw] h-full shadow-2xl z-50 animate-in slide-in-from-left duration-200">
+            {sidebarContent}
+          </div>
+        </div>
+      )}
+    </>
+  );
+};

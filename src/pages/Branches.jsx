@@ -1,0 +1,474 @@
+import React, { useEffect, useState } from 'react';
+import {
+  Building2,
+  Plus,
+  Search,
+  Phone,
+  MapPin,
+  UserCheck,
+  Edit2,
+  Trash2,
+  Users,
+  Star,
+  CheckCircle2,
+  XCircle,
+} from 'lucide-react';
+import { api } from '../services/api';
+import { Modal } from '../components/Modal';
+import { TableSkeleton } from '../components/Skeleton';
+import { EmptyState } from '../components/EmptyState';
+import { useAuth } from '../context/AuthContext';
+import { subscribeToUpdates } from '../services/sse';
+
+export const Branches = ({ globalQuery }) => {
+  const { hasPermission } = useAuth();
+  const [branches, setBranches] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState('');
+  const [statusFilter, setStatusFilter] = useState('barchasi');
+
+  // Modal State
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingBranch, setEditingBranch] = useState(null);
+  const [formData, setFormData] = useState({
+    name: '',
+    address: '',
+    phone: '',
+    managerName: '',
+    status: 'Faol',
+  });
+
+  // Branch Detail / Staff Drawer
+  const [selectedBranch, setSelectedBranch] = useState(null);
+  const [branchEmployees, setBranchEmployees] = useState([]);
+  const [drawerLoading, setDrawerLoading] = useState(false);
+
+  const fetchBranches = async () => {
+    try {
+      setLoading(true);
+      const data = await api.getBranches();
+      setBranches(data);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchBranches();
+
+    const handleDataUpdate = (data) => {
+      if (data.type === 'branches' || data.type === 'employees') {
+        fetchBranches();
+      }
+    };
+
+    const unsubscribe = subscribeToUpdates(handleDataUpdate);
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const handleOpenAddModal = () => {
+    setEditingBranch(null);
+    setFormData({
+      name: '',
+      address: '',
+      phone: '',
+      managerName: '',
+      status: 'Faol',
+    });
+    setIsModalOpen(true);
+  };
+
+  const handleOpenEditModal = (b) => {
+    setEditingBranch(b);
+    setFormData({
+      name: b.name,
+      address: b.address,
+      phone: b.phone,
+      managerName: b.managerName,
+      status: b.status,
+    });
+    setIsModalOpen(true);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      if (editingBranch) {
+        await api.updateBranch(editingBranch.id, formData);
+      } else {
+        await api.createBranch(formData);
+      }
+      setIsModalOpen(false);
+      fetchBranches();
+    } catch (err) {
+      alert(err.message || "Xatolik yuz berdi");
+    }
+  };
+
+  const handleDelete = async (id) => {
+    if (confirm("Filialni o'chirishni tasdiqlaysizmi?")) {
+      try {
+        await api.deleteBranch(id);
+        fetchBranches();
+      } catch (err) {
+        alert(err.message || "O'chirishda xatolik");
+      }
+    }
+  };
+
+  const handleViewBranchStaff = async (branch) => {
+    setSelectedBranch(branch);
+    setDrawerLoading(true);
+    try {
+      const emps = await api.getEmployees({ branchId: branch.id });
+      setBranchEmployees(emps);
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setDrawerLoading(false);
+    }
+  };
+
+  const activeSearch = globalQuery || search;
+
+  const filteredBranches = branches.filter((b) => {
+    const matchesSearch =
+      b.name.toLowerCase().includes(activeSearch.toLowerCase()) ||
+      b.address.toLowerCase().includes(activeSearch.toLowerCase()) ||
+      b.managerName.toLowerCase().includes(activeSearch.toLowerCase());
+    const matchesStatus =
+      statusFilter === 'barchasi' || b.status === statusFilter;
+    return matchesSearch && matchesStatus;
+  });
+
+  return (
+    <div className="p-4 sm:p-6 md:p-8 max-w-7xl mx-auto space-y-6">
+      {/* Top Header */}
+      <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+        <div>
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2">
+            <Building2 className="w-7 h-7 sm:w-8 sm:h-8 text-emerald-400" />
+            <span>Filiallar Boshqaruvi</span>
+          </h1>
+          <p className="text-xs text-slate-400 mt-1">
+            Tizimdagi barcha filiallar, ularning xodimlari va ko'rsatkichlari
+          </p>
+        </div>
+
+        {hasPermission('filial_add') && (
+          <button
+            onClick={handleOpenAddModal}
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs shadow-lg shadow-emerald-500/20 transition-all cursor-pointer"
+          >
+            <Plus className="w-4 h-4" />
+            <span>Yangi Filial Qo'shish</span>
+          </button>
+        )}
+      </div>
+
+      {/* Search & Filters */}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#121214] p-4 rounded-2xl sm:rounded-3xl border border-white/5 shadow-xl">
+        <div className="relative w-full sm:w-80">
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <input
+            type="text"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            placeholder="Filial nomi yoki rahbari bo'yicha qidirish..."
+            className="w-full pl-10 pr-4 py-2 text-xs bg-white/5 border border-white/10 focus:border-emerald-500/50 rounded-full text-slate-100 placeholder-slate-500 focus:outline-none"
+          />
+        </div>
+
+        <div className="flex items-center gap-2 w-full sm:w-auto">
+          <span className="text-xs font-semibold text-slate-400">Holati:</span>
+          <select
+            value={statusFilter}
+            onChange={(e) => setStatusFilter(e.target.value)}
+            className="px-3 py-2 text-xs bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none font-medium"
+          >
+            <option value="barchasi" className="bg-[#121214] text-white">Barchasi</option>
+            <option value="Faol" className="bg-[#121214] text-white">Faol</option>
+            <option value="Nofaol" className="bg-[#121214] text-white">Nofaol</option>
+          </select>
+        </div>
+      </div>
+
+      {/* Branch Cards Grid */}
+      {loading ? (
+        <TableSkeleton rows={4} />
+      ) : filteredBranches.length === 0 ? (
+        <EmptyState
+          title="Filiallar topilmadi"
+          description="Qidiruv parametrlari bo'yicha hech qanday filial kelmadi."
+          action={
+            hasPermission('filial_add')
+              ? { label: 'Filial Yaratish', onClick: handleOpenAddModal }
+              : undefined
+          }
+        />
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {filteredBranches.map((b) => (
+            <div
+              key={b.id}
+              className="group relative rounded-2xl sm:rounded-3xl p-5 sm:p-6 bg-[#121214] border border-white/5 hover:border-emerald-500/30 shadow-xl transition-all duration-300 flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-start justify-between gap-2 mb-3">
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold">
+                      <Building2 className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="text-base font-bold text-white">
+                        {b.name}
+                      </h3>
+                      <div className="flex items-center gap-1.5 text-[11px] text-slate-400 mt-0.5">
+                        <MapPin className="w-3 h-3 text-emerald-400 shrink-0" />
+                        <span className="truncate">{b.address}</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <span
+                    className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold flex items-center gap-1 ${
+                      b.status === 'Faol'
+                        ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                        : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
+                    }`}
+                  >
+                    {b.status === 'Faol' ? (
+                      <CheckCircle2 className="w-3 h-3" />
+                    ) : (
+                      <XCircle className="w-3 h-3" />
+                    )}
+                    {b.status}
+                  </span>
+                </div>
+
+                <div className="space-y-2 py-3 border-y border-white/5 my-3 text-xs">
+                  <div className="flex items-center justify-between text-slate-400">
+                    <span className="flex items-center gap-1.5">
+                      <UserCheck className="w-3.5 h-3.5 text-slate-500" /> Rahbar:
+                    </span>
+                    <span className="font-bold text-white">
+                      {b.managerName}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between text-slate-400">
+                    <span className="flex items-center gap-1.5">
+                      <Phone className="w-3.5 h-3.5 text-slate-500" /> Telefon:
+                    </span>
+                    <span className="font-medium text-slate-300">
+                      {b.phone}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center justify-between text-slate-400">
+                    <span className="flex items-center gap-1.5">
+                      <Users className="w-3.5 h-3.5 text-slate-500" /> Xodimlar:
+                    </span>
+                    <span className="font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2 py-0.5 rounded-md">
+                      {b.employeeCount || 0} kishi
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="flex items-center justify-between pt-2">
+                <div className="flex items-center gap-1 text-xs font-bold text-amber-400">
+                  <Star className="w-4 h-4 fill-amber-400" />
+                  <span>{b.averageRating || 0} ⭐ O'rtacha</span>
+                </div>
+
+                <div className="flex items-center gap-1">
+                  <button
+                    onClick={() => handleViewBranchStaff(b)}
+                    className="p-2 text-emerald-400 hover:bg-emerald-500/10 rounded-xl transition-colors text-xs font-bold"
+                    title="Xodimlarni ko'rish"
+                  >
+                    Xodimlar
+                  </button>
+
+                  {hasPermission('filial_edit') && (
+                    <button
+                      onClick={() => handleOpenEditModal(b)}
+                      className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
+                      title="Tahrirlash"
+                    >
+                      <Edit2 className="w-4 h-4" />
+                    </button>
+                  )}
+
+                  {hasPermission('filial_delete') && (
+                    <button
+                      onClick={() => handleDelete(b.id)}
+                      className="p-2 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-xl transition-colors"
+                      title="O'chirish"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      )}
+
+      {/* Add / Edit Branch Modal */}
+      <Modal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        title={editingBranch ? 'Filialni Tahrirlash' : 'Yangi Filial Yaratish'}
+        subtitle="Filial rekvizitlari va rahbar ma'lumotlarini kiriting"
+      >
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block text-xs font-bold text-slate-300 mb-1">
+              Filial Nomi *
+            </label>
+            <input
+              type="text"
+              required
+              value={formData.name}
+              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              placeholder="masalan: Toshkent Markaziy Filiali"
+              className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-white placeholder-slate-500"
+            />
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold text-slate-300 mb-1">
+              Manzili *
+            </label>
+            <input
+              type="text"
+              required
+              value={formData.address}
+              onChange={(e) => setFormData({ ...formData, address: e.target.value })}
+              placeholder="Toshkent sh., Yunusobod t., Amir Temur ko'chasi 108"
+              className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-white placeholder-slate-500"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-xs font-bold text-slate-300 mb-1">
+                Telefon *
+              </label>
+              <input
+                type="text"
+                required
+                value={formData.phone}
+                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                placeholder="+998 71 200 11 22"
+                className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-white placeholder-slate-500"
+              />
+            </div>
+
+            <div>
+              <label className="block text-xs font-bold text-slate-300 mb-1">
+                Filial Rahbari
+              </label>
+              <input
+                type="text"
+                value={formData.managerName}
+                onChange={(e) =>
+                  setFormData({ ...formData, managerName: e.target.value })
+                }
+                placeholder="Ism Familiya"
+                className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-white placeholder-slate-500"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-xs font-bold text-slate-300 mb-1">
+              Holati
+            </label>
+            <select
+              value={formData.status}
+              onChange={(e) =>
+                setFormData({ ...formData, status: e.target.value })
+              }
+              className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 rounded-xl focus:outline-none text-white font-medium"
+            >
+              <option value="Faol" className="bg-[#121214] text-white">Faol</option>
+              <option value="Nofaol" className="bg-[#121214] text-white">Nofaol</option>
+            </select>
+          </div>
+
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+            <button
+              type="button"
+              onClick={() => setIsModalOpen(false)}
+              className="px-4 py-2.5 text-xs font-semibold text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
+            >
+              Bekor qilish
+            </button>
+            <button
+              type="submit"
+              className="px-5 py-2.5 text-xs font-bold text-black bg-emerald-500 hover:bg-emerald-400 rounded-xl shadow-lg shadow-emerald-500/20 transition-all cursor-pointer"
+            >
+              Saqlash
+            </button>
+          </div>
+        </form>
+      </Modal>
+
+      {/* Branch Staff Modal */}
+      {selectedBranch && (
+        <Modal
+          isOpen={!!selectedBranch}
+          onClose={() => setSelectedBranch(null)}
+          title={`${selectedBranch.name} xodimlari`}
+          subtitle="Filialdagi xodimlar ro'yxati va ularning reytinglari"
+          maxWidth="2xl"
+        >
+          {drawerLoading ? (
+            <TableSkeleton rows={3} />
+          ) : branchEmployees.length === 0 ? (
+            <EmptyState description="Ushbu filialga hali xodimlar biriktirilmagan." />
+          ) : (
+            <div className="divide-y divide-slate-100 dark:divide-slate-800">
+              {branchEmployees.map((emp) => (
+                <div key={emp.id} className="py-3 flex items-center justify-between">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center font-bold text-sm shrink-0">
+                      {emp.firstName ? emp.firstName[0].toUpperCase() : 'X'}
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-slate-900 dark:text-white">
+                        {emp.firstName} {emp.lastName}
+                      </div>
+                      <div className="text-[11px] text-slate-500 dark:text-slate-400">
+                        {emp.position}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="text-right">
+                    <div className="text-xs font-extrabold text-amber-500 flex items-center gap-1 justify-end">
+                      <Star className="w-3.5 h-3.5 fill-amber-400" />
+                      <span>{emp.averageRating} ⭐</span>
+                    </div>
+                    <span className="text-[10px] text-slate-400">
+                      {emp.totalRatingsCount} ta baho
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </Modal>
+      )}
+    </div>
+  );
+};

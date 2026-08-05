@@ -1,0 +1,552 @@
+{
+  "users": [
+    {
+      "id": "usr-super-admin",
+      "username": "admin",
+      "passwordHash": "$2b$10$sHDUzvJRVCvl6DbUeeJhX.8wnbLH1oqlyqR9hVUJqPMPsvSKvh8V2",
+      "name": "Sherzod",
+      "surname": "Aliyev",
+      "email": "admin@filial.uz",
+      "role": "Super Admin",
+      "roleId": "role-super-admin",
+      "status": "Faol",
+      "phone": "+998 90 000 00 01",
+      "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150"
+    },
+    {
+      "id": "usr-manager-1",
+      "username": "otabek_m",
+      "passwordHash": "$2b$10$sHDUzvJRVCvl6DbUeeJhX.yBFMbQHFIvcmU3EvfrIgVsLRRNsEaGS",
+      "name": "Otabek",
+      "surname": "Rahimov",
+      "email": "otabek@filial.uz",
+      "role": "Filial Menejeri",
+      "roleId": "role-manager",
+      "branchId": "br-1",
+      "branchName": "Toshkent Markaziy Filiali",
+      "status": "Faol",
+      "position": "Toshkent Filial Menejeri",
+      "phone": "+998 90 111 22 33",
+      "avatar": "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150"
+    },
+    {
+      "id": "usr-hr-1",
+      "username": "nodira_hr",
+      "passwordHash": "$2b$10$sHDUzvJRVCvl6DbUeeJhX.yBFMbQHFIvcmU3EvfrIgVsLRRNsEaGS",
+      "name": "Nodira",
+      "surname": "Sattorova",
+      "email": "hr@filial.uz",
+      "role": "HR",
+      "roleId": "role-hr",
+      "status": "Faol",
+      "position": "Bosh HR Menejer",
+      "phone": "+998 90 222 33 44",
+      "avatar": "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150"
+    },
+    {
+      "id": "usr-emp-1",
+      "username": "jamshid_n",
+      "passwordHash": "$2b$10$sHDUzvJRVCvl6DbUeeJhX.yBFMbQHFIvcmU3EvfrIgVsLRRNsEaGS",
+      "name": "Jamshid",
+      "surname": "Narzullayev",
+      "email": "jamshid@filial.uz",
+      "role": "Xodim",
+      "roleId": "role-employee",
+      "branchId": "br-1",
+      "branchName": "Toshkent Markaziy Filiali",
+      "status": "Faol",
+      "position": "Katta sotuvchi menejer",
+      "phone": "+998 90 123 45 67",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150"
+    }
+  ],
+  "roles": [
+    {
+      "id": "role-super-admin",
+      "name": "Super Admin",
+      "description": "Tizim bo'yicha cheklanmagan to'liq ruxsatlar",
+      "permissions": [
+        "filial_view",
+        "filial_add",
+        "filial_edit",
+        "filial_delete",
+        "xodim_view",
+        "xodim_add",
+        "xodim_edit",
+        "xodim_delete",
+        "baho_add",
+        "baho_edit",
+        "hisobot_view",
+        "hisobot_export",
+        "statistika_view",
+        "rollar_manage",
+        "log_view"
+      ],
+      "isSystem": true
+    },
+    {
+      "id": "role-admin",
+      "name": "Administrator",
+      "description": "Tizim va filiallarni boshqarish vakolati",
+      "permissions": [
+        "filial_view",
+        "filial_add",
+        "filial_edit",
+        "filial_delete",
+        "xodim_view",
+        "xodim_add",
+        "xodim_edit",
+        "xodim_delete",
+        "baho_add",
+        "baho_edit",
+        "hisobot_view",
+        "hisobot_export",
+        "statistika_view",
+        "log_view"
+      ],
+      "isSystem": true
+    },
+    {
+      "id": "role-manager",
+      "name": "Filial Menejeri",
+      "description": "O'z filialidagi xodimlarni kunlik baholash va nazorat qilish",
+      "permissions": [
+        "filial_view",
+        "xodim_view",
+        "baho_add",
+        "hisobot_view",
+        "statistika_view"
+      ],
+      "isSystem": true
+    },
+    {
+      "id": "role-hr",
+      "name": "HR",
+      "description": "Xodimlarni qabul qilish, tahrirlash va tahliliy hisobotlarni kuzatish",
+      "permissions": [
+        "filial_view",
+        "xodim_view",
+        "xodim_add",
+        "xodim_edit",
+        "hisobot_view",
+        "hisobot_export",
+        "statistika_view"
+      ],
+      "isSystem": true
+    },
+    {
+      "id": "role-employee",
+      "name": "Xodim",
+      "description": "Faqat o'z ko'rsatkichlari va reytingini ko'rish",
+      "permissions": [
+        "xodim_view",
+        "statistika_view"
+      ],
+      "isSystem": true
+    }
+  ],
+  "branches": [
+    {
+      "id": "br-1",
+      "name": "Toshkent Markaziy Filiali",
+      "address": "Toshkent sh., Yunusobod t., Amir Temur ko'chasi 108",
+      "phone": "+998 71 200 11 22",
+      "managerName": "Otabek Rahimov",
+      "managerId": "usr-manager-1",
+      "status": "Faol",
+      "createdAt": "2024-01-10"
+    },
+    {
+      "id": "br-2",
+      "name": "Samarqand Filiali",
+      "address": "Samarqand sh., Registon ko'chasi 45",
+      "phone": "+998 66 230 44 55",
+      "managerName": "Javohir Karimov",
+      "managerId": "usr-manager-2",
+      "status": "Faol",
+      "createdAt": "2024-02-15"
+    },
+    {
+      "id": "br-4",
+      "name": "Namangan Filiali",
+      "address": "Namangan sh., Chorsu maydoni 88",
+      "phone": "+998 69 220 99 88",
+      "managerName": "Sardor Sobirov",
+      "status": "Faol",
+      "createdAt": "2024-04-12"
+    },
+    {
+      "id": "br-5",
+      "name": "Farg'ona Filiali",
+      "address": "Farg'ona sh., B. Marg'iloniy ko'chasi 5",
+      "phone": "+998 73 244 55 66",
+      "managerName": "Alisher Boltayev",
+      "status": "Faol",
+      "createdAt": "2024-05-20"
+    },
+    {
+      "name": "Test Filial",
+      "address": "Manzil",
+      "phone": "123",
+      "managerName": "Ali",
+      "status": "Faol",
+      "id": "br-1785826364362",
+      "createdAt": "2026-08-04"
+    }
+  ],
+  "employees": [
+    {
+      "id": "emp-2",
+      "firstName": "Malika",
+      "lastName": "Usmonova",
+      "middleName": "Tohirovna",
+      "phone": "+998 91 234 56 78",
+      "position": "Mijozlarga xizmat ko'rsatish mutaxassisi",
+      "branchId": "br-1",
+      "branchName": "Toshkent Markaziy Filiali",
+      "avatar": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150",
+      "username": "malika_u",
+      "status": "Faol",
+      "hireDate": "2024-02-01",
+      "averageRating": 4.9,
+      "totalRatingsCount": 18
+    },
+    {
+      "id": "emp-3",
+      "firstName": "Sardor",
+      "lastName": "Yo'ldoshev",
+      "middleName": "Rustamovich",
+      "phone": "+998 93 345 67 89",
+      "position": "Kassir-operatiri",
+      "branchId": "br-1",
+      "branchName": "Toshkent Markaziy Filiali",
+      "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150",
+      "username": "sardor_y",
+      "status": "Faol",
+      "hireDate": "2024-02-10",
+      "averageRating": 4.2,
+      "totalRatingsCount": 12
+    },
+    {
+      "id": "emp-4",
+      "firstName": "Aziza",
+      "lastName": "Qodirova",
+      "middleName": "Shavkatovna",
+      "phone": "+998 94 456 78 90",
+      "position": "Sotuvchi-konsultant",
+      "branchId": "br-2",
+      "branchName": "Samarqand Filiali",
+      "avatar": "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150",
+      "username": "aziza_q",
+      "status": "Faol",
+      "hireDate": "2024-03-01",
+      "averageRating": 4.6,
+      "totalRatingsCount": 14
+    },
+    {
+      "id": "emp-5",
+      "firstName": "Bobur",
+      "lastName": "Tursunov",
+      "middleName": "Anvarovich",
+      "phone": "+998 97 567 89 01",
+      "position": "Omborxona mudiri",
+      "branchId": "br-2",
+      "branchName": "Samarqand Filiali",
+      "avatar": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150",
+      "username": "bobur_t",
+      "status": "Faol",
+      "hireDate": "2024-03-15",
+      "averageRating": 3.8,
+      "totalRatingsCount": 10
+    },
+    {
+      "id": "emp-6",
+      "firstName": "Nilufar",
+      "lastName": "Xolmatova",
+      "middleName": "Jasurovna",
+      "phone": "+998 99 678 90 12",
+      "position": "Konsultant",
+      "branchId": "br-3",
+      "branchName": "Buxoro Filiali",
+      "avatar": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150",
+      "username": "nilufar_x",
+      "status": "Faol",
+      "hireDate": "2024-04-01",
+      "averageRating": 4.5,
+      "totalRatingsCount": 11
+    },
+    {
+      "id": "emp-7",
+      "firstName": "Bekzod",
+      "lastName": "Oripov",
+      "middleName": "Odilovich",
+      "phone": "+998 90 789 01 23",
+      "position": "Texnik mutaxassis",
+      "branchId": "br-4",
+      "branchName": "Namangan Filiali",
+      "avatar": "https://images.unsplash.com/photo-1522075469751-3a6694fb2f61?w=150",
+      "username": "bekzod_o",
+      "status": "Ta'tilda",
+      "hireDate": "2024-04-10",
+      "averageRating": 4.1,
+      "totalRatingsCount": 8
+    },
+    {
+      "id": "emp-8",
+      "firstName": "Shahnoza",
+      "lastName": "Mirzayeva",
+      "middleName": "Valiyevna",
+      "phone": "+998 93 890 12 34",
+      "position": "Sotuvchi",
+      "branchId": "br-5",
+      "branchName": "Farg'ona Filiali",
+      "avatar": "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150",
+      "username": "shahnoza_m",
+      "status": "Faol",
+      "hireDate": "2024-05-01",
+      "averageRating": 4.7,
+      "totalRatingsCount": 13
+    }
+  ],
+  "ratings": [
+    {
+      "id": "rat-1",
+      "employeeId": "emp-1",
+      "employeeName": "Jamshid Narzullayev",
+      "branchId": "br-1",
+      "branchName": "Toshkent Markaziy Filiali",
+      "ratedById": "usr-manager-1",
+      "ratedByName": "Otabek Rahimov",
+      "stars": 5,
+      "comment": "Bugun barcha reja ko'rsatkichlarini oshirib bajardi. Mijozlar bilan xushmuomala bo'ldi.",
+      "date": "2026-08-04",
+      "createdAt": "2026-08-04T06:19:05.265Z"
+    },
+    {
+      "id": "rat-2",
+      "employeeId": "emp-2",
+      "employeeName": "Malika Usmonova",
+      "branchId": "br-1",
+      "branchName": "Toshkent Markaziy Filiali",
+      "ratedById": "usr-manager-1",
+      "ratedByName": "Otabek Rahimov",
+      "stars": 5,
+      "comment": "Mijozlar muammolarini tezkor va sifatli hal qildi. Tashakkur!",
+      "date": "2026-08-04",
+      "createdAt": "2026-08-04T06:19:05.266Z"
+    },
+    {
+      "id": "rat-3",
+      "employeeId": "emp-3",
+      "employeeName": "Sardor Yo'ldoshev",
+      "branchId": "br-1",
+      "branchName": "Toshkent Markaziy Filiali",
+      "ratedById": "usr-manager-1",
+      "ratedByName": "Otabek Rahimov",
+      "stars": 3,
+      "comment": "Ishga 15 daqiqa kechikib keldi. Kassada e'tiborsizlik kuzatildi.",
+      "date": "2026-08-04",
+      "createdAt": "2026-08-04T06:19:05.266Z"
+    },
+    {
+      "id": "rat-4",
+      "employeeId": "emp-4",
+      "employeeName": "Aziza Qodirova",
+      "branchId": "br-2",
+      "branchName": "Samarqand Filiali",
+      "ratedById": "usr-super-admin",
+      "ratedByName": "Sherzod Aliyev",
+      "stars": 5,
+      "comment": "Yangi mahsulotlar taqdimotida a'lo darajada qatnashdi.",
+      "date": "2026-08-03",
+      "createdAt": "2026-08-03T06:19:05.265Z"
+    },
+    {
+      "id": "rat-5",
+      "employeeId": "emp-5",
+      "employeeName": "Bobur Tursunov",
+      "branchId": "br-2",
+      "branchName": "Samarqand Filiali",
+      "ratedById": "usr-super-admin",
+      "ratedByName": "Sherzod Aliyev",
+      "stars": 4,
+      "comment": "Omborxona xatlovi o'z vaqtida va aniq topshirildi.",
+      "date": "2026-08-03",
+      "createdAt": "2026-08-03T06:19:05.265Z"
+    },
+    {
+      "id": "rat-6",
+      "employeeId": "emp-1",
+      "employeeName": "Jamshid Narzullayev",
+      "branchId": "br-1",
+      "branchName": "Toshkent Markaziy Filiali",
+      "ratedById": "usr-manager-1",
+      "ratedByName": "Otabek Rahimov",
+      "stars": 4,
+      "comment": "Yaxshi natija, lekin hujjatlashtirishda kichik xatolar bo'ldi.",
+      "date": "2026-08-03",
+      "createdAt": "2026-08-03T06:19:05.265Z"
+    },
+    {
+      "id": "rat-7",
+      "employeeId": "emp-2",
+      "employeeName": "Malika Usmonova",
+      "branchId": "br-1",
+      "branchName": "Toshkent Markaziy Filiali",
+      "ratedById": "usr-manager-1",
+      "ratedByName": "Otabek Rahimov",
+      "stars": 5,
+      "comment": "A'lo darajada ishladi.",
+      "date": "2026-08-02",
+      "createdAt": "2026-08-02T06:19:05.265Z"
+    }
+  ],
+  "activityLogs": [
+    {
+      "userId": "someid",
+      "userName": "undefined undefined",
+      "userRole": "Super Admin",
+      "action": "Filial yaratildi",
+      "details": "Test Filial yangi filiali yaratildi",
+      "ipAddress": "127.0.0.1",
+      "id": "log-1785826364364",
+      "timestamp": "2026-08-04T06:52:44.364Z"
+    },
+    {
+      "userId": "usr-super-admin",
+      "userName": "Sherzod Aliyev",
+      "userRole": "Super Admin",
+      "action": "Filial o'chirildi",
+      "details": "Filial ID br-3 o'chirildi",
+      "ipAddress": "127.0.0.1",
+      "id": "log-1785826016038",
+      "timestamp": "2026-08-04T06:46:56.038Z"
+    },
+    {
+      "userId": "usr-super-admin",
+      "userName": "Sherzod Aliyev",
+      "userRole": "Super Admin",
+      "action": "Tizimga kirdi",
+      "details": "admin foydalanuvchisi tizimga muvaffaqiyatli kirdi",
+      "ipAddress": "127.0.0.1",
+      "id": "log-1785825899483",
+      "timestamp": "2026-08-04T06:44:59.483Z"
+    },
+    {
+      "userId": "usr-super-admin",
+      "userName": "Sherzod Aliyev",
+      "userRole": "Super Admin",
+      "action": "Xodim o'chirildi",
+      "details": "Xodim ID emp-1 o'chirildi",
+      "ipAddress": "127.0.0.1",
+      "id": "log-1785825551440",
+      "timestamp": "2026-08-04T06:39:11.440Z"
+    },
+    {
+      "userId": "usr-super-admin",
+      "userName": "Sherzod Aliyev",
+      "userRole": "Super Admin",
+      "action": "Tizimga kirdi",
+      "details": "admin foydalanuvchisi tizimga muvaffaqiyatli kirdi",
+      "ipAddress": "127.0.0.1",
+      "id": "log-1785825542879",
+      "timestamp": "2026-08-04T06:39:02.879Z"
+    },
+    {
+      "userId": "usr-super-admin",
+      "userName": "Sherzod Aliyev",
+      "userRole": "Super Admin",
+      "action": "Tizimga kirdi",
+      "details": "admin foydalanuvchisi tizimga muvaffaqiyatli kirdi",
+      "ipAddress": "127.0.0.1",
+      "id": "log-1785825248288",
+      "timestamp": "2026-08-04T06:34:08.288Z"
+    },
+    {
+      "userId": "usr-super-admin",
+      "userName": "Sherzod Aliyev",
+      "userRole": "Super Admin",
+      "action": "Tizimga kirdi",
+      "details": "admin foydalanuvchisi tizimga muvaffaqiyatli kirdi",
+      "ipAddress": "127.0.0.1",
+      "id": "log-1785825178342",
+      "timestamp": "2026-08-04T06:32:58.342Z"
+    },
+    {
+      "userId": "usr-super-admin",
+      "userName": "Sherzod Aliyev",
+      "userRole": "Super Admin",
+      "action": "Tizimga kirdi",
+      "details": "admin foydalanuvchisi tizimga muvaffaqiyatli kirdi",
+      "ipAddress": "127.0.0.1",
+      "id": "log-1785824644122",
+      "timestamp": "2026-08-04T06:24:04.123Z"
+    },
+    {
+      "userId": "usr-emp-1",
+      "userName": "Jamshid Narzullayev",
+      "userRole": "Xodim",
+      "action": "Tizimga kirdi",
+      "details": "jamshid_n foydalanuvchisi tizimga muvaffaqiyatli kirdi",
+      "ipAddress": "127.0.0.1",
+      "id": "log-1785824612012",
+      "timestamp": "2026-08-04T06:23:32.012Z"
+    },
+    {
+      "id": "log-1",
+      "userId": "usr-super-admin",
+      "userName": "Sherzod Aliyev",
+      "userRole": "Super Admin",
+      "action": "Tizimga kirdi",
+      "details": "Super Admin hisobidan muvaffaqiyatli avtorizatsiyadan o'tildi",
+      "timestamp": "2026-08-04T06:19:05.266Z",
+      "ipAddress": "192.168.1.10"
+    },
+    {
+      "id": "log-2",
+      "userId": "usr-manager-1",
+      "userName": "Otabek Rahimov",
+      "userRole": "Filial Menejeri",
+      "action": "Baho qo'shildi",
+      "details": "Jamshid Narzullayev xodimiga 5 ⭐ baho qo'yildi",
+      "timestamp": "2026-08-04T06:19:05.266Z",
+      "ipAddress": "192.168.1.15"
+    },
+    {
+      "id": "log-3",
+      "userId": "usr-hr-1",
+      "userName": "Nodira Sattorova",
+      "userRole": "HR",
+      "action": "Xodim ma'lumoti yangilandi",
+      "details": "Bekzod Oripov maqomi \"Ta'tilda\"ga o'zgartirildi",
+      "timestamp": "2026-08-03T06:19:05.265Z",
+      "ipAddress": "192.168.1.20"
+    }
+  ],
+  "notifications": [
+    {
+      "title": "Yangi filial yaratildi",
+      "message": "Test Filial tizimga qo'shildi.",
+      "type": "success",
+      "id": "notif-1785826364365",
+      "timestamp": "2026-08-04T06:52:44.365Z",
+      "read": false
+    },
+    {
+      "id": "notif-1",
+      "title": "Yangi baho qo'shildi",
+      "message": "Otabek Rahimov Toshkent filiali xodimlarini bugun baholadi.",
+      "type": "info",
+      "timestamp": "2026-08-04T06:19:05.266Z",
+      "read": false
+    },
+    {
+      "id": "notif-2",
+      "title": "Tizim bildirishnomasi",
+      "message": "Kunlik baholash tizimi muvaffaqiyatli yangilandi.",
+      "type": "success",
+      "timestamp": "2026-08-03T06:19:05.265Z",
+      "read": true
+    }
+  ]
+}

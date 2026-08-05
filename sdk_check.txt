@@ -1,0 +1,2 @@
+ls: /Users/macbookpro/Library/Android/sdk/: Operation not permitted
+total 0
