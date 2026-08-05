@@ -30,7 +30,6 @@ export const Employees = ({ globalQuery }) => {
   // Search & Filters
   const [search, setSearch] = useState('');
   const [selectedBranchFilter, setSelectedBranchFilter] = useState('');
-  const [selectedStatusFilter, setSelectedStatusFilter] = useState('');
   const [typeFilters, setTypeFilters] = useState({ zavod: false, filial: false });
 
   // Add/Edit Modal
@@ -168,8 +167,6 @@ export const Employees = ({ globalQuery }) => {
       emp.phone.includes(activeSearch);
     const matchesBranch =
       !selectedBranchFilter || emp.branchId === selectedBranchFilter;
-    const matchesStatus =
-      !selectedStatusFilter || emp.status === selectedStatusFilter;
       
     const empBranch = branches.find((b) => b.id === emp.branchId);
     const branchType = empBranch ? (empBranch.type || 'Filial') : 'Filial';
@@ -178,7 +175,7 @@ export const Employees = ({ globalQuery }) => {
       (typeFilters.zavod && branchType === 'Zavod') ||
       (typeFilters.filial && branchType === 'Filial');
 
-    return matchesSearch && matchesBranch && matchesStatus && typeMatch;
+    return matchesSearch && matchesBranch && typeMatch;
   });
 
   return (
@@ -207,7 +204,7 @@ export const Employees = ({ globalQuery }) => {
       </div>
 
       {/* Filters Bar */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 bg-white dark:bg-[#0f172a] p-4 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white dark:bg-[#0f172a] p-4 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl">
         <div className="relative">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700 dark:text-slate-300 font-bold" />
           <input
@@ -239,17 +236,6 @@ export const Employees = ({ globalQuery }) => {
               {b.name}
             </option>
           ))}
-        </select>
-
-        <select
-          value={selectedStatusFilter}
-          onChange={(e) => setSelectedStatusFilter(e.target.value)}
-          className="px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:outline-none font-bold"
-        >
-          <option value="" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Barcha Holatlar</option>
-          <option value="Faol" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Faol</option>
-          <option value="Ta'tilda" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Ta'tilda</option>
-          <option value="Nofaol" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Nofaol</option>
         </select>
 
         <div className="flex items-center gap-4 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2">
@@ -300,7 +286,6 @@ export const Employees = ({ globalQuery }) => {
                   <th className="px-5 py-4">Lavozim</th>
                   <th className="px-5 py-4">Telefon</th>
                   <th className="px-5 py-4 text-center">O'rtacha Baho</th>
-                  <th className="px-5 py-4">Holati</th>
                   <th className="px-5 py-4 text-right">Amallar</th>
                 </tr>
               </thead>
@@ -346,23 +331,6 @@ export const Employees = ({ globalQuery }) => {
                         <Star className="w-3.5 h-3.5 fill-amber-400" />
                         <span>{emp.averageRating}</span>
                       </div>
-                    </td>
-
-                    <td className="px-5 py-3.5">
-                      <span
-                        className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
-                          emp.status === 'Faol'
-                            ? 'bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20'
-                            : emp.status === "Ta'tilda"
-                            ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-                            : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
-                        }`}
-                      >
-                        {emp.status === 'Faol' && <CheckCircle2 className="w-3 h-3" />}
-                        {emp.status === "Ta'tilda" && <Clock className="w-3 h-3" />}
-                        {emp.status === 'Nofaol' && <XCircle className="w-3 h-3" />}
-                        {emp.status}
-                      </span>
                     </td>
 
                     <td className="px-5 py-3.5 text-right">

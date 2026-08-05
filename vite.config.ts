@@ -20,7 +20,7 @@ export default defineConfig(() => {
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
       proxy: {
         '/api': {
-          target: 'http://127.0.0.1:4000',
+          target: 'http://95.111.226.90:4000',
           changeOrigin: true,
         },
       },

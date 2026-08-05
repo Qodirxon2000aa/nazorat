@@ -25,7 +25,6 @@ export const Branches = ({ globalQuery }) => {
   const [branches, setBranches] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
-  const [statusFilter, setStatusFilter] = useState('barchasi');
 
   // Modal State
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -33,7 +32,6 @@ export const Branches = ({ globalQuery }) => {
   const [formData, setFormData] = useState({
     name: '',
     address: '',
-    status: 'Faol',
   });
 
   // Branch Detail / Staff Drawer
@@ -74,8 +72,6 @@ export const Branches = ({ globalQuery }) => {
     setFormData({
       name: '',
       address: '',
-      status: 'Faol',
-      type: 'Filial',
     });
     setIsModalOpen(true);
   };
@@ -85,8 +81,6 @@ export const Branches = ({ globalQuery }) => {
     setFormData({
       name: b.name,
       address: b.address,
-      status: b.status,
-      type: b.type || 'Filial',
     });
     setIsModalOpen(true);
   };
@@ -142,9 +136,8 @@ export const Branches = ({ globalQuery }) => {
     const matchesSearch =
       b.name.toLowerCase().includes(search.toLowerCase()) ||
       b.address.toLowerCase().includes(search.toLowerCase());
-    const matchesStatus = filterStatus === 'all' || b.status === filterStatus;
     
-    return matchesSearch && matchesStatus;
+    return matchesSearch;
   });
 
   return (
@@ -180,22 +173,9 @@ export const Branches = ({ globalQuery }) => {
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            placeholder="Filial nomi yoki rahbari bo'yicha qidirish..."
+            placeholder="Filial nomi yoki manzil bo'yicha qidirish..."
             className="w-full pl-10 pr-4 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 focus:border-blue-500/50 rounded-full text-slate-100 placeholder-slate-500 focus:outline-none"
           />
-        </div>
-
-        <div className="flex items-center gap-2 w-full sm:w-auto">
-          <span className="text-xs font-semibold text-slate-700 dark:text-slate-300 font-bold">Holati:</span>
-          <select
-            value={statusFilter}
-            onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:outline-none font-bold"
-          >
-            <option value="barchasi" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Barchasi</option>
-            <option value="Faol" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Faol</option>
-            <option value="Nofaol" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Nofaol</option>
-          </select>
         </div>
       </div>
 
@@ -241,20 +221,6 @@ export const Branches = ({ globalQuery }) => {
                       className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold flex items-center gap-1 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300`}
                     >
                       {b.type === 'Zavod' ? '🏭 Zavod' : '🏢 Filial'}
-                    </span>
-                    <span
-                      className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold flex items-center gap-1 ${
-                        b.status === 'Faol'
-                          ? 'bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20'
-                          : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
-                      }`}
-                    >
-                      {b.status === 'Faol' ? (
-                        <CheckCircle2 className="w-3 h-3" />
-                      ) : (
-                        <XCircle className="w-3 h-3" />
-                      )}
-                      {b.status}
                     </span>
                   </div>
                 </div>
@@ -351,21 +317,6 @@ export const Branches = ({ globalQuery }) => {
           {/* Removed phone and managerName fields */}
 
           <div className="grid grid-cols-1 gap-4">
-            <div>
-              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
-                Holati
-              </label>
-              <select
-                value={formData.status}
-                onChange={(e) =>
-                  setFormData({ ...formData, status: e.target.value })
-                }
-                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none text-slate-900 dark:text-white font-bold"
-              >
-                <option value="Faol" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Faol</option>
-                <option value="Nofaol" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Nofaol</option>
-              </select>
-            </div>
           </div>
 
           <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-700">
