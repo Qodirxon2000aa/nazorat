@@ -8,30 +8,24 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Foydalanuvchi iltimosiga binoan login tizimi o'chirildi. To'g'ridan-to'g'ri Admin qilib kiritiladi.
-    const dummyAdmin = {
-      id: 'admin_id',
-      username: 'admin',
-      name: 'Super',
-      surname: 'Admin',
-      role: 'Super Admin',
-      permissions: [
-        "filial_view",
-        "filial_add",
-        "filial_edit",
-        "filial_delete",
-        "xodim_view",
-        "xodim_add",
-        "xodim_edit",
-        "xodim_delete",
-        "baho_view",
-        "baho_add",
-        "statistika_view",
-        "sozlamalar_view"
-      ]
+    const initAuth = async () => {
+      const token = localStorage.getItem('filial_token');
+      if (token) {
+        try {
+          const res = await api.getCurrentUser();
+          // Assuming backend returns { user: {...} } or just {...}
+          setUser(res.user || res);
+        } catch (error) {
+          console.error('Session expired or invalid:', error);
+          localStorage.removeItem('filial_token');
+          setUser(null);
+        }
+      } else {
+        setUser(null);
+      }
+      setLoading(false);
     };
-    setUser(dummyAdmin);
-    setLoading(false);
+    initAuth();
   }, []);
 
   const login = async (username, password) => {
