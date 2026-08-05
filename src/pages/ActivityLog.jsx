@@ -38,7 +38,7 @@ export const ActivityLogPage = () => {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-            <History className="w-7 h-7 sm:w-8 sm:h-8 text-emerald-400" />
+            <History className="w-7 h-7 sm:w-8 sm:h-8 text-blue-400" />
             <span>Faoliyat Jurnali (Audit Logs)</span>
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
@@ -53,7 +53,7 @@ export const ActivityLogPage = () => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Foydalanuvchi yoki amal bo'yicha..."
-            className="w-full pl-10 pr-4 py-2 text-xs bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/10 focus:border-emerald-500/50 rounded-full text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none"
+            className="w-full pl-10 pr-4 py-2 text-xs bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/10 focus:border-blue-500/50 rounded-full text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none"
           />
         </div>
       </div>
@@ -80,14 +80,14 @@ export const ActivityLogPage = () => {
                   <tr key={log.id} className="hover:bg-slate-100 dark:bg-white/5 transition-colors">
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-2.5">
-                        <div className="p-2 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                        <div className="p-2 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
                           <User className="w-4 h-4" />
                         </div>
                         <div>
                           <div className="font-bold text-slate-900 dark:text-white">
                             {log.userName}
                           </div>
-                          <div className="text-[10px] text-emerald-400 font-semibold">
+                          <div className="text-[10px] text-blue-400 font-semibold">
                             {log.userRole}
                           </div>
                         </div>
@@ -96,7 +96,7 @@ export const ActivityLogPage = () => {
 
                     <td className="px-5 py-3.5">
                       <span className="inline-flex items-center gap-1.5 font-bold text-slate-900 dark:text-white px-2.5 py-1 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl">
-                        <Shield className="w-3.5 h-3.5 text-emerald-400" />
+                        <Shield className="w-3.5 h-3.5 text-blue-400" />
                         {log.action}
                       </span>
                     </td>

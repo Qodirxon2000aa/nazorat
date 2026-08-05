@@ -42,7 +42,7 @@ export const SettingsPage = () => {
       {/* Header */}
       <div>
         <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-          <SettingsIcon className="w-7 h-7 sm:w-8 sm:h-8 text-emerald-400" />
+          <SettingsIcon className="w-7 h-7 sm:w-8 sm:h-8 text-blue-400" />
           <span>Tizim va Profil Sozlamalari</span>
         </h1>
         <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
@@ -51,7 +51,7 @@ export const SettingsPage = () => {
       </div>
 
       {savedMsg && (
-        <div className="p-4 rounded-2xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-bold shadow-sm">
+        <div className="p-4 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold shadow-sm">
           {savedMsg}
         </div>
       )}
@@ -60,7 +60,7 @@ export const SettingsPage = () => {
         {/* Profile Card */}
         <div className="md:col-span-2 p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 shadow-xl space-y-6">
           <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <User className="w-5 h-5 text-emerald-400" />
+            <User className="w-5 h-5 text-blue-400" />
             <span>Shaxsiy Ma'lumotlar</span>
           </h3>
 
@@ -74,7 +74,7 @@ export const SettingsPage = () => {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-slate-900 dark:text-white"
+                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white"
                 />
               </div>
 
@@ -86,7 +86,7 @@ export const SettingsPage = () => {
                   type="text"
                   value={surname}
                   onChange={(e) => setSurname(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-slate-900 dark:text-white"
+                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white"
                 />
               </div>
             </div>
@@ -100,7 +100,7 @@ export const SettingsPage = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-slate-900 dark:text-white"
+                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white"
                 />
               </div>
 
@@ -112,7 +112,7 @@ export const SettingsPage = () => {
                   type="text"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-slate-900 dark:text-white"
+                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white"
                 />
               </div>
             </div>
@@ -120,7 +120,7 @@ export const SettingsPage = () => {
             <div className="flex justify-end pt-2">
               <button
                 type="submit"
-                className="flex items-center gap-2 px-5 py-2.5 text-xs font-extrabold text-black bg-emerald-500 hover:bg-emerald-400 rounded-xl shadow-lg shadow-emerald-500/20 cursor-pointer"
+                className="flex items-center gap-2 px-5 py-2.5 text-xs font-extrabold text-black bg-blue-500 hover:bg-blue-400 rounded-xl shadow-lg shadow-blue-500/20 cursor-pointer"
               >
                 <Save className="w-4 h-4" />
                 <span>O'zgarishlarni Saqlash</span>
@@ -132,7 +132,7 @@ export const SettingsPage = () => {
 
           {/* Change Password */}
           <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <Lock className="w-5 h-5 text-emerald-400" />
+            <Lock className="w-5 h-5 text-blue-400" />
             <span>Parolni O'zgartirish</span>
           </h3>
 
@@ -147,7 +147,7 @@ export const SettingsPage = () => {
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-slate-900 dark:text-white placeholder-slate-500"
+                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
               />
             </div>
 
@@ -162,7 +162,7 @@ export const SettingsPage = () => {
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-slate-900 dark:text-white placeholder-slate-500"
+                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
                 />
               </div>
 
@@ -176,7 +176,7 @@ export const SettingsPage = () => {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-slate-900 dark:text-white placeholder-slate-500"
+                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
                 />
               </div>
             </div>
@@ -184,7 +184,7 @@ export const SettingsPage = () => {
             <div className="flex justify-end pt-2">
               <button
                 type="submit"
-                className="flex items-center gap-2 px-5 py-2.5 text-xs font-extrabold text-black bg-emerald-500 hover:bg-emerald-400 rounded-xl shadow-lg shadow-emerald-500/20 cursor-pointer"
+                className="flex items-center gap-2 px-5 py-2.5 text-xs font-extrabold text-black bg-blue-500 hover:bg-blue-400 rounded-xl shadow-lg shadow-blue-500/20 cursor-pointer"
               >
                 <Lock className="w-4 h-4" />
                 <span>Parolni Yangilash</span>
@@ -209,17 +209,17 @@ export const SettingsPage = () => {
               className="w-full py-3 px-4 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:bg-white/10 font-bold text-xs text-slate-900 dark:text-white flex items-center justify-between transition-colors border border-slate-200 dark:border-white/10 cursor-pointer"
             >
               <span className="flex items-center gap-2">
-                {theme === 'dark' ? <Moon className="w-4 h-4 text-emerald-400" /> : <Sun className="w-4 h-4 text-amber-400" />}
+                {theme === 'dark' ? <Moon className="w-4 h-4 text-blue-400" /> : <Sun className="w-4 h-4 text-amber-400" />}
                 {theme === 'dark' ? 'Qorong\'u (Dark Mode)' : 'Yorug\' (Light Mode)'}
               </span>
-              <span className="text-[10px] text-emerald-400 uppercase tracking-wider font-extrabold">
+              <span className="text-[10px] text-blue-400 uppercase tracking-wider font-extrabold">
                 Almashtirish
               </span>
             </button>
           </div>
 
-          <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-emerald-950/20 border border-emerald-500/20 space-y-3">
-            <div className="flex items-center gap-2 text-emerald-400 font-bold text-xs">
+          <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-blue-950/20 border border-blue-500/20 space-y-3">
+            <div className="flex items-center gap-2 text-blue-400 font-bold text-xs">
               <ShieldAlert className="w-4 h-4" />
               <span>Tizim Ma'lumotlari</span>
             </div>

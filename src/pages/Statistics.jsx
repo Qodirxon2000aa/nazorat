@@ -87,7 +87,7 @@ export const Statistics = () => {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-            <BarChart3 className="w-7 h-7 sm:w-8 sm:h-8 text-emerald-400" />
+            <BarChart3 className="w-7 h-7 sm:w-8 sm:h-8 text-blue-400" />
             <span>Tahliliy Statistika va Reytinglar</span>
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
@@ -106,7 +106,7 @@ export const Statistics = () => {
               onClick={() => setPeriod(btn.id)}
               className={`px-3.5 py-2 rounded-xl text-xs font-bold whitespace-nowrap transition-all cursor-pointer ${
                 period === btn.id
-                  ? 'bg-emerald-500 text-black font-extrabold shadow-lg shadow-emerald-500/20'
+                  ? 'bg-blue-500 text-black font-extrabold shadow-lg shadow-blue-500/20'
                   : 'bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:bg-white/10'
               }`}
             >
@@ -118,7 +118,7 @@ export const Statistics = () => {
         {/* Dropdowns & Custom Date Inputs */}
         <div className="flex flex-wrap items-center gap-4 pt-3 border-t border-slate-200 dark:border-white/10">
           <div className="flex items-center gap-2">
-            <Building2 className="w-4 h-4 text-emerald-400" />
+            <Building2 className="w-4 h-4 text-blue-400" />
             <select
               value={selectedBranchId}
               onChange={(e) => setSelectedBranchId(e.target.value)}
@@ -135,7 +135,7 @@ export const Statistics = () => {
 
           {period === 'custom' && (
             <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-emerald-400" />
+              <Calendar className="w-4 h-4 text-blue-400" />
               <input
                 type="date"
                 value={startDate}
@@ -161,15 +161,15 @@ export const Statistics = () => {
         <div className="space-y-8">
           {/* Leaders Showcase Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-emerald-950/40 border border-emerald-500/20 text-slate-900 dark:text-white shadow-xl">
+            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-blue-950/40 border border-blue-500/20 text-slate-900 dark:text-white shadow-xl">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold text-emerald-400">Eng Yuqori Xodim</span>
+                <span className="text-xs font-semibold text-blue-400">Eng Yuqori Xodim</span>
                 <Award className="w-5 h-5 text-amber-400" />
               </div>
               <div className="text-base sm:text-lg font-black truncate">
                 {statsData.overview?.topEmployee?.name || 'Mavjud emas'}
               </div>
-              <div className="text-xs font-medium text-emerald-300 mt-1">
+              <div className="text-xs font-medium text-blue-300 mt-1">
                 {statsData.overview?.topEmployee
                   ? `${statsData.overview.topEmployee.rating} ⭐ (${statsData.overview.topEmployee.branch})`
                   : '-'}
@@ -349,7 +349,7 @@ export const Statistics = () => {
                         {rank + 1}
                       </span>
 
-                      <div className="w-9 h-9 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center font-bold text-sm shrink-0">
+                      <div className="w-9 h-9 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center font-bold text-sm shrink-0">
                         {emp.name ? emp.name[0].toUpperCase() : 'X'}
                       </div>
 
@@ -378,7 +378,7 @@ export const Statistics = () => {
             {/* Branch Rating Performance */}
             <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 shadow-xl">
               <h3 className="text-base font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                <Building2 className="w-5 h-5 text-emerald-400" />
+                <Building2 className="w-5 h-5 text-blue-400" />
                 <span>Filiallar Reytingi</span>
               </h3>
 
@@ -386,7 +386,7 @@ export const Statistics = () => {
                 {(statsData?.branchRankings || []).map((b, rank) => (
                   <div key={b.id || rank} className="py-3.5 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <span className="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center text-xs font-black">
+                      <span className="w-6 h-6 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center text-xs font-black">
                         {rank + 1}
                       </span>
                       <span className="text-xs font-bold text-slate-900 dark:text-white">
@@ -395,7 +395,7 @@ export const Statistics = () => {
                     </div>
 
                     <div className="text-right">
-                      <div className="text-xs font-extrabold text-emerald-400">
+                      <div className="text-xs font-extrabold text-blue-400">
                         {b.averageRating} ⭐
                       </div>
                       <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
@@ -409,7 +409,7 @@ export const Statistics = () => {
           </div>
 
           {/* Section: Umumiy Jamlangan Ballar (Accumulated Total Points Leaderboard) */}
-          <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-emerald-500/20 shadow-2xl space-y-4">
+          <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-blue-500/20 shadow-2xl space-y-4">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 dark:border-white/10 pb-4">
               <div>
                 <h3 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
@@ -458,7 +458,7 @@ export const Statistics = () => {
 
                       <td className="px-4 py-3.5">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-xl bg-indigo-600/20 text-indigo-400 border border-indigo-500/30 flex items-center justify-center font-bold text-xs shrink-0">
+                          <div className="w-8 h-8 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center font-bold text-xs shrink-0">
                             {emp.name ? emp.name[0].toUpperCase() : 'X'}
                           </div>
                           <div>
@@ -473,8 +473,8 @@ export const Statistics = () => {
                       </td>
 
                       <td className="px-4 py-3.5 text-center">
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-black text-sm">
-                          <Star className="w-4 h-4 fill-emerald-400" />
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-400 font-black text-sm">
+                          <Star className="w-4 h-4 fill-blue-400" />
                           <span>{emp.totalPoints} BALL</span>
                         </span>
                       </td>

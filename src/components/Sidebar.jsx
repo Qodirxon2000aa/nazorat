@@ -76,7 +76,7 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
       {/* Brand Header */}
       <div className={`relative flex items-center h-20 border-b border-slate-200 dark:border-white/10 shrink-0 transition-all ${collapsed && !mobileOpen ? 'justify-center' : 'px-5 justify-between'}`}>
         <div className="flex items-center gap-3 overflow-hidden">
-          <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-emerald-500 text-black font-black text-xl italic shadow-lg shadow-emerald-500/20 shrink-0">
+          <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-blue-500 text-black font-black text-xl italic shadow-lg shadow-blue-500/20 shrink-0">
             F
           </div>
           {(!collapsed || mobileOpen) && (
@@ -130,7 +130,7 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs transition-all relative ${
                     isActive
-                      ? 'bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-emerald-400 font-bold shadow-sm'
+                      ? 'bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-blue-400 font-bold shadow-sm'
                       : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:bg-white/5'
                   }`
                 }
@@ -138,7 +138,7 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
                 <Icon className="w-5 h-5 shrink-0" />
                 {(!collapsed || mobileOpen) && <span className="truncate">{item.label}</span>}
                 {(!collapsed || mobileOpen) && item.badge && (
-                  <span className="ml-auto text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+                  <span className="ml-auto text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">
                     {item.badge}
                   </span>
                 )}
@@ -149,16 +149,16 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
 
       {/* Footer Role Card */}
       {(!collapsed || mobileOpen) && user && (
-        <div className="p-4 m-3 rounded-2xl bg-emerald-500/5 border border-emerald-500/20 flex items-center justify-between shrink-0">
+        <div className="p-4 m-3 rounded-2xl bg-blue-500/5 border border-blue-500/20 flex items-center justify-between shrink-0">
           <div>
             <div className="text-[10px] uppercase tracking-wider font-bold text-slate-500 dark:text-slate-400">
               Faol Rol
             </div>
-            <div className="text-xs font-extrabold text-emerald-400 truncate mt-0.5">
+            <div className="text-xs font-extrabold text-blue-400 truncate mt-0.5">
               {user.role}
             </div>
           </div>
-          <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-md shadow-emerald-400/50" />
+          <div className="w-2.5 h-2.5 rounded-full bg-blue-400 animate-pulse shadow-md shadow-blue-400/50" />
         </div>
       )}
     </div>

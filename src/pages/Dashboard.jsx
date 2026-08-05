@@ -81,12 +81,12 @@ export const Dashboard = ({ globalQuery }) => {
     return (
       <div className="p-4 sm:p-6 md:p-8 max-w-7xl mx-auto space-y-8 font-sans">
         {/* Profile Card Banner */}
-        <div className="p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-indigo-950/90 via-slate-900 to-slate-950 border border-indigo-500/20 shadow-2xl relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-gradient-to-r from-blue-950/90 via-slate-900 to-slate-950 border border-blue-500/20 shadow-2xl relative overflow-hidden">
+          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl pointer-events-none" />
 
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative z-10">
             <div className="flex items-center gap-4 sm:gap-5">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-indigo-600 to-cyan-400 text-slate-900 dark:text-white font-black text-xl sm:text-2xl flex items-center justify-center shadow-xl shadow-indigo-500/30 shrink-0">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-cyan-400 text-slate-900 dark:text-white font-black text-xl sm:text-2xl flex items-center justify-center shadow-xl shadow-blue-500/30 shrink-0">
                 {user.name ? user.name[0].toUpperCase() : 'X'}
               </div>
               <div className="space-y-1">
@@ -94,11 +94,11 @@ export const Dashboard = ({ globalQuery }) => {
                   <h1 className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 dark:text-white">
                     {user.name} {user.surname}
                   </h1>
-                  <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                  <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">
                     Faol Xodim
                   </span>
                 </div>
-                <p className="text-xs text-indigo-300 font-semibold">
+                <p className="text-xs text-blue-300 font-semibold">
                   {user.position || 'Xodim'} — {user.branchName || 'Filial'}
                 </p>
                 {user.phone && (
@@ -148,7 +148,7 @@ export const Dashboard = ({ globalQuery }) => {
           <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-xl space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-slate-500 dark:text-slate-400">Jami baholar soni</span>
-              <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400">
+              <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-400">
                 <MessageSquare className="w-5 h-5" />
               </div>
             </div>
@@ -159,11 +159,11 @@ export const Dashboard = ({ globalQuery }) => {
           <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-xl space-y-2">
             <div className="flex items-center justify-between">
               <span className="text-xs font-bold text-slate-500 dark:text-slate-400">Oxirgi olgan bahoyim</span>
-              <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400">
+              <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-400">
                 <CheckCircle2 className="w-5 h-5" />
               </div>
             </div>
-            <div className="text-2xl font-black text-emerald-400">
+            <div className="text-2xl font-black text-blue-400">
               {myRatings.length > 0 ? `${myRatings[0].stars} ⭐` : 'Mavjud emas'}
             </div>
             <div className="text-[11px] text-slate-500">
@@ -183,7 +183,7 @@ export const Dashboard = ({ globalQuery }) => {
                 Menejer va rahbariyat tomonidan berilgan kunlik baholar va bildirilgan izohlar
               </p>
             </div>
-            <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
+            <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
               {myRatings.length} ta baho
             </span>
           </div>
@@ -201,7 +201,7 @@ export const Dashboard = ({ globalQuery }) => {
               {myRatings.map((rating) => (
                 <div
                   key={rating.id}
-                  className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800/80 hover:border-indigo-500/30 transition-all space-y-3"
+                  className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800/80 hover:border-blue-500/30 transition-all space-y-3"
                 >
                   <div className="flex items-center justify-between flex-wrap gap-2">
                     <div className="flex items-center gap-3">
@@ -312,7 +312,7 @@ export const Dashboard = ({ globalQuery }) => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => navigate('/daily-rating')}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs shadow-lg shadow-emerald-500/20 transition-all cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-500 hover:bg-blue-400 text-black font-extrabold text-xs shadow-lg shadow-blue-500/20 transition-all cursor-pointer"
           >
             <Star className="w-4 h-4 fill-black" />
             <span>Kunlik Baholash</span>
@@ -336,13 +336,13 @@ export const Dashboard = ({ globalQuery }) => {
             <div
               key={i}
               onClick={() => navigate(card.link)}
-              className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 hover:border-indigo-500/30 transition-all shadow-xl cursor-pointer group"
+              className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 hover:border-blue-500/30 transition-all shadow-xl cursor-pointer group"
             >
               <div className="flex items-center justify-between mb-4">
                 <span className="text-xs font-bold text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:text-white transition-colors">
                   {card.title}
                 </span>
-                <div className="p-3 rounded-2xl bg-indigo-500/10 text-indigo-400 group-hover:bg-indigo-600 group-hover:text-slate-900 dark:text-white transition-all shadow-lg">
+                <div className="p-3 rounded-2xl bg-blue-500/10 text-blue-400 group-hover:bg-blue-600 group-hover:text-slate-900 dark:text-white transition-all shadow-lg">
                   <Icon className="w-5 h-5" />
                 </div>
               </div>
@@ -427,7 +427,7 @@ export const Dashboard = ({ globalQuery }) => {
             </h2>
             <button
               onClick={() => navigate('/daily-rating')}
-              className="text-xs text-indigo-400 hover:underline font-bold"
+              className="text-xs text-blue-400 hover:underline font-bold"
             >
               Barchasi
             </button>

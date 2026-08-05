@@ -40,13 +40,13 @@ export const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 p-4 relative overflow-hidden font-sans">
       {/* Dynamic Background Effects */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-600/20 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="w-full max-w-md bg-white dark:bg-slate-900/90 backdrop-blur-2xl border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl z-10">
         {/* Header Logo */}
         <div className="flex flex-col items-center text-center mb-8">
-          <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center text-slate-900 dark:text-white shadow-xl shadow-indigo-500/25 mb-4">
+          <div className="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 via-blue-500 to-cyan-400 flex items-center justify-center text-slate-900 dark:text-white shadow-xl shadow-blue-500/25 mb-4">
             <Sparkles className="w-8 h-8" />
           </div>
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
@@ -60,16 +60,16 @@ export const Login = () => {
         {/* Quick Demo Info Box */}
         <div 
           onClick={handleQuickAdmin}
-          className="mb-6 p-3.5 rounded-2xl bg-indigo-950/50 border border-indigo-500/30 text-indigo-300 text-xs flex items-center justify-between cursor-pointer hover:bg-indigo-900/40 transition-all group"
+          className="mb-6 p-3.5 rounded-2xl bg-blue-950/50 border border-blue-500/30 text-blue-300 text-xs flex items-center justify-between cursor-pointer hover:bg-blue-900/40 transition-all group"
         >
           <div className="flex items-center gap-2.5">
-            <ShieldCheck className="w-4 h-4 text-indigo-400 shrink-0" />
+            <ShieldCheck className="w-4 h-4 text-blue-400 shrink-0" />
             <div>
               <span className="font-semibold text-slate-700 dark:text-slate-200">Admin login/parol:</span>{' '}
-              <code className="bg-indigo-900/60 px-1.5 py-0.5 rounded text-amber-300 font-mono">admin</code> / <code className="bg-indigo-900/60 px-1.5 py-0.5 rounded text-amber-300 font-mono">admin</code>
+              <code className="bg-blue-900/60 px-1.5 py-0.5 rounded text-amber-300 font-mono">admin</code> / <code className="bg-blue-900/60 px-1.5 py-0.5 rounded text-amber-300 font-mono">admin</code>
             </div>
           </div>
-          <span className="text-[10px] text-indigo-400 group-hover:underline font-medium">Kiritish</span>
+          <span className="text-[10px] text-blue-400 group-hover:underline font-medium">Kiritish</span>
         </div>
 
         {error && (
@@ -91,7 +91,7 @@ export const Login = () => {
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
                 placeholder="masalan: admin"
-                className="w-full pl-10 pr-4 py-3 bg-slate-800/80 border border-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-xl text-slate-100 text-sm placeholder-slate-500 focus:outline-none transition-all"
+                className="w-full pl-10 pr-4 py-3 bg-slate-800/80 border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-xl text-slate-100 text-sm placeholder-slate-500 focus:outline-none transition-all"
               />
             </div>
           </div>
@@ -108,7 +108,7 @@ export const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full pl-10 pr-10 py-3 bg-slate-800/80 border border-slate-700 focus:border-indigo-500 focus:ring-1 focus:ring-indigo-500 rounded-xl text-slate-100 text-sm placeholder-slate-500 focus:outline-none transition-all"
+                className="w-full pl-10 pr-10 py-3 bg-slate-800/80 border border-slate-700 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 rounded-xl text-slate-100 text-sm placeholder-slate-500 focus:outline-none transition-all"
               />
               <button
                 type="button"
@@ -122,13 +122,13 @@ export const Login = () => {
 
           <div className="flex items-center justify-between text-xs pt-1">
             <label className="flex items-center gap-2 cursor-pointer text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200">
-              <input type="checkbox" defaultChecked className="rounded border-slate-700 bg-slate-800 text-indigo-600 focus:ring-0" />
+              <input type="checkbox" defaultChecked className="rounded border-slate-700 bg-slate-800 text-blue-600 focus:ring-0" />
               Eslab qolish
             </label>
             <button
               type="button"
               onClick={() => setShowForgotModal(true)}
-              className="text-indigo-400 hover:underline font-semibold"
+              className="text-blue-400 hover:underline font-semibold"
             >
               Parolni unutdingizmi?
             </button>
@@ -137,7 +137,7 @@ export const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full py-3.5 px-4 bg-indigo-600 hover:bg-indigo-500 active:bg-indigo-700 font-bold text-slate-900 dark:text-white text-sm rounded-xl shadow-lg shadow-indigo-600/30 flex items-center justify-center gap-2 transition-all disabled:opacity-50 mt-2 cursor-pointer"
+            className="w-full py-3.5 px-4 bg-blue-600 hover:bg-blue-500 active:bg-blue-700 font-bold text-slate-900 dark:text-white text-sm rounded-xl shadow-lg shadow-blue-600/30 flex items-center justify-center gap-2 transition-all disabled:opacity-50 mt-2 cursor-pointer"
           >
             {loading ? (
               <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
@@ -156,13 +156,13 @@ export const Login = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-50 dark:bg-slate-950/80 backdrop-blur-sm">
           <div className="w-full max-w-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-2xl text-left">
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400">
+              <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-400">
                 <KeyRound className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-slate-900 dark:text-white">Parolni tiklash</h3>
             </div>
             {forgotMsg ? (
-              <div className="text-xs text-emerald-400 bg-emerald-500/10 p-3 rounded-xl border border-emerald-500/20 mb-4">
+              <div className="text-xs text-blue-400 bg-blue-500/10 p-3 rounded-xl border border-blue-500/20 mb-4">
                 {forgotMsg}
               </div>
             ) : (
@@ -175,7 +175,7 @@ export const Login = () => {
                   value={forgotEmail}
                   onChange={(e) => setForgotEmail(e.target.value)}
                   placeholder="admin@filial.uz"
-                  className="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-slate-100 text-xs focus:outline-none focus:border-indigo-500"
+                  className="w-full px-3.5 py-2.5 bg-slate-800 border border-slate-700 rounded-xl text-slate-100 text-xs focus:outline-none focus:border-blue-500"
                 />
               </div>
             )}
@@ -194,7 +194,7 @@ export const Login = () => {
                 <button
                   type="button"
                   onClick={() => setForgotMsg("Tiklash kodi elektron pochtangizga yuborildi.")}
-                  className="px-4 py-2 text-xs font-semibold text-slate-900 dark:text-white bg-indigo-600 hover:bg-indigo-500 rounded-xl"
+                  className="px-4 py-2 text-xs font-semibold text-slate-900 dark:text-white bg-blue-600 hover:bg-blue-500 rounded-xl"
                 >
                   Yuborish
                 </button>

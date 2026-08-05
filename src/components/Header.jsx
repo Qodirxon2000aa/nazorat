@@ -83,7 +83,7 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
             value={globalQuery || ''}
             onChange={(e) => setGlobalQuery && setGlobalQuery(e.target.value)}
             placeholder="Qidiruv..."
-            className="w-full pl-8 sm:pl-10 pr-3 py-1.5 sm:py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-emerald-500/50 rounded-full text-slate-100 placeholder-slate-500 focus:outline-none transition-all"
+            className="w-full pl-8 sm:pl-10 pr-3 py-1.5 sm:py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-blue-500/50 rounded-full text-slate-100 placeholder-slate-500 focus:outline-none transition-all"
           />
         </div>
       </div>
@@ -92,7 +92,7 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
       <div className="flex items-center gap-3">
         {/* Branch Info Badge */}
         {user?.branchName && (
-          <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs font-semibold text-emerald-400">
+          <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-semibold text-blue-400">
             <Building2 className="w-3.5 h-3.5" />
             <span>{user.branchName}</span>
           </div>
@@ -119,7 +119,7 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
           >
             <Bell className="w-4 h-4" />
             {unreadCount > 0 && (
-              <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-emerald-400 ring-2 ring-[#09090b]" />
+              <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-blue-400 ring-2 ring-[#09090b]" />
             )}
           </button>
 
@@ -132,7 +132,7 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
                 {unreadCount > 0 && (
                   <button
                     onClick={handleMarkAllRead}
-                    className="text-xs text-emerald-400 hover:underline flex items-center gap-1 font-semibold"
+                    className="text-xs text-blue-400 hover:underline flex items-center gap-1 font-semibold"
                   >
                     <CheckCheck className="w-3.5 h-3.5" />
                     O'qildi qilish
@@ -150,7 +150,7 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
                       key={n.id}
                       className={`p-3.5 text-xs transition-colors ${
                         !n.read
-                          ? 'bg-emerald-500/10'
+                          ? 'bg-blue-500/10'
                           : 'hover:bg-slate-100 dark:bg-white/5'
                       }`}
                     >
@@ -182,14 +182,14 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
             onClick={() => setShowProfileMenu(!showProfileMenu)}
             className="flex items-center gap-3 p-1.5 rounded-2xl hover:bg-slate-100 dark:bg-white/5 border border-transparent hover:border-slate-200 dark:border-white/10 transition-colors"
           >
-            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-emerald-500 to-teal-400 text-black font-extrabold flex items-center justify-center text-xs shadow-md shadow-emerald-500/20">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-500 to-teal-400 text-black font-extrabold flex items-center justify-center text-xs shadow-md shadow-blue-500/20">
               {user?.name?.[0] || 'U'}
             </div>
             <div className="hidden sm:block text-left">
               <div className="text-xs font-bold text-slate-900 dark:text-white leading-none">
                 {user?.name} {user?.surname}
               </div>
-              <div className="text-[11px] font-medium text-emerald-400 mt-0.5">
+              <div className="text-[11px] font-medium text-blue-400 mt-0.5">
                 {user?.role}
               </div>
             </div>

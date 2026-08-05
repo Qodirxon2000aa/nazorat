@@ -189,7 +189,7 @@ export const Reports = () => {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-            <FileSpreadsheet className="w-7 h-7 sm:w-8 sm:h-8 text-emerald-400" />
+            <FileSpreadsheet className="w-7 h-7 sm:w-8 sm:h-8 text-blue-400" />
             <span>Tizim Hisobotlari Markazi</span>
           </h1>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
@@ -201,7 +201,7 @@ export const Reports = () => {
         <div className="flex flex-wrap items-center gap-2">
           <button
             onClick={exportToExcel}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-black font-extrabold text-xs shadow-lg shadow-emerald-500/20 transition-all cursor-pointer"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-blue-500 hover:bg-blue-400 text-black font-extrabold text-xs shadow-lg shadow-blue-500/20 transition-all cursor-pointer"
           >
             <Download className="w-4 h-4" />
             <span>Excel (.xlsx)</span>
@@ -282,7 +282,7 @@ export const Reports = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Xodim yoki filial nomi..."
-                className="w-full pl-10 pr-4 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-emerald-500/50 rounded-xl text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none"
+                className="w-full pl-10 pr-4 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-blue-500/50 rounded-xl text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none"
               />
             </div>
           </div>
@@ -291,7 +291,7 @@ export const Reports = () => {
         {reportType === 'custom' && (
           <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-200 dark:border-white/10">
             <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-emerald-400" />
+              <Calendar className="w-4 h-4 text-blue-400" />
               <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Boshlanish:</span>
               <input
                 type="date"
@@ -325,7 +325,7 @@ export const Reports = () => {
             <span>
               Hisobot Yozuvlari Soni: {reportRows.length} ta yozuv
             </span>
-            <span className="text-emerald-400 font-mono">
+            <span className="text-blue-400 font-mono">
               O'rtacha Tizim Balli:{' '}
               {(
                 reportRows.reduce((s, r) => s + r.stars, 0) / reportRows.length
