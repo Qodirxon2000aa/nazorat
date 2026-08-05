@@ -4,12 +4,12 @@ const ThemeContext = createContext(undefined);
 
 export const ThemeProvider = ({ children }) => {
   const [theme, setTheme] = useState(() => {
-    const saved = localStorage.getItem('filial_theme');
-    return saved || 'dark';
+    const saved = localStorage.getItem('filial_theme_mode');
+    return saved || 'light';
   });
 
   useEffect(() => {
-    localStorage.setItem('filial_theme', theme);
+    localStorage.setItem('filial_theme_mode', theme);
     if (theme === 'dark') {
       document.documentElement.classList.add('dark');
     } else {
