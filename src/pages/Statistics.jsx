@@ -159,6 +159,91 @@ export const Statistics = () => {
         <CardSkeleton />
       ) : (
         <div className="space-y-8">
+          {/* Section: Umumiy Jamlangan Ballar (Accumulated Total Points Leaderboard) */}
+          <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-blue-500/20 shadow-2xl space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 dark:border-slate-700 pb-4">
+              <div>
+                <h3 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
+                  <Trophy className="w-6 h-6 text-amber-400" />
+                  <span>Umumiy Jamlangan Ballar Reytingi</span>
+                </h3>
+                <p className="text-xs text-slate-700 dark:text-slate-300 font-bold mt-0.5">
+                  Xodimlarning barcha kunlik olgan baholari yig'indisi
+                </p>
+              </div>
+              <div className="px-3.5 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold self-start sm:self-auto">
+                🏆 Ballar Bo'yicha Etakchilar
+              </div>
+            </div>
+
+            <div className="overflow-x-auto custom-scrollbar">
+              <table className="w-full text-left text-xs">
+                <thead className="bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-slate-700">
+                  <tr>
+                    <th className="px-4 py-3">O'rin</th>
+                    <th className="px-4 py-3">Xodim</th>
+                    <th className="px-4 py-3">Filial</th>
+                    <th className="px-4 py-3 text-center">Jami To'plangan Ball</th>
+                    <th className="px-4 py-3 text-center">O'rtacha Ball</th>
+                    <th className="px-4 py-3 text-right">Baholar Soni</th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-white/5 font-bold text-slate-700 dark:text-slate-200">
+                  {(statsData?.cumulativePointsLeaderboard || []).map((emp, index) => (
+                    <tr key={emp.id || index} className="hover:bg-slate-100 dark:bg-white/5 transition-colors">
+                      <td className="px-4 py-3.5">
+                        <span
+                          className={`w-7 h-7 rounded-xl flex items-center justify-center text-xs font-black ${
+                            index === 0
+                              ? 'bg-amber-400 text-black shadow-lg shadow-amber-400/30'
+                              : index === 1
+                              ? 'bg-slate-300 text-black'
+                              : index === 2
+                              ? 'bg-amber-700 text-slate-900 dark:text-white'
+                              : 'bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 font-bold'
+                          }`}
+                        >
+                          {index + 1}
+                        </span>
+                      </td>
+
+                      <td className="px-4 py-3.5">
+                        <div className="flex items-center gap-3">
+                          <div className="w-8 h-8 rounded-xl bg-blue-600/20 text-blue-700 dark:text-blue-400 border border-blue-500/30 flex items-center justify-center font-bold text-xs shrink-0">
+                            {emp.name ? emp.name[0].toUpperCase() : 'X'}
+                          </div>
+                          <div>
+                            <div className="font-bold text-slate-900 dark:text-white text-xs">{emp.name}</div>
+                            <div className="text-[10px] text-slate-700 dark:text-slate-300 font-bold">{emp.position}</div>
+                          </div>
+                        </div>
+                      </td>
+
+                      <td className="px-4 py-3.5 text-slate-600 dark:text-slate-300">
+                        {emp.branch}
+                      </td>
+
+                      <td className="px-4 py-3.5 text-center">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-700 dark:text-blue-400 font-black text-sm">
+                          <Star className="w-4 h-4 fill-blue-400" />
+                          <span>{emp.totalPoints} BALL</span>
+                        </span>
+                      </td>
+
+                      <td className="px-4 py-3.5 text-center font-mono font-bold text-amber-400">
+                        {emp.averageRating} ⭐
+                      </td>
+
+                      <td className="px-4 py-3.5 text-right font-mono text-slate-700 dark:text-slate-300 font-bold">
+                        {emp.totalRatingsCount} marta
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </div>
+
           {/* Leaders Showcase Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 hover:border-blue-500/30 transition-all text-slate-900 dark:text-white shadow-xl group">
@@ -416,90 +501,6 @@ export const Statistics = () => {
             </div>
           </div>
 
-          {/* Section: Umumiy Jamlangan Ballar (Accumulated Total Points Leaderboard) */}
-          <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-blue-500/20 shadow-2xl space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 dark:border-slate-700 pb-4">
-              <div>
-                <h3 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
-                  <Trophy className="w-6 h-6 text-amber-400" />
-                  <span>Umumiy Jamlangan Ballar Reytingi</span>
-                </h3>
-                <p className="text-xs text-slate-700 dark:text-slate-300 font-bold mt-0.5">
-                  Xodimlarning barcha kunlik olgan baholari yig'indisi (masalan: 5 + 4 = 9 ball)
-                </p>
-              </div>
-              <div className="px-3.5 py-1.5 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 text-xs font-bold self-start sm:self-auto">
-                🏆 Ballar Bo'yicha Etakchilar
-              </div>
-            </div>
-
-            <div className="overflow-x-auto custom-scrollbar">
-              <table className="w-full text-left text-xs">
-                <thead className="bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-slate-700">
-                  <tr>
-                    <th className="px-4 py-3">O'rin</th>
-                    <th className="px-4 py-3">Xodim</th>
-                    <th className="px-4 py-3">Filial</th>
-                    <th className="px-4 py-3 text-center">Jami To'plangan Ball</th>
-                    <th className="px-4 py-3 text-center">O'rtacha Ball</th>
-                    <th className="px-4 py-3 text-right">Baholar Soni</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-white/5 font-bold text-slate-700 dark:text-slate-200">
-                  {(statsData?.cumulativePointsLeaderboard || []).map((emp, index) => (
-                    <tr key={emp.id || index} className="hover:bg-slate-100 dark:bg-white/5 transition-colors">
-                      <td className="px-4 py-3.5">
-                        <span
-                          className={`w-7 h-7 rounded-xl flex items-center justify-center text-xs font-black ${
-                            index === 0
-                              ? 'bg-amber-400 text-black shadow-lg shadow-amber-400/30'
-                              : index === 1
-                              ? 'bg-slate-300 text-black'
-                              : index === 2
-                              ? 'bg-amber-700 text-slate-900 dark:text-white'
-                              : 'bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 font-bold'
-                          }`}
-                        >
-                          {index + 1}
-                        </span>
-                      </td>
-
-                      <td className="px-4 py-3.5">
-                        <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-xl bg-blue-600/20 text-blue-700 dark:text-blue-400 border border-blue-500/30 flex items-center justify-center font-bold text-xs shrink-0">
-                            {emp.name ? emp.name[0].toUpperCase() : 'X'}
-                          </div>
-                          <div>
-                            <div className="font-bold text-slate-900 dark:text-white text-xs">{emp.name}</div>
-                            <div className="text-[10px] text-slate-700 dark:text-slate-300 font-bold">{emp.position}</div>
-                          </div>
-                        </div>
-                      </td>
-
-                      <td className="px-4 py-3.5 text-slate-600 dark:text-slate-300">
-                        {emp.branch}
-                      </td>
-
-                      <td className="px-4 py-3.5 text-center">
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-700 dark:text-blue-400 font-black text-sm">
-                          <Star className="w-4 h-4 fill-blue-400" />
-                          <span>{emp.totalPoints} BALL</span>
-                        </span>
-                      </td>
-
-                      <td className="px-4 py-3.5 text-center font-mono font-bold text-amber-400">
-                        {emp.averageRating} ⭐
-                      </td>
-
-                      <td className="px-4 py-3.5 text-right font-mono text-slate-700 dark:text-slate-300 font-bold">
-                        {emp.totalRatingsCount} marta
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
         </div>
       )}
     </div>
