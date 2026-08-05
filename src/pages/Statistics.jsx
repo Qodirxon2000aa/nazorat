@@ -27,6 +27,7 @@ import {
 export const Statistics = () => {
   const [branches, setBranches] = useState([]);
   const [selectedBranchId, setSelectedBranchId] = useState('');
+  const [typeFilters, setTypeFilters] = useState({ zavod: false, filial: false });
   const [period, setPeriod] = useState('ushbu_oy');
 
   const [startDate, setStartDate] = useState('');
@@ -38,11 +39,16 @@ export const Statistics = () => {
   const fetchStats = async () => {
     try {
       setLoading(true);
+      let branchType = undefined;
+      if (typeFilters.zavod && !typeFilters.filial) branchType = 'Zavod';
+      if (!typeFilters.zavod && typeFilters.filial) branchType = 'Filial';
+
       const res = await api.getStats({
         period,
         startDate: period === 'custom' ? startDate : undefined,
         endDate: period === 'custom' ? endDate : undefined,
         branchId: selectedBranchId || undefined,
+        branchType,
       });
       setStatsData(res);
     } catch (e) {
@@ -66,7 +72,7 @@ export const Statistics = () => {
 
   useEffect(() => {
     fetchStats();
-  }, [period, selectedBranchId, startDate, endDate]);
+  }, [period, selectedBranchId, startDate, endDate, typeFilters]);
 
   const quickFilterButtons = [
     { id: 'bugun', label: 'Bugun' },
@@ -91,7 +97,7 @@ export const Statistics = () => {
             <span>Tahliliy Statistika va Reytinglar</span>
           </h1>
           <p className="text-xs text-slate-700 dark:text-slate-300 font-bold mt-1">
-            Xodimlar va filiallar ko'rsatkichlarining chuqurlashtirilgan grafik diagrammalari
+            Xodimlar va tashkilotlar ko'rsatkichlarining chuqurlashtirilgan grafik diagrammalari
           </p>
         </div>
       </div>
@@ -117,20 +123,52 @@ export const Statistics = () => {
 
         {/* Dropdowns & Custom Date Inputs */}
         <div className="flex flex-wrap items-center gap-4 pt-3 border-t border-slate-200 dark:border-slate-700">
-          <div className="flex items-center gap-2">
-            <Building2 className="w-4 h-4 text-blue-700 dark:text-blue-400" />
-            <select
-              value={selectedBranchId}
-              onChange={(e) => setSelectedBranchId(e.target.value)}
-              className="px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white font-bold focus:outline-none"
-            >
-              <option value="" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Barcha Filiallar</option>
-              {branches.map((b) => (
-                <option key={b.id} value={b.id} className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">
-                  {b.name}
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between w-full gap-4">
+            <div className="flex items-center gap-2">
+              <Building2 className="w-4 h-4 text-blue-700 dark:text-blue-400" />
+              <select
+                value={selectedBranchId}
+                onChange={(e) => setSelectedBranchId(e.target.value)}
+                className="px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white font-bold focus:outline-none cursor-pointer"
+              >
+                <option value="" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">
+                  {(!typeFilters.zavod && !typeFilters.filial) || (typeFilters.zavod && typeFilters.filial) ? "Barcha Tashkilotlar" : typeFilters.zavod ? "Barcha Zavodlar" : "Barcha Filiallar"}
                 </option>
-              ))}
-            </select>
+                {branches
+                  .filter(b => {
+                    if (typeFilters.zavod && typeFilters.filial) return true;
+                    if (typeFilters.zavod) return b.type === 'Zavod';
+                    if (typeFilters.filial) return b.type === 'Filial' || !b.type;
+                    return true;
+                  })
+                  .map((b) => (
+                  <option key={b.id} value={b.id} className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">
+                    {b.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="flex items-center gap-4 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2">
+              <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-900 dark:text-white">
+                <input
+                  type="checkbox"
+                  checked={typeFilters.zavod}
+                  onChange={(e) => setTypeFilters({ ...typeFilters, zavod: e.target.checked })}
+                  className="rounded border-slate-300 text-blue-500 focus:ring-blue-500 w-4 h-4 cursor-pointer"
+                />
+                Zavod
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-900 dark:text-white">
+                <input
+                  type="checkbox"
+                  checked={typeFilters.filial}
+                  onChange={(e) => setTypeFilters({ ...typeFilters, filial: e.target.checked })}
+                  className="rounded border-slate-300 text-blue-500 focus:ring-blue-500 w-4 h-4 cursor-pointer"
+                />
+                Filial
+              </label>
+            </div>
           </div>
 
           {period === 'custom' && (
@@ -182,7 +220,9 @@ export const Statistics = () => {
                   <tr>
                     <th className="px-4 py-3">O'rin</th>
                     <th className="px-4 py-3">Xodim</th>
-                    <th className="px-4 py-3">Filial</th>
+                    <th className="px-4 py-3">
+                      {(!typeFilters.zavod && !typeFilters.filial) || (typeFilters.zavod && typeFilters.filial) ? "Tashkilot" : typeFilters.zavod ? "Zavod" : "Filial"}
+                    </th>
                     <th className="px-4 py-3 text-center">Jami To'plangan Ball</th>
                     <th className="px-4 py-3 text-center">O'rtacha Ball</th>
                     <th className="px-4 py-3 text-right">Baholar Soni</th>
@@ -282,7 +322,9 @@ export const Statistics = () => {
 
             <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 hover:border-blue-500/30 transition-all text-slate-900 dark:text-white shadow-xl group">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Eng Yaxshi Filial</span>
+                <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                  {(!typeFilters.zavod && !typeFilters.filial) || (typeFilters.zavod && typeFilters.filial) ? "Eng Yaxshi Tashkilot" : typeFilters.zavod ? "Eng Yaxshi Zavod" : "Eng Yaxshi Filial"}
+                </span>
                 <div className="p-2 rounded-xl bg-blue-500/10 text-blue-700 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
                   <Building2 className="w-4 h-4" />
                 </div>
@@ -299,7 +341,9 @@ export const Statistics = () => {
 
             <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 hover:border-blue-500/30 transition-all text-slate-900 dark:text-white shadow-xl group">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Eng Sust Filial</span>
+                <span className="text-xs font-bold text-slate-700 dark:text-slate-300">
+                  {(!typeFilters.zavod && !typeFilters.filial) || (typeFilters.zavod && typeFilters.filial) ? "Eng Sust Tashkilot" : typeFilters.zavod ? "Eng Sust Zavod" : "Eng Sust Filial"}
+                </span>
                 <div className="p-2 rounded-xl bg-blue-500/10 text-blue-700 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
                   <TrendingUp className="w-4 h-4" />
                 </div>
@@ -470,9 +514,11 @@ export const Statistics = () => {
 
             {/* Branch Rating Performance */}
             <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xl">
-              <h3 className="text-base font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+              <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2 mb-4">
                 <Building2 className="w-5 h-5 text-blue-700 dark:text-blue-400" />
-                <span>Filiallar Reytingi</span>
+                <span>
+                  {(!typeFilters.zavod && !typeFilters.filial) || (typeFilters.zavod && typeFilters.filial) ? "Tashkilotlar Reytingi" : typeFilters.zavod ? "Zavodlar Reytingi" : "Filiallar Reytingi"}
+                </span>
               </h3>
 
               <div className="divide-y divide-white/5 max-h-96 overflow-y-auto custom-scrollbar">
