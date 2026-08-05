@@ -20,6 +20,7 @@ export const DailyRatingPage = () => {
   const { user } = useAuth();
   const [branches, setBranches] = useState([]);
   const [selectedBranchId, setSelectedBranchId] = useState('');
+  const [typeFilters, setTypeFilters] = useState({ zavod: false, filial: true });
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().split('T')[0]
   );
@@ -49,8 +50,15 @@ export const DailyRatingPage = () => {
       setBranches(brs);
 
       // Default to manager's branch if applicable
+      const visibleBranches = brs.filter(b => {
+        if (typeFilters.zavod && typeFilters.filial) return true;
+        if (typeFilters.zavod) return b.type === 'Zavod';
+        if (typeFilters.filial) return b.type === 'Filial' || !b.type;
+        return true;
+      });
+
       const defaultBranch =
-        user?.branchId || (brs.length > 0 ? brs[0].id : '');
+        user?.branchId || (visibleBranches.length > 0 ? visibleBranches[0].id : '');
       const activeBranchId = selectedBranchId || defaultBranch;
       setSelectedBranchId(activeBranchId);
 
@@ -96,7 +104,7 @@ export const DailyRatingPage = () => {
     return () => {
       unsubscribe();
     };
-  }, [selectedBranchId, selectedDate]);
+  }, [selectedBranchId, selectedDate, typeFilters]);
 
   const handleStarChange = (empId, stars) => {
     setRatingDrafts((prev) => ({
@@ -178,8 +186,35 @@ export const DailyRatingPage = () => {
           </p>
         </div>
 
-        {/* Date & Branch Selectors */}
+        {/* Date & Branch Selectors & Checkboxes */}
         <div className="flex flex-wrap items-center gap-3">
+          <div className="flex items-center gap-4 bg-white dark:bg-[#0f172a] px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
+            <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-900 dark:text-white">
+              <input
+                type="checkbox"
+                checked={typeFilters.zavod}
+                onChange={(e) => {
+                  setTypeFilters({ ...typeFilters, zavod: e.target.checked });
+                  setSelectedBranchId('');
+                }}
+                className="rounded border-slate-300 text-blue-500 focus:ring-blue-500 w-4 h-4 cursor-pointer"
+              />
+              Zavod
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-900 dark:text-white">
+              <input
+                type="checkbox"
+                checked={typeFilters.filial}
+                onChange={(e) => {
+                  setTypeFilters({ ...typeFilters, filial: e.target.checked });
+                  setSelectedBranchId('');
+                }}
+                className="rounded border-slate-300 text-blue-500 focus:ring-blue-500 w-4 h-4 cursor-pointer"
+              />
+              Filial
+            </label>
+          </div>
+
           <div className="flex items-center gap-2 bg-white dark:bg-[#0f172a] px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
             <Building2 className="w-4 h-4 text-blue-700 dark:text-blue-400" />
             <select
@@ -187,7 +222,14 @@ export const DailyRatingPage = () => {
               onChange={(e) => setSelectedBranchId(e.target.value)}
               className="bg-transparent text-xs font-bold text-slate-900 dark:text-white focus:outline-none cursor-pointer"
             >
-              {branches.map((b) => (
+              {branches
+                .filter(b => {
+                  if (typeFilters.zavod && typeFilters.filial) return true;
+                  if (typeFilters.zavod) return b.type === 'Zavod';
+                  if (typeFilters.filial) return b.type === 'Filial' || !b.type;
+                  return true;
+                })
+                .map((b) => (
                 <option key={b.id} value={b.id} className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">
                   {b.name}
                 </option>
@@ -245,10 +287,10 @@ export const DailyRatingPage = () => {
         <div className="p-12 text-center bg-white dark:bg-[#0f172a] rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl">
           <Sparkles className="w-8 h-8 text-blue-700 dark:text-blue-400 mx-auto mb-2" />
           <h3 className="text-base font-bold text-slate-900 dark:text-white">
-            Ushbu filialda faol xodimlar topilmadi
+            Ushbu {(!typeFilters.zavod && !typeFilters.filial) || (typeFilters.zavod && typeFilters.filial) ? "tashkilotda" : typeFilters.zavod ? "zavodda" : "filialda"} faol xodimlar topilmadi
           </h3>
           <p className="text-xs text-slate-700 dark:text-slate-300 font-bold mt-1">
-            "Xodimlar" bo'limidan filialga yangi xodimlarni biriktiring.
+            Barcha xodimlar baholangan bo'lishi yoki faol xodimlar yo'q bo'lishi mumkin
           </p>
         </div>
       ) : (
