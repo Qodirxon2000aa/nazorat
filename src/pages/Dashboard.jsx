@@ -337,20 +337,20 @@ export const Dashboard = ({ globalQuery }) => {
         <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-900 dark:text-white">
           <input
             type="checkbox"
-            checked={typeFilters.zavod}
-            onChange={(e) => setTypeFilters({ ...typeFilters, zavod: e.target.checked })}
-            className="rounded border-slate-300 text-blue-500 focus:ring-blue-500 w-4 h-4 cursor-pointer"
-          />
-          Zavodlar statistikasi
-        </label>
-        <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-900 dark:text-white">
-          <input
-            type="checkbox"
             checked={typeFilters.filial}
             onChange={(e) => setTypeFilters({ ...typeFilters, filial: e.target.checked })}
             className="rounded border-slate-300 text-blue-500 focus:ring-blue-500 w-4 h-4 cursor-pointer"
           />
           Filiallar statistikasi
+        </label>
+        <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-900 dark:text-white">
+          <input
+            type="checkbox"
+            checked={typeFilters.zavod}
+            onChange={(e) => setTypeFilters({ ...typeFilters, zavod: e.target.checked })}
+            className="rounded border-slate-300 text-blue-500 focus:ring-blue-500 w-4 h-4 cursor-pointer"
+          />
+          Zavodlar statistikasi
         </label>
       </div>
 

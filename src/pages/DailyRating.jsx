@@ -192,18 +192,6 @@ export const DailyRatingPage = () => {
             <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-900 dark:text-white">
               <input
                 type="checkbox"
-                checked={typeFilters.zavod}
-                onChange={(e) => {
-                  setTypeFilters({ ...typeFilters, zavod: e.target.checked });
-                  setSelectedBranchId('');
-                }}
-                className="rounded border-slate-300 text-blue-500 focus:ring-blue-500 w-4 h-4 cursor-pointer"
-              />
-              Zavod
-            </label>
-            <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-900 dark:text-white">
-              <input
-                type="checkbox"
                 checked={typeFilters.filial}
                 onChange={(e) => {
                   setTypeFilters({ ...typeFilters, filial: e.target.checked });
@@ -212,6 +200,18 @@ export const DailyRatingPage = () => {
                 className="rounded border-slate-300 text-blue-500 focus:ring-blue-500 w-4 h-4 cursor-pointer"
               />
               Filial
+            </label>
+            <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-900 dark:text-white">
+              <input
+                type="checkbox"
+                checked={typeFilters.zavod}
+                onChange={(e) => {
+                  setTypeFilters({ ...typeFilters, zavod: e.target.checked });
+                  setSelectedBranchId('');
+                }}
+                className="rounded border-slate-300 text-blue-500 focus:ring-blue-500 w-4 h-4 cursor-pointer"
+              />
+              Zavod
             </label>
           </div>
 
