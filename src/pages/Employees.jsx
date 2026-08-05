@@ -38,16 +38,11 @@ export const Employees = ({ globalQuery }) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
-    middleName: '',
-    phone: '',
     position: '',
     branchId: '',
     branchName: '',
     avatar: '',
-    username: '',
-    password: '',
     status: 'Faol',
-    hireDate: new Date().toISOString().split('T')[0],
   });
 
   // Employee Profile Modal
@@ -92,16 +87,12 @@ export const Employees = ({ globalQuery }) => {
     setFormData({
       firstName: '',
       lastName: '',
-      middleName: '',
       phone: '',
       position: '',
       branchId: branches[0]?.id || '',
       branchName: branches[0]?.name || '',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
-      username: '',
-      password: '',
       status: 'Faol',
-      hireDate: new Date().toISOString().split('T')[0],
     });
     setIsModalOpen(true);
   };
@@ -111,16 +102,12 @@ export const Employees = ({ globalQuery }) => {
     setFormData({
       firstName: emp.firstName,
       lastName: emp.lastName,
-      middleName: emp.middleName,
       phone: emp.phone,
       position: emp.position,
       branchId: emp.branchId,
       branchName: emp.branchName,
       avatar: emp.avatar,
-      username: emp.username,
-      password: '',
       status: emp.status,
-      hireDate: emp.hireDate,
     });
     setIsModalOpen(true);
   };
@@ -291,9 +278,6 @@ export const Employees = ({ globalQuery }) => {
                           <div className="font-bold text-slate-900 dark:text-white">
                             {emp.firstName} {emp.lastName}
                           </div>
-                          <div className="text-[10px] text-slate-700 dark:text-slate-300 font-bold">
-                            {emp.middleName}
-                          </div>
                         </div>
                       </div>
                     </td>
@@ -416,19 +400,6 @@ export const Employees = ({ globalQuery }) => {
                 className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
               />
             </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
-                Otasining ismi
-              </label>
-              <input
-                type="text"
-                value={formData.middleName}
-                onChange={(e) => setFormData({ ...formData, middleName: e.target.value })}
-                placeholder="G'ofurovich"
-                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
-              />
-            </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -486,46 +457,6 @@ export const Employees = ({ globalQuery }) => {
                 className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
               />
             </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
-                Ishga kirgan sana
-              </label>
-              <input
-                type="date"
-                value={formData.hireDate}
-                onChange={(e) => setFormData({ ...formData, hireDate: e.target.value })}
-                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white"
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
-                Tizim Logini
-              </label>
-              <input
-                type="text"
-                value={formData.username}
-                onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                placeholder="jamshid_n"
-                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
-                Tizim Paroli
-              </label>
-              <input
-                type="password"
-                value={formData.password}
-                onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                placeholder={editingEmp ? "O'zgartirmaslik uchun bo'sh qoldiring" : "123456"}
-                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
-              />
-            </div>
           </div>
 
           <div>
@@ -579,14 +510,13 @@ export const Employees = ({ globalQuery }) => {
               </div>
               <div className="space-y-1">
                 <div className="text-sm font-bold text-slate-900 dark:text-white">
-                  {profileEmp.firstName} {profileEmp.lastName} {profileEmp.middleName}
+                  {profileEmp.firstName} {profileEmp.lastName}
                 </div>
                 <div className="text-xs text-blue-700 dark:text-blue-400 font-semibold">
                   {profileEmp.position} ({profileEmp.branchName})
                 </div>
                 <div className="flex items-center gap-3 text-xs text-slate-700 dark:text-slate-300 font-bold">
                   <span>📞 {profileEmp.phone}</span>
-                  <span>📅 Ishga kirgan: {profileEmp.hireDate}</span>
                 </div>
               </div>
             </div>

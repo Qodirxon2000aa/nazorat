@@ -11,7 +11,7 @@ const EmployeeSchema = new Schema({
   avatar: { type: String },
   username: { type: String },
   status: { type: String, enum: ['Faol', 'Nofaol', 'Ta\'tilda'], default: 'Faol' },
-  hireDate: { type: String, required: true },
+  hireDate: { type: String },
   averageRating: { type: Number, default: 0 },
   totalRatingsCount: { type: Number, default: 0 },
 }, { timestamps: true });

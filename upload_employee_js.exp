@@ -1,0 +1,11 @@
+#!/usr/bin/expect -f
+set timeout -1
+spawn scp -o StrictHostKeyChecking=no server/models/Employee.js root@95.111.226.90:/var/www/nazorat-backend/models/Employee.js
+expect "password:"
+send "Bahodir2009\r"
+expect eof
+
+spawn ssh -o StrictHostKeyChecking=no root@95.111.226.90 "cd /var/www/nazorat-backend && pm2 restart server"
+expect "password:"
+send "Bahodir2009\r"
+expect eof
