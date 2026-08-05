@@ -20,7 +20,7 @@ import { EmptyState } from '../components/EmptyState';
 import { useAuth } from '../context/AuthContext';
 import { subscribeToUpdates } from '../services/sse';
 
-export const Branches = ({ globalQuery }) => {
+export const Factories = ({ globalQuery }) => {
   const { hasPermission } = useAuth();
   const [branches, setBranches] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -75,7 +75,7 @@ export const Branches = ({ globalQuery }) => {
       name: '',
       address: '',
       status: 'Faol',
-      type: 'Filial',
+      type: 'Zavod',
     });
     setIsModalOpen(true);
   };
@@ -86,7 +86,7 @@ export const Branches = ({ globalQuery }) => {
       name: b.name,
       address: b.address,
       status: b.status,
-      type: b.type || 'Filial',
+      type: 'Zavod',
     });
     setIsModalOpen(true);
   };
@@ -130,7 +130,7 @@ export const Branches = ({ globalQuery }) => {
     }
   };
 
-  const filteredBranches = branches.filter(b => b.type === 'Filial' || !b.type).filter((b) => {
+  const filteredBranches = branches.filter(b => b.type === 'Zavod').filter((b) => {
     const matchesGlobal =
       globalQuery && (
         b.name.toLowerCase().includes(globalQuery.toLowerCase()) ||
@@ -142,7 +142,7 @@ export const Branches = ({ globalQuery }) => {
     const matchesSearch =
       b.name.toLowerCase().includes(search.toLowerCase()) ||
       b.address.toLowerCase().includes(search.toLowerCase());
-    const matchesStatus = filterStatus === 'all' || b.status === filterStatus;
+    const matchesStatus = statusFilter === 'barchasi' || b.status === statusFilter;
     
     return matchesSearch && matchesStatus;
   });
@@ -154,14 +154,14 @@ export const Branches = ({ globalQuery }) => {
         <div>
           <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
             <Building2 className="w-7 h-7 sm:w-8 sm:h-8 text-blue-700 dark:text-blue-400" />
-            <span>Filiallar Boshqaruvi</span>
+            <span>Zavodlar Boshqaruvi</span>
           </h1>
           <p className="text-xs text-slate-700 dark:text-slate-300 font-bold mt-1">
             Tizimdagi barcha filiallar, ularning xodimlari va ko'rsatkichlari
           </p>
         </div>
 
-        {hasPermission('filial_add') && (
+        {hasPermission('zavod_add') && (
           <button
             onClick={handleOpenAddModal}
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-blue-500 hover:bg-blue-400 text-black font-extrabold text-xs shadow-lg shadow-blue-500/20 transition-all cursor-pointer"
@@ -204,11 +204,11 @@ export const Branches = ({ globalQuery }) => {
         <TableSkeleton rows={4} />
       ) : filteredBranches.length === 0 ? (
         <EmptyState
-          title="Filiallar topilmadi"
+          title="Zavodlar topilmadi"
           description="Qidiruv parametrlari bo'yicha hech qanday filial kelmadi."
           action={
-            hasPermission('filial_add')
-              ? { label: 'Filial Yaratish', onClick: handleOpenAddModal }
+            hasPermission('zavod_add')
+              ? { label: 'Zavod Yaratish', onClick: handleOpenAddModal }
               : undefined
           }
         />
@@ -240,7 +240,7 @@ export const Branches = ({ globalQuery }) => {
                     <span
                       className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold flex items-center gap-1 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-800 text-slate-700 dark:text-slate-300`}
                     >
-                      {b.type === 'Zavod' ? '🏭 Zavod' : '🏢 Filial'}
+                      {b.type === 'Zavod' ? '🏭 Zavod' : '🏭 Zavod'}
                     </span>
                     <span
                       className={`px-2.5 py-1 rounded-full text-[10px] font-extrabold flex items-center gap-1 ${
@@ -316,13 +316,13 @@ export const Branches = ({ globalQuery }) => {
       <Modal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        title={editingBranch ? 'Filialni Tahrirlash' : 'Yangi Filial Yaratish'}
-        subtitle="Filial rekvizitlari va rahbar ma'lumotlarini kiriting"
+        title={editingBranch ? 'Zavodni Tahrirlash' : 'Yangi Zavod Yaratish'}
+        subtitle="Zavod rekvizitlari va rahbar ma'lumotlarini kiriting"
       >
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
-              Filial Nomi *
+              Zavod Nomi *
             </label>
             <input
               type="text"
@@ -347,8 +347,6 @@ export const Branches = ({ globalQuery }) => {
               className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
             />
           </div>
-
-          {/* Removed phone and managerName fields */}
 
           <div className="grid grid-cols-1 gap-4">
             <div>

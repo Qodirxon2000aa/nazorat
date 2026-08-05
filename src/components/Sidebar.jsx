@@ -33,6 +33,12 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
       show: hasPermission('filial_view'),
     },
     {
+      to: '/factories',
+      label: 'Zavodlar',
+      icon: Building2,
+      show: hasPermission('filial_view'),
+    },
+    {
       to: '/employees',
       label: 'Xodimlar',
       icon: Users,

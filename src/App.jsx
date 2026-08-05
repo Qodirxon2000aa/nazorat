@@ -7,6 +7,7 @@ import { Header } from './components/Header';
 import { Login } from './pages/Login';
 import { Dashboard } from './pages/Dashboard';
 import { Branches } from './pages/Branches';
+import { Factories } from './pages/Factories';
 import { Employees } from './pages/Employees';
 import { DailyRatingPage } from './pages/DailyRating';
 import { Statistics } from './pages/Statistics';
@@ -50,6 +51,7 @@ const ProtectedLayout = () => {
           <Routes>
             <Route path="/" element={<Dashboard globalQuery={globalQuery} />} />
             <Route path="/branches" element={<Branches globalQuery={globalQuery} />} />
+            <Route path="/factories" element={<Factories globalQuery={globalQuery} />} />
             <Route path="/employees" element={<Employees globalQuery={globalQuery} />} />
             <Route path="/daily-rating" element={<DailyRatingPage />} />
             <Route path="/statistics" element={<Statistics />} />
