@@ -28,8 +28,6 @@ export const Login = () => {
     }
   };
 
-  };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 p-4 relative overflow-hidden font-sans">
       {/* Dynamic Background Effects */}
@@ -118,5 +116,6 @@ export const Login = () => {
           </button>
         </form>
       </div>
+    </div>
   );
 };
