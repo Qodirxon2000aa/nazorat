@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Sparkles, Lock, User, ArrowRight, KeyRound, Eye, EyeOff, ShieldCheck } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { Logo } from '../components/Logo';
 
 export const Login = () => {
   const { login } = useAuth();
@@ -36,16 +37,8 @@ export const Login = () => {
 
       <div className="w-full max-w-md bg-white dark:bg-slate-900/90 backdrop-blur-2xl border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl z-10">
         {/* Header Logo */}
-        <div className="flex flex-col items-center text-center mb-8">
-          <div className="w-16 h-16 rounded-2xl bg-blue-600 flex items-center justify-center text-white shadow-xl shadow-blue-500/20 mb-4">
-            <Sparkles className="w-8 h-8" />
-          </div>
-          <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
-            FILIALLAR NAZORATI
-          </h1>
-          <p className="text-xs font-bold text-slate-700 dark:text-slate-300 font-bold mt-1">
-            Xodimlarni kunlik baholash va monitoring tizimi
-          </p>
+        <div className="flex flex-col items-center justify-center text-center mb-8">
+          <Logo className="w-32 h-40 drop-shadow-sm" />
         </div>
 
 

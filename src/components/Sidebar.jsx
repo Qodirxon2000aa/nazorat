@@ -14,6 +14,7 @@ import {
   X,
 } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
+import { Logo } from './Logo';
 
 export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
   const [collapsed, setCollapsed] = useState(false);
@@ -76,17 +77,13 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
       {/* Brand Header */}
       <div className={`relative flex items-center h-20 border-b border-slate-200 dark:border-slate-700 shrink-0 transition-all ${collapsed && !mobileOpen ? 'justify-center' : 'px-5 justify-between'}`}>
         <div className="flex items-center gap-3 overflow-hidden">
-          <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-blue-500 text-black font-black text-xl italic shadow-lg shadow-blue-500/20 shrink-0">
-            F
-          </div>
-          {(!collapsed || mobileOpen) && (
-            <div className="flex flex-col overflow-hidden">
-              <span className="text-sm font-black tracking-tight text-slate-900 dark:text-white truncate">
-                FXBB Tizimi
-              </span>
-              <span className="text-[10px] font-bold text-slate-700 dark:text-slate-300 font-bold truncate">
-                Filiallar & Xodimlar
-              </span>
+          {(!collapsed || mobileOpen) ? (
+            <div className="flex items-center justify-center w-full mt-2">
+              <Logo className="w-14 h-auto drop-shadow-sm" />
+            </div>
+          ) : (
+            <div className="flex items-center justify-center w-full">
+              <Logo iconOnly className="w-8 h-auto drop-shadow-sm" />
             </div>
           )}
         </div>
