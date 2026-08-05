@@ -42,7 +42,8 @@ export const Dashboard = ({ globalQuery }) => {
         setBranchRankings(data.branchRankings || []);
 
         const ratings = await api.getRatings();
-        setRecentRatings(ratings.slice(0, 6));
+        const sortedRatings = [...ratings].sort((a, b) => new Date(b.createdAt || b.date) - new Date(a.createdAt || a.date));
+        setRecentRatings(sortedRatings.slice(0, 6));
 
         // Filter ratings for current employee if role === 'Xodim'
         if (user) {
