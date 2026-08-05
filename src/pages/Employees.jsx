@@ -224,8 +224,17 @@ export const Employees = ({ globalQuery }) => {
           onChange={(e) => setSelectedBranchFilter(e.target.value)}
           className="px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:outline-none font-bold"
         >
-          <option value="" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Barcha Filiallar</option>
-          {branches.map((b) => (
+          <option value="" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">
+            {(!typeFilters.zavod && !typeFilters.filial) || (typeFilters.zavod && typeFilters.filial) ? "Barcha Tashkilotlar" : typeFilters.zavod ? "Barcha Zavodlar" : "Barcha Filiallar"}
+          </option>
+          {branches
+            .filter(b => {
+              if (typeFilters.zavod && typeFilters.filial) return true;
+              if (typeFilters.zavod) return b.type === 'Zavod';
+              if (typeFilters.filial) return b.type === 'Filial' || !b.type;
+              return true;
+            })
+            .map((b) => (
             <option key={b.id} value={b.id} className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">
               {b.name}
             </option>
@@ -285,7 +294,9 @@ export const Employees = ({ globalQuery }) => {
               <thead className="bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-slate-700">
                 <tr>
                   <th className="px-5 py-4">Xodim</th>
-                  <th className="px-5 py-4">Filial</th>
+                  <th className="px-5 py-4">
+                    {(!typeFilters.zavod && !typeFilters.filial) || (typeFilters.zavod && typeFilters.filial) ? "Tashkilot" : typeFilters.zavod ? "Zavod" : "Filial"}
+                  </th>
                   <th className="px-5 py-4">Lavozim</th>
                   <th className="px-5 py-4">Telefon</th>
                   <th className="px-5 py-4 text-center">O'rtacha Baho</th>
@@ -435,7 +446,7 @@ export const Employees = ({ globalQuery }) => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
-                Filial *
+                Tashkilot *
               </label>
               <select
                 required
