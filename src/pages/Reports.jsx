@@ -25,6 +25,7 @@ export const Reports = () => {
   const [loading, setLoading] = useState(true);
 
   const [search, setSearch] = useState('');
+  const [typeFilters, setTypeFilters] = useState({ zavod: false, filial: false });
 
   const fetchData = async () => {
     try {
@@ -55,6 +56,14 @@ export const Reports = () => {
     if (selectedBranchId) {
       list = list.filter((r) => r.branchId === selectedBranchId);
     }
+
+    list = list.filter((r) => {
+      const empBranch = branches.find((b) => b.id === r.branchId);
+      const branchType = empBranch ? (empBranch.type || 'Filial') : 'Filial';
+      return (!typeFilters.zavod && !typeFilters.filial) ||
+             (typeFilters.zavod && branchType === 'Zavod') ||
+             (typeFilters.filial && branchType === 'Filial');
+    });
 
     const today = new Date();
     if (reportType === 'daily') {
@@ -132,7 +141,7 @@ export const Reports = () => {
       const row = {
         '№': i + 1,
         'Xodim': r.employeeName,
-        'Filial': r.branchName,
+        'Tashkilot': r.branchName,
       };
       
       if (isDaily) {
@@ -177,15 +186,15 @@ export const Reports = () => {
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Hisobot');
     XLSX.writeFile(
       workbook,
-      `Filiallar_Hisoboti_${new Date().toISOString().split('T')[0]}.xlsx`
+      `Tashkilot_Hisoboti_${new Date().toISOString().split('T')[0]}.xlsx`
     );
   };
 
   // Export CSV
   const exportToCSV = () => {
     const headers = isDaily 
-      ? ['№,Sana,Xodim,Filial,Baho,Jami Ball,Izoh,Baholadi\n']
-      : ['№,Xodim,Filial,Jami Ball,Baholanishlar Soni\n'];
+      ? ['№,Sana,Xodim,Tashkilot,Baho,Jami Ball,Izoh,Baholadi\n']
+      : ['№,Xodim,Tashkilot,Jami Ball,Baholanishlar Soni\n'];
       
     const rows = reportRows.map((r, i) => {
       if (isDaily) {
@@ -216,7 +225,7 @@ export const Reports = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', `Filiallar_Hisoboti_${Date.now()}.csv`);
+    link.setAttribute('download', `Tashkilot_Hisoboti_${Date.now()}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -229,7 +238,7 @@ export const Reports = () => {
     // Header
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(18);
-    doc.text('Filiallar Xodimlarini Baholash Hisoboti', 14, 20);
+    doc.text('Tashkilot Xodimlarini Baholash Hisoboti', 14, 20);
     
     doc.setFontSize(11);
     doc.text(`Yaratilgan sana: ${new Date().toLocaleDateString()}`, 14, 28);
@@ -241,7 +250,7 @@ export const Reports = () => {
     doc.text('№', 14, y);
     if (isDaily) doc.text('Sana', 24, y);
     doc.text('Xodim', 50, y);
-    doc.text('Filial', 110, y);
+    doc.text('Tashkilot', 110, y);
     
     if (isDaily) {
       doc.text('Baho', 160, y);
@@ -350,7 +359,7 @@ export const Reports = () => {
 
       {/* Report Options & Filter Controls */}
       <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xl space-y-4">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div>
             <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5">
               Hisobot turi:
@@ -370,15 +379,24 @@ export const Reports = () => {
 
           <div>
             <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5">
-              Filial bo'yicha filter:
+              Tashkilot bo'yicha filter:
             </label>
             <select
               value={selectedBranchId}
               onChange={(e) => setSelectedBranchId(e.target.value)}
               className="w-full px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white font-bold focus:outline-none cursor-pointer"
             >
-              <option value="" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Barcha Filiallar</option>
-              {branches.map((b) => (
+              <option value="" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">
+                {(!typeFilters.zavod && !typeFilters.filial) || (typeFilters.zavod && typeFilters.filial) ? "Barcha Tashkilotlar" : typeFilters.zavod ? "Barcha Zavodlar" : "Barcha Filiallar"}
+              </option>
+              {branches
+                .filter(b => {
+                  if (typeFilters.zavod && typeFilters.filial) return true;
+                  if (typeFilters.zavod) return b.type === 'Zavod';
+                  if (typeFilters.filial) return b.type === 'Filial' || !b.type;
+                  return true;
+                })
+                .map((b) => (
                 <option key={b.id} value={b.id} className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">
                   {b.name}
                 </option>
@@ -396,9 +414,33 @@ export const Reports = () => {
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Xodim yoki filial nomi..."
+                placeholder="Xodim yoki tashkilot nomi..."
                 className="w-full pl-10 pr-4 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 focus:border-blue-500/50 rounded-xl text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none"
               />
+            </div>
+          </div>
+          
+          <div className="flex flex-col justify-end">
+            <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5 md:hidden">Tashkilot Turi:</label>
+            <div className="flex items-center gap-4 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl px-3.5 py-2 mt-auto">
+              <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-900 dark:text-white">
+                <input
+                  type="checkbox"
+                  checked={typeFilters.zavod}
+                  onChange={(e) => setTypeFilters({ ...typeFilters, zavod: e.target.checked })}
+                  className="rounded border-slate-300 text-blue-500 focus:ring-blue-500 w-4 h-4 cursor-pointer"
+                />
+                Zavod
+              </label>
+              <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-900 dark:text-white">
+                <input
+                  type="checkbox"
+                  checked={typeFilters.filial}
+                  onChange={(e) => setTypeFilters({ ...typeFilters, filial: e.target.checked })}
+                  className="rounded border-slate-300 text-blue-500 focus:ring-blue-500 w-4 h-4 cursor-pointer"
+                />
+                Filial
+              </label>
             </div>
           </div>
         </div>
@@ -456,7 +498,9 @@ export const Reports = () => {
                   <th className="px-4 py-3">№</th>
                   {isDaily && <th className="px-4 py-3">Sana</th>}
                   <th className="px-4 py-3">Xodim</th>
-                  <th className="px-4 py-3">Filial</th>
+                  <th className="px-4 py-3">
+                    {(!typeFilters.zavod && !typeFilters.filial) || (typeFilters.zavod && typeFilters.filial) ? "Tashkilot" : typeFilters.zavod ? "Zavod" : "Filial"}
+                  </th>
                   {isDaily && <th className="px-4 py-3">Qo'yilgan Baho</th>}
                   <th className="px-4 py-3">Davrdagi Jami Ball</th>
                   {isDaily ? (
