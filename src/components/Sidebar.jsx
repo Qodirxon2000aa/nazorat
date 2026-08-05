@@ -72,19 +72,19 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
   ];
 
   const sidebarContent = (
-    <div className="flex flex-col h-full bg-[#09090b] text-slate-100 border-r border-white/10 select-none">
+    <div className="flex flex-col h-full bg-slate-50 dark:bg-[#09090b] text-slate-100 border-r border-slate-200 dark:border-white/10 select-none">
       {/* Brand Header */}
-      <div className="flex items-center justify-between h-20 px-5 border-b border-white/10 shrink-0">
+      <div className="flex items-center justify-between h-20 px-5 border-b border-slate-200 dark:border-white/10 shrink-0">
         <div className="flex items-center gap-3 overflow-hidden">
           <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-emerald-500 text-black font-black text-xl italic shadow-lg shadow-emerald-500/20 shrink-0">
             F
           </div>
           {(!collapsed || mobileOpen) && (
             <div className="flex flex-col overflow-hidden">
-              <span className="text-sm font-black tracking-tight text-white truncate">
+              <span className="text-sm font-black tracking-tight text-slate-900 dark:text-white truncate">
                 FXBB Tizimi
               </span>
-              <span className="text-[10px] font-medium text-slate-400 truncate">
+              <span className="text-[10px] font-medium text-slate-500 dark:text-slate-400 truncate">
                 Filiallar & Xodimlar
               </span>
             </div>
@@ -94,7 +94,7 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
         {/* Desktop collapse button */}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="hidden md:flex p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-white/5 transition-colors"
+          className="hidden md:flex p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white hover:bg-slate-100 dark:bg-white/5 transition-colors"
           title={collapsed ? 'Kengaytirish' : 'Yig\'ish'}
         >
           {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
@@ -104,7 +104,7 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
         {setMobileOpen && (
           <button
             onClick={() => setMobileOpen(false)}
-            className="md:hidden p-2 rounded-xl text-slate-400 hover:text-white hover:bg-white/10 transition-colors"
+            className="md:hidden p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:bg-white/10 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -126,8 +126,8 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs transition-all relative ${
                     isActive
-                      ? 'bg-white/5 border border-white/10 text-emerald-400 font-bold shadow-sm'
-                      : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
+                      ? 'bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-emerald-400 font-bold shadow-sm'
+                      : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:bg-white/5'
                   }`
                 }
               >
@@ -147,7 +147,7 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
       {(!collapsed || mobileOpen) && user && (
         <div className="p-4 m-3 rounded-2xl bg-emerald-500/5 border border-emerald-500/20 flex items-center justify-between shrink-0">
           <div>
-            <div className="text-[10px] uppercase tracking-wider font-bold text-slate-400">
+            <div className="text-[10px] uppercase tracking-wider font-bold text-slate-500 dark:text-slate-400">
               Faol Rol
             </div>
             <div className="text-xs font-extrabold text-emerald-400 truncate mt-0.5">

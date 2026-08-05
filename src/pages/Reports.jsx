@@ -188,11 +188,11 @@ export const Reports = () => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
             <FileSpreadsheet className="w-7 h-7 sm:w-8 sm:h-8 text-emerald-400" />
             <span>Tizim Hisobotlari Markazi</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Kunlik, haftalik, oylik va yillik hisobotlarni shakllantirish va export qilish
           </p>
         </div>
@@ -217,7 +217,7 @@ export const Reports = () => {
 
           <button
             onClick={exportToCSV}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 text-white font-bold text-xs transition-all cursor-pointer"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:bg-white/10 text-slate-900 dark:text-white font-bold text-xs transition-all cursor-pointer"
           >
             <Download className="w-4 h-4" />
             <span>CSV</span>
@@ -225,7 +225,7 @@ export const Reports = () => {
 
           <button
             onClick={handlePrint}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/5 border border-white/10 text-slate-300 hover:text-white font-semibold text-xs hover:bg-white/10 transition-all cursor-pointer"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white font-semibold text-xs hover:bg-slate-200 dark:bg-white/10 transition-all cursor-pointer"
           >
             <Printer className="w-4 h-4" />
             <span>Chop etish</span>
@@ -234,37 +234,37 @@ export const Reports = () => {
       </div>
 
       {/* Report Options & Filter Controls */}
-      <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-[#121214] border border-white/5 shadow-xl space-y-4">
+      <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 shadow-xl space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
-            <label className="block text-xs font-bold text-slate-300 mb-1.5">
+            <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5">
               Hisobot turi:
             </label>
             <select
               value={reportType}
               onChange={(e) => setReportType(e.target.value)}
-              className="w-full px-3.5 py-2 text-xs bg-white/5 border border-white/10 rounded-xl text-white font-medium focus:outline-none cursor-pointer"
+              className="w-full px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white font-medium focus:outline-none cursor-pointer"
             >
-              <option value="daily" className="bg-[#121214] text-white">Kunlik Hisobot</option>
-              <option value="weekly" className="bg-[#121214] text-white">Haftalik Hisobot</option>
-              <option value="monthly" className="bg-[#121214] text-white">Oylik Hisobot</option>
-              <option value="yearly" className="bg-[#121214] text-white">Yillik Hisobot</option>
-              <option value="custom" className="bg-[#121214] text-white">Ixtiyoriy sana oralig'i</option>
+              <option value="daily" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Kunlik Hisobot</option>
+              <option value="weekly" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Haftalik Hisobot</option>
+              <option value="monthly" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Oylik Hisobot</option>
+              <option value="yearly" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Yillik Hisobot</option>
+              <option value="custom" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Ixtiyoriy sana oralig'i</option>
             </select>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-300 mb-1.5">
+            <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5">
               Filial bo'yicha filter:
             </label>
             <select
               value={selectedBranchId}
               onChange={(e) => setSelectedBranchId(e.target.value)}
-              className="w-full px-3.5 py-2 text-xs bg-white/5 border border-white/10 rounded-xl text-white font-medium focus:outline-none cursor-pointer"
+              className="w-full px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white font-medium focus:outline-none cursor-pointer"
             >
-              <option value="" className="bg-[#121214] text-white">Barcha Filiallar</option>
+              <option value="" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Barcha Filiallar</option>
               {branches.map((b) => (
-                <option key={b.id} value={b.id} className="bg-[#121214] text-white">
+                <option key={b.id} value={b.id} className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">
                   {b.name}
                 </option>
               ))}
@@ -272,42 +272,42 @@ export const Reports = () => {
           </div>
 
           <div className="relative">
-            <label className="block text-xs font-bold text-slate-300 mb-1.5">
+            <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5">
               Qidirish:
             </label>
             <div className="relative">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400" />
               <input
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Xodim yoki filial nomi..."
-                className="w-full pl-10 pr-4 py-2 text-xs bg-white/5 border border-white/10 focus:border-emerald-500/50 rounded-xl text-white placeholder-slate-500 focus:outline-none"
+                className="w-full pl-10 pr-4 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-emerald-500/50 rounded-xl text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none"
               />
             </div>
           </div>
         </div>
 
         {reportType === 'custom' && (
-          <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-white/10">
+          <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-200 dark:border-white/10">
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-emerald-400" />
-              <span className="text-xs text-slate-400 font-medium">Boshlanish:</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Boshlanish:</span>
               <input
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="px-3 py-1.5 text-xs bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none"
+                className="px-3 py-1.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:outline-none"
               />
             </div>
-            <span className="text-xs text-slate-400">—</span>
+            <span className="text-xs text-slate-500 dark:text-slate-400">—</span>
             <div className="flex items-center gap-2">
-              <span className="text-xs text-slate-400 font-medium">Tugash:</span>
+              <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Tugash:</span>
               <input
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                className="px-3 py-1.5 text-xs bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none"
+                className="px-3 py-1.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:outline-none"
               />
             </div>
           </div>
@@ -320,8 +320,8 @@ export const Reports = () => {
       ) : reportRows.length === 0 ? (
         <EmptyState description="Ushbu davr bo'yicha hisobot ma'lumotlari topilmadi." />
       ) : (
-        <div className="bg-[#121214] rounded-2xl sm:rounded-3xl border border-white/5 shadow-xl overflow-hidden printable-area">
-          <div className="p-4 bg-white/5 border-b border-white/5 flex flex-wrap items-center justify-between gap-2 text-xs font-bold text-slate-300">
+        <div className="bg-white dark:bg-[#121214] rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-white/5 shadow-xl overflow-hidden printable-area">
+          <div className="p-4 bg-slate-100 dark:bg-white/5 border-b border-slate-200 dark:border-white/5 flex flex-wrap items-center justify-between gap-2 text-xs font-bold text-slate-600 dark:text-slate-300">
             <span>
               Hisobot Yozuvlari Soni: {reportRows.length} ta yozuv
             </span>
@@ -336,7 +336,7 @@ export const Reports = () => {
 
           <div className="overflow-x-auto custom-scrollbar">
             <table className="w-full text-left text-xs">
-              <thead className="bg-white/5 text-slate-400 font-bold uppercase tracking-wider border-b border-white/5">
+              <thead className="bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-white/5">
                 <tr>
                   <th className="px-4 py-3">№</th>
                   <th className="px-4 py-3">Sana</th>
@@ -347,26 +347,26 @@ export const Reports = () => {
                   <th className="px-4 py-3">Baholadi</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/5 font-medium text-slate-200">
+              <tbody className="divide-y divide-white/5 font-medium text-slate-700 dark:text-slate-200">
                 {reportRows.map((r, idx) => (
-                  <tr key={r.id} className="hover:bg-white/5 transition-colors">
+                  <tr key={r.id} className="hover:bg-slate-100 dark:bg-white/5 transition-colors">
                     <td className="px-4 py-3 text-slate-500 font-mono">{idx + 1}</td>
-                    <td className="px-4 py-3 font-semibold text-slate-300">
+                    <td className="px-4 py-3 font-semibold text-slate-600 dark:text-slate-300">
                       {r.date}
                     </td>
-                    <td className="px-4 py-3 font-bold text-white">
+                    <td className="px-4 py-3 font-bold text-slate-900 dark:text-white">
                       {r.employeeName}
                     </td>
-                    <td className="px-4 py-3 text-slate-300">{r.branchName}</td>
+                    <td className="px-4 py-3 text-slate-600 dark:text-slate-300">{r.branchName}</td>
                     <td className="px-4 py-3">
                       <span className="inline-flex items-center gap-1 font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-md">
                         {r.stars} ⭐
                       </span>
                     </td>
-                    <td className="px-4 py-3 text-slate-300 italic max-w-xs truncate">
+                    <td className="px-4 py-3 text-slate-600 dark:text-slate-300 italic max-w-xs truncate">
                       "{r.comment}"
                     </td>
-                    <td className="px-4 py-3 text-slate-400">{r.ratedByName}</td>
+                    <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{r.ratedByName}</td>
                   </tr>
                 ))}
               </tbody>

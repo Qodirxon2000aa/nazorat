@@ -151,11 +151,11 @@ export const Branches = ({ globalQuery }) => {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
             <Building2 className="w-7 h-7 sm:w-8 sm:h-8 text-emerald-400" />
             <span>Filiallar Boshqaruvi</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Tizimdagi barcha filiallar, ularning xodimlari va ko'rsatkichlari
           </p>
         </div>
@@ -172,28 +172,28 @@ export const Branches = ({ globalQuery }) => {
       </div>
 
       {/* Search & Filters */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-[#121214] p-4 rounded-2xl sm:rounded-3xl border border-white/5 shadow-xl">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-[#121214] p-4 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-white/5 shadow-xl">
         <div className="relative w-full sm:w-80">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Filial nomi yoki rahbari bo'yicha qidirish..."
-            className="w-full pl-10 pr-4 py-2 text-xs bg-white/5 border border-white/10 focus:border-emerald-500/50 rounded-full text-slate-100 placeholder-slate-500 focus:outline-none"
+            className="w-full pl-10 pr-4 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-emerald-500/50 rounded-full text-slate-100 placeholder-slate-500 focus:outline-none"
           />
         </div>
 
         <div className="flex items-center gap-2 w-full sm:w-auto">
-          <span className="text-xs font-semibold text-slate-400">Holati:</span>
+          <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">Holati:</span>
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 text-xs bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none font-medium"
+            className="px-3 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:outline-none font-medium"
           >
-            <option value="barchasi" className="bg-[#121214] text-white">Barchasi</option>
-            <option value="Faol" className="bg-[#121214] text-white">Faol</option>
-            <option value="Nofaol" className="bg-[#121214] text-white">Nofaol</option>
+            <option value="barchasi" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Barchasi</option>
+            <option value="Faol" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Faol</option>
+            <option value="Nofaol" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Nofaol</option>
           </select>
         </div>
       </div>
@@ -216,7 +216,7 @@ export const Branches = ({ globalQuery }) => {
           {filteredBranches.map((b) => (
             <div
               key={b.id}
-              className="group relative rounded-2xl sm:rounded-3xl p-5 sm:p-6 bg-[#121214] border border-white/5 hover:border-emerald-500/30 shadow-xl transition-all duration-300 flex flex-col justify-between"
+              className="group relative rounded-2xl sm:rounded-3xl p-5 sm:p-6 bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 hover:border-emerald-500/30 shadow-xl transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-start justify-between gap-2 mb-3">
@@ -225,10 +225,10 @@ export const Branches = ({ globalQuery }) => {
                       <Building2 className="w-5 h-5" />
                     </div>
                     <div>
-                      <h3 className="text-base font-bold text-white">
+                      <h3 className="text-base font-bold text-slate-900 dark:text-white">
                         {b.name}
                       </h3>
-                      <div className="flex items-center gap-1.5 text-[11px] text-slate-400 mt-0.5">
+                      <div className="flex items-center gap-1.5 text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
                         <MapPin className="w-3 h-3 text-emerald-400 shrink-0" />
                         <span className="truncate">{b.address}</span>
                       </div>
@@ -251,26 +251,26 @@ export const Branches = ({ globalQuery }) => {
                   </span>
                 </div>
 
-                <div className="space-y-2 py-3 border-y border-white/5 my-3 text-xs">
-                  <div className="flex items-center justify-between text-slate-400">
+                <div className="space-y-2 py-3 border-y border-slate-200 dark:border-white/5 my-3 text-xs">
+                  <div className="flex items-center justify-between text-slate-500 dark:text-slate-400">
                     <span className="flex items-center gap-1.5">
                       <UserCheck className="w-3.5 h-3.5 text-slate-500" /> Rahbar:
                     </span>
-                    <span className="font-bold text-white">
+                    <span className="font-bold text-slate-900 dark:text-white">
                       {b.managerName}
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between text-slate-400">
+                  <div className="flex items-center justify-between text-slate-500 dark:text-slate-400">
                     <span className="flex items-center gap-1.5">
                       <Phone className="w-3.5 h-3.5 text-slate-500" /> Telefon:
                     </span>
-                    <span className="font-medium text-slate-300">
+                    <span className="font-medium text-slate-600 dark:text-slate-300">
                       {b.phone}
                     </span>
                   </div>
 
-                  <div className="flex items-center justify-between text-slate-400">
+                  <div className="flex items-center justify-between text-slate-500 dark:text-slate-400">
                     <span className="flex items-center gap-1.5">
                       <Users className="w-3.5 h-3.5 text-slate-500" /> Xodimlar:
                     </span>
@@ -299,7 +299,7 @@ export const Branches = ({ globalQuery }) => {
                   {hasPermission('filial_edit') && (
                     <button
                       onClick={() => handleOpenEditModal(b)}
-                      className="p-2 text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
+                      className="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white hover:bg-slate-100 dark:bg-white/5 rounded-xl transition-colors"
                       title="Tahrirlash"
                     >
                       <Edit2 className="w-4 h-4" />
@@ -309,7 +309,7 @@ export const Branches = ({ globalQuery }) => {
                   {hasPermission('filial_delete') && (
                     <button
                       onClick={() => handleDelete(b.id)}
-                      className="p-2 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-xl transition-colors"
+                      className="p-2 text-slate-500 dark:text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-xl transition-colors"
                       title="O'chirish"
                     >
                       <Trash2 className="w-4 h-4" />
@@ -331,7 +331,7 @@ export const Branches = ({ globalQuery }) => {
       >
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
-            <label className="block text-xs font-bold text-slate-300 mb-1">
+            <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
               Filial Nomi *
             </label>
             <input
@@ -340,12 +340,12 @@ export const Branches = ({ globalQuery }) => {
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               placeholder="masalan: Toshkent Markaziy Filiali"
-              className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-white placeholder-slate-500"
+              className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-slate-900 dark:text-white placeholder-slate-500"
             />
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-300 mb-1">
+            <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
               Manzili *
             </label>
             <input
@@ -354,13 +354,13 @@ export const Branches = ({ globalQuery }) => {
               value={formData.address}
               onChange={(e) => setFormData({ ...formData, address: e.target.value })}
               placeholder="Toshkent sh., Yunusobod t., Amir Temur ko'chasi 108"
-              className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-white placeholder-slate-500"
+              className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-slate-900 dark:text-white placeholder-slate-500"
             />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
                 Telefon *
               </label>
               <input
@@ -369,12 +369,12 @@ export const Branches = ({ globalQuery }) => {
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 placeholder="+998 71 200 11 22"
-                className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-white placeholder-slate-500"
+                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-slate-900 dark:text-white placeholder-slate-500"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
                 Filial Rahbari
               </label>
               <input
@@ -384,13 +384,13 @@ export const Branches = ({ globalQuery }) => {
                   setFormData({ ...formData, managerName: e.target.value })
                 }
                 placeholder="Ism Familiya"
-                className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-white placeholder-slate-500"
+                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-slate-900 dark:text-white placeholder-slate-500"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-300 mb-1">
+            <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
               Holati
             </label>
             <select
@@ -398,18 +398,18 @@ export const Branches = ({ globalQuery }) => {
               onChange={(e) =>
                 setFormData({ ...formData, status: e.target.value })
               }
-              className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 rounded-xl focus:outline-none text-white font-medium"
+              className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none text-slate-900 dark:text-white font-medium"
             >
-              <option value="Faol" className="bg-[#121214] text-white">Faol</option>
-              <option value="Nofaol" className="bg-[#121214] text-white">Nofaol</option>
+              <option value="Faol" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Faol</option>
+              <option value="Nofaol" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Nofaol</option>
             </select>
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-200 dark:border-white/10">
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="px-4 py-2.5 text-xs font-semibold text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
+              className="px-4 py-2.5 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white hover:bg-slate-100 dark:bg-white/5 rounded-xl transition-colors"
             >
               Bekor qilish
             </button>
@@ -459,7 +459,7 @@ export const Branches = ({ globalQuery }) => {
                       <Star className="w-3.5 h-3.5 fill-amber-400" />
                       <span>{emp.averageRating} ⭐</span>
                     </div>
-                    <span className="text-[10px] text-slate-400">
+                    <span className="text-[10px] text-slate-500 dark:text-slate-400">
                       {emp.totalRatingsCount} ta baho
                     </span>
                   </div>

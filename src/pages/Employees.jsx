@@ -190,11 +190,11 @@ export const Employees = ({ globalQuery }) => {
       {/* Header */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight flex items-center gap-2">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
             <Users className="w-7 h-7 sm:w-8 sm:h-8 text-emerald-400" />
             <span>Xodimlar Katalogi</span>
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Barcha filiallar xodimlari ro'yxati, lavozimlari va shaxsiy kartochkalari
           </p>
         </div>
@@ -211,26 +211,26 @@ export const Employees = ({ globalQuery }) => {
       </div>
 
       {/* Filters Bar */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-[#121214] p-4 rounded-2xl sm:rounded-3xl border border-white/5 shadow-xl">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white dark:bg-[#121214] p-4 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-white/5 shadow-xl">
         <div className="relative">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400" />
           <input
             type="text"
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Ism, familiya yoki telefon..."
-            className="w-full pl-10 pr-4 py-2 text-xs bg-white/5 border border-white/10 focus:border-emerald-500/50 rounded-full text-slate-100 placeholder-slate-500 focus:outline-none"
+            className="w-full pl-10 pr-4 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-emerald-500/50 rounded-full text-slate-100 placeholder-slate-500 focus:outline-none"
           />
         </div>
 
         <select
           value={selectedBranchFilter}
           onChange={(e) => setSelectedBranchFilter(e.target.value)}
-          className="px-3.5 py-2 text-xs bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none font-medium"
+          className="px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:outline-none font-medium"
         >
-          <option value="" className="bg-[#121214] text-white">Barcha Filiallar</option>
+          <option value="" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Barcha Filiallar</option>
           {branches.map((b) => (
-            <option key={b.id} value={b.id} className="bg-[#121214] text-white">
+            <option key={b.id} value={b.id} className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">
               {b.name}
             </option>
           ))}
@@ -239,12 +239,12 @@ export const Employees = ({ globalQuery }) => {
         <select
           value={selectedStatusFilter}
           onChange={(e) => setSelectedStatusFilter(e.target.value)}
-          className="px-3.5 py-2 text-xs bg-white/5 border border-white/10 rounded-xl text-white focus:outline-none font-medium"
+          className="px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:outline-none font-medium"
         >
-          <option value="" className="bg-[#121214] text-white">Barcha Holatlar</option>
-          <option value="Faol" className="bg-[#121214] text-white">Faol</option>
-          <option value="Ta'tilda" className="bg-[#121214] text-white">Ta'tilda</option>
-          <option value="Nofaol" className="bg-[#121214] text-white">Nofaol</option>
+          <option value="" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Barcha Holatlar</option>
+          <option value="Faol" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Faol</option>
+          <option value="Ta'tilda" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Ta'tilda</option>
+          <option value="Nofaol" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Nofaol</option>
         </select>
       </div>
 
@@ -262,10 +262,10 @@ export const Employees = ({ globalQuery }) => {
           }
         />
       ) : (
-        <div className="bg-[#121214] rounded-2xl sm:rounded-3xl border border-white/5 shadow-xl overflow-hidden">
+        <div className="bg-white dark:bg-[#121214] rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-white/5 shadow-xl overflow-hidden">
           <div className="overflow-x-auto custom-scrollbar">
             <table className="w-full text-left text-xs">
-              <thead className="bg-white/5 text-slate-400 font-bold uppercase tracking-wider border-b border-white/10">
+              <thead className="bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-white/10">
                 <tr>
                   <th className="px-5 py-4">Xodim</th>
                   <th className="px-5 py-4">Filial</th>
@@ -276,11 +276,11 @@ export const Employees = ({ globalQuery }) => {
                   <th className="px-5 py-4 text-right">Amallar</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/5 font-medium text-slate-200">
+              <tbody className="divide-y divide-white/5 font-medium text-slate-700 dark:text-slate-200">
                 {filteredEmployees.map((emp) => (
                   <tr
                     key={emp.id}
-                    className="hover:bg-white/5 transition-colors"
+                    className="hover:bg-slate-100 dark:bg-white/5 transition-colors"
                   >
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-3">
@@ -288,10 +288,10 @@ export const Employees = ({ globalQuery }) => {
                           {emp.firstName ? emp.firstName[0].toUpperCase() : 'X'}
                         </div>
                         <div>
-                          <div className="font-bold text-white">
+                          <div className="font-bold text-slate-900 dark:text-white">
                             {emp.firstName} {emp.lastName}
                           </div>
-                          <div className="text-[10px] text-slate-400">
+                          <div className="text-[10px] text-slate-500 dark:text-slate-400">
                             {emp.middleName}
                           </div>
                         </div>
@@ -299,20 +299,20 @@ export const Employees = ({ globalQuery }) => {
                     </td>
 
                     <td className="px-5 py-3.5">
-                      <span className="inline-flex items-center gap-1 text-slate-300">
+                      <span className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-300">
                         <Building2 className="w-3.5 h-3.5 text-emerald-400" />
                         {emp.branchName}
                       </span>
                     </td>
 
                     <td className="px-5 py-3.5">
-                      <span className="inline-flex items-center gap-1 font-semibold text-slate-300">
-                        <Briefcase className="w-3.5 h-3.5 text-slate-400" />
+                      <span className="inline-flex items-center gap-1 font-semibold text-slate-600 dark:text-slate-300">
+                        <Briefcase className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
                         {emp.position}
                       </span>
                     </td>
 
-                    <td className="px-5 py-3.5 text-slate-400 font-mono">
+                    <td className="px-5 py-3.5 text-slate-500 dark:text-slate-400 font-mono">
                       {emp.phone}
                     </td>
 
@@ -344,7 +344,7 @@ export const Employees = ({ globalQuery }) => {
                       <div className="flex items-center justify-end gap-1">
                         <button
                           onClick={() => handleViewProfile(emp)}
-                          className="p-1.5 text-slate-400 hover:text-emerald-400 hover:bg-emerald-500/10 rounded-lg transition-colors"
+                          className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-emerald-400 hover:bg-emerald-500/10 rounded-lg transition-colors"
                           title="Profil va baholar"
                         >
                           <Eye className="w-4 h-4" />
@@ -353,7 +353,7 @@ export const Employees = ({ globalQuery }) => {
                         {hasPermission('xodim_edit') && (
                           <button
                             onClick={() => handleOpenEditModal(emp)}
-                            className="p-1.5 text-slate-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                            className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white hover:bg-slate-100 dark:bg-white/5 rounded-lg transition-colors"
                             title="Tahrirlash"
                           >
                             <Edit2 className="w-4 h-4" />
@@ -363,7 +363,7 @@ export const Employees = ({ globalQuery }) => {
                         {hasPermission('xodim_delete') && (
                           <button
                             onClick={() => handleDelete(emp.id)}
-                            className="p-1.5 text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors"
+                            className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors"
                             title="O'chirish"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -390,7 +390,7 @@ export const Employees = ({ globalQuery }) => {
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
                 Ism *
               </label>
               <input
@@ -399,12 +399,12 @@ export const Employees = ({ globalQuery }) => {
                 value={formData.firstName}
                 onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                 placeholder="Jamshid"
-                className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-white placeholder-slate-500"
+                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-slate-900 dark:text-white placeholder-slate-500"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
                 Familiya *
               </label>
               <input
@@ -413,12 +413,12 @@ export const Employees = ({ globalQuery }) => {
                 value={formData.lastName}
                 onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                 placeholder="Narzullayev"
-                className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-white placeholder-slate-500"
+                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-slate-900 dark:text-white placeholder-slate-500"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
                 Otasining ismi
               </label>
               <input
@@ -426,14 +426,14 @@ export const Employees = ({ globalQuery }) => {
                 value={formData.middleName}
                 onChange={(e) => setFormData({ ...formData, middleName: e.target.value })}
                 placeholder="G'ofurovich"
-                className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-white placeholder-slate-500"
+                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-slate-900 dark:text-white placeholder-slate-500"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
                 Filial *
               </label>
               <select
@@ -447,10 +447,10 @@ export const Employees = ({ globalQuery }) => {
                     branchName: br ? br.name : '',
                   });
                 }}
-                className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 rounded-xl focus:outline-none text-white font-medium"
+                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none text-slate-900 dark:text-white font-medium"
               >
                 {branches.map((b) => (
-                  <option key={b.id} value={b.id} className="bg-[#121214] text-white">
+                  <option key={b.id} value={b.id} className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">
                     {b.name}
                   </option>
                 ))}
@@ -458,7 +458,7 @@ export const Employees = ({ globalQuery }) => {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
                 Lavozim *
               </label>
               <input
@@ -467,14 +467,14 @@ export const Employees = ({ globalQuery }) => {
                 value={formData.position}
                 onChange={(e) => setFormData({ ...formData, position: e.target.value })}
                 placeholder="masalan: Katta sotuvchi menejer"
-                className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-white placeholder-slate-500"
+                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-slate-900 dark:text-white placeholder-slate-500"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
                 Telefon *
               </label>
               <input
@@ -483,26 +483,26 @@ export const Employees = ({ globalQuery }) => {
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 placeholder="+998 90 123 45 67"
-                className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-white placeholder-slate-500"
+                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-slate-900 dark:text-white placeholder-slate-500"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
                 Ishga kirgan sana
               </label>
               <input
                 type="date"
                 value={formData.hireDate}
                 onChange={(e) => setFormData({ ...formData, hireDate: e.target.value })}
-                className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-white"
+                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-slate-900 dark:text-white"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
                 Tizim Logini
               </label>
               <input
@@ -510,12 +510,12 @@ export const Employees = ({ globalQuery }) => {
                 value={formData.username}
                 onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                 placeholder="jamshid_n"
-                className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-white placeholder-slate-500"
+                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-slate-900 dark:text-white placeholder-slate-500"
               />
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-300 mb-1">
+              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
                 Tizim Paroli
               </label>
               <input
@@ -523,13 +523,13 @@ export const Employees = ({ globalQuery }) => {
                 value={formData.password}
                 onChange={(e) => setFormData({ ...formData, password: e.target.value })}
                 placeholder={editingEmp ? "O'zgartirmaslik uchun bo'sh qoldiring" : "123456"}
-                className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-white placeholder-slate-500"
+                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-emerald-500/50 text-slate-900 dark:text-white placeholder-slate-500"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-bold text-slate-300 mb-1">
+            <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
               Holati
             </label>
             <select
@@ -537,19 +537,19 @@ export const Employees = ({ globalQuery }) => {
               onChange={(e) =>
                 setFormData({ ...formData, status: e.target.value })
               }
-              className="w-full px-3.5 py-2.5 text-xs bg-white/5 border border-white/10 rounded-xl focus:outline-none text-white font-medium"
+              className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none text-slate-900 dark:text-white font-medium"
             >
-              <option value="Faol" className="bg-[#121214] text-white">Faol</option>
-              <option value="Ta'tilda" className="bg-[#121214] text-white">Ta'tilda</option>
-              <option value="Nofaol" className="bg-[#121214] text-white">Nofaol</option>
+              <option value="Faol" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Faol</option>
+              <option value="Ta'tilda" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Ta'tilda</option>
+              <option value="Nofaol" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Nofaol</option>
             </select>
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-white/10">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-200 dark:border-white/10">
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="px-4 py-2.5 text-xs font-semibold text-slate-400 hover:text-white hover:bg-white/5 rounded-xl transition-colors"
+              className="px-4 py-2.5 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white hover:bg-slate-100 dark:bg-white/5 rounded-xl transition-colors"
             >
               Bekor qilish
             </button>
@@ -578,13 +578,13 @@ export const Employees = ({ globalQuery }) => {
                 {profileEmp.firstName ? profileEmp.firstName[0].toUpperCase() : 'X'}
               </div>
               <div className="space-y-1">
-                <div className="text-sm font-bold text-white">
+                <div className="text-sm font-bold text-slate-900 dark:text-white">
                   {profileEmp.firstName} {profileEmp.lastName} {profileEmp.middleName}
                 </div>
                 <div className="text-xs text-emerald-400 font-semibold">
                   {profileEmp.position} ({profileEmp.branchName})
                 </div>
-                <div className="flex items-center gap-3 text-xs text-slate-400">
+                <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
                   <span>📞 {profileEmp.phone}</span>
                   <span>📅 Ishga kirgan: {profileEmp.hireDate}</span>
                 </div>
@@ -592,7 +592,7 @@ export const Employees = ({ globalQuery }) => {
             </div>
 
             <div>
-              <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-3">
+              <h4 className="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-3">
                 Baholashlar Tarixi ({profileRatings.length} ta)
               </h4>
 
@@ -605,17 +605,17 @@ export const Employees = ({ globalQuery }) => {
                   {profileRatings.map((r) => (
                     <div
                       key={r.id}
-                      className="p-3.5 rounded-xl bg-white/5 border border-white/5 flex items-start justify-between gap-3"
+                      className="p-3.5 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 flex items-start justify-between gap-3"
                     >
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <StarRating value={r.stars} readonly size="sm" showLabel />
                           <span className="text-[10px] text-slate-500 font-mono">({r.date})</span>
                         </div>
-                        <p className="text-xs text-slate-300 italic">
+                        <p className="text-xs text-slate-600 dark:text-slate-300 italic">
                           "{r.comment}"
                         </p>
-                        <div className="text-[10px] text-slate-400">
+                        <div className="text-[10px] text-slate-500 dark:text-slate-400">
                           Baholadi: {r.ratedByName}
                         </div>
                       </div>

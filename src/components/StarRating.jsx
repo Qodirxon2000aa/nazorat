@@ -46,7 +46,7 @@ export const StarRating = ({
               className={`${starSizes[size]} ${
                 star <= activeValue
                   ? 'fill-amber-400 text-amber-400 drop-shadow-sm'
-                  : 'text-slate-300 dark:text-slate-600'
+                  : 'text-slate-600 dark:text-slate-300 dark:text-slate-600'
               }`}
             />
           </button>

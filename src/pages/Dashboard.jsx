@@ -86,12 +86,12 @@ export const Dashboard = ({ globalQuery }) => {
 
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative z-10">
             <div className="flex items-center gap-4 sm:gap-5">
-              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-indigo-600 to-cyan-400 text-white font-black text-xl sm:text-2xl flex items-center justify-center shadow-xl shadow-indigo-500/30 shrink-0">
+              <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-gradient-to-tr from-indigo-600 to-cyan-400 text-slate-900 dark:text-white font-black text-xl sm:text-2xl flex items-center justify-center shadow-xl shadow-indigo-500/30 shrink-0">
                 {user.name ? user.name[0].toUpperCase() : 'X'}
               </div>
               <div className="space-y-1">
                 <div className="flex items-center gap-3">
-                  <h1 className="text-lg sm:text-xl md:text-2xl font-black text-white">
+                  <h1 className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 dark:text-white">
                     {user.name} {user.surname}
                   </h1>
                   <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
@@ -102,29 +102,29 @@ export const Dashboard = ({ globalQuery }) => {
                   {user.position || 'Xodim'} — {user.branchName || 'Filial'}
                 </p>
                 {user.phone && (
-                  <p className="text-xs text-slate-400">
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
                     📞 Telefon: {user.phone}
                   </p>
                 )}
               </div>
             </div>
 
-            <div className="flex items-center gap-4 bg-slate-900/80 p-4 rounded-2xl border border-slate-800 shrink-0">
+            <div className="flex items-center gap-4 bg-white dark:bg-slate-900/80 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shrink-0">
               <div className="text-center px-3">
                 <div className="text-2xl font-black text-amber-400 flex items-center justify-center gap-1">
                   <span>{myAvgRating}</span>
                   <Star className="w-5 h-5 fill-amber-400" />
                 </div>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">
+                <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mt-0.5">
                   O'rtacha baho
                 </div>
               </div>
               <div className="w-px h-8 bg-slate-800" />
               <div className="text-center px-3">
-                <div className="text-2xl font-black text-white">
+                <div className="text-2xl font-black text-slate-900 dark:text-white">
                   {myRatings.length}
                 </div>
-                <div className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mt-0.5">
+                <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mt-0.5">
                   Jami baholar
                 </div>
               </div>
@@ -134,31 +134,31 @@ export const Dashboard = ({ globalQuery }) => {
 
         {/* Quick Stat Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-          <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-slate-900/80 border border-slate-800 shadow-xl space-y-2">
+          <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-xl space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-400">A'lo baholar (5 ⭐)</span>
+              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">A'lo baholar (5 ⭐)</span>
               <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-400">
                 <Award className="w-5 h-5" />
               </div>
             </div>
-            <div className="text-2xl font-black text-white">{fiveStarCount} ta</div>
+            <div className="text-2xl font-black text-slate-900 dark:text-white">{fiveStarCount} ta</div>
             <div className="text-[11px] text-slate-500">Menejerlar tomonidan e'tirof etilgan</div>
           </div>
 
-          <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-slate-900/80 border border-slate-800 shadow-xl space-y-2">
+          <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-xl space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-400">Jami baholar soni</span>
+              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">Jami baholar soni</span>
               <div className="p-2.5 rounded-xl bg-indigo-500/10 text-indigo-400">
                 <MessageSquare className="w-5 h-5" />
               </div>
             </div>
-            <div className="text-2xl font-black text-white">{myRatings.length} ta</div>
+            <div className="text-2xl font-black text-slate-900 dark:text-white">{myRatings.length} ta</div>
             <div className="text-[11px] text-slate-500">Kunlik baholash davri mobaynida</div>
           </div>
 
-          <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-slate-900/80 border border-slate-800 shadow-xl space-y-2">
+          <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-xl space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-400">Oxirgi olgan bahoyim</span>
+              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">Oxirgi olgan bahoyim</span>
               <div className="p-2.5 rounded-xl bg-emerald-500/10 text-emerald-400">
                 <CheckCircle2 className="w-5 h-5" />
               </div>
@@ -173,13 +173,13 @@ export const Dashboard = ({ globalQuery }) => {
         </div>
 
         {/* My Ratings Timeline */}
-        <div className="p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-slate-900/80 border border-slate-800 shadow-xl space-y-6">
+        <div className="p-5 sm:p-6 md:p-8 rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-xl space-y-6">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-base sm:text-lg font-extrabold text-white">
+              <h2 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">
                 Mening Baholarim va Izohlarim
               </h2>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Menejer va rahbariyat tomonidan berilgan kunlik baholar va bildirilgan izohlar
               </p>
             </div>
@@ -189,9 +189,9 @@ export const Dashboard = ({ globalQuery }) => {
           </div>
 
           {myRatings.length === 0 ? (
-            <div className="text-center py-12 border border-dashed border-slate-800 rounded-2xl p-6">
+            <div className="text-center py-12 border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl p-6">
               <Star className="w-10 h-10 text-slate-600 mx-auto mb-3" />
-              <h3 className="text-sm font-bold text-white">Sizga hali baho qo'yilmagan</h3>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white">Sizga hali baho qo'yilmagan</h3>
               <p className="text-xs text-slate-500 mt-1">
                 Kunlik baholash natijalari berilishi bilan ushbu bo'limda aks etadi.
               </p>
@@ -201,24 +201,24 @@ export const Dashboard = ({ globalQuery }) => {
               {myRatings.map((rating) => (
                 <div
                   key={rating.id}
-                  className="p-5 rounded-2xl bg-slate-950/60 border border-slate-800/80 hover:border-indigo-500/30 transition-all space-y-3"
+                  className="p-5 rounded-2xl bg-slate-50 dark:bg-slate-950/60 border border-slate-200 dark:border-slate-800/80 hover:border-indigo-500/30 transition-all space-y-3"
                 >
                   <div className="flex items-center justify-between flex-wrap gap-2">
                     <div className="flex items-center gap-3">
                       <StarRating value={rating.stars} readonly size="md" showLabel />
-                      <span className="text-xs text-slate-400 flex items-center gap-1">
+                      <span className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
                         <Calendar className="w-3.5 h-3.5 text-slate-500" />
                         {rating.date}
                       </span>
                     </div>
 
-                    <span className="text-xs text-slate-400 bg-slate-900 px-3 py-1 rounded-xl border border-slate-800">
-                      Baholadi: <strong className="text-slate-200">{rating.ratedByName || 'Menejer'}</strong>
+                    <span className="text-xs text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 px-3 py-1 rounded-xl border border-slate-200 dark:border-slate-800">
+                      Baholadi: <strong className="text-slate-700 dark:text-slate-200">{rating.ratedByName || 'Menejer'}</strong>
                     </span>
                   </div>
 
                   {rating.comment && (
-                    <div className="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800/60 text-xs text-slate-200 italic leading-relaxed">
+                    <div className="p-3.5 rounded-xl bg-white dark:bg-slate-900/90 border border-slate-200 dark:border-slate-800/60 text-xs text-slate-700 dark:text-slate-200 italic leading-relaxed">
                       "{rating.comment}"
                     </div>
                   )}
@@ -301,10 +301,10 @@ export const Dashboard = ({ globalQuery }) => {
       {/* Title & Actions Bar */}
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-white tracking-tight">
+          <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Boshqaruv Paneli
           </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Filiallar faoliyati va xodimlarning kunlik baholash tahlili
           </p>
         </div>
@@ -320,7 +320,7 @@ export const Dashboard = ({ globalQuery }) => {
 
           <button
             onClick={() => navigate('/employees')}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 text-white font-semibold text-xs transition-all cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-semibold text-xs transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>Xodim qo'shish</span>
@@ -336,17 +336,17 @@ export const Dashboard = ({ globalQuery }) => {
             <div
               key={i}
               onClick={() => navigate(card.link)}
-              className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-[#121214] border border-white/5 hover:border-indigo-500/30 transition-all shadow-xl cursor-pointer group"
+              className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 hover:border-indigo-500/30 transition-all shadow-xl cursor-pointer group"
             >
               <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-bold text-slate-400 group-hover:text-white transition-colors">
+                <span className="text-xs font-bold text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:text-white transition-colors">
                   {card.title}
                 </span>
-                <div className="p-3 rounded-2xl bg-indigo-500/10 text-indigo-400 group-hover:bg-indigo-600 group-hover:text-white transition-all shadow-lg">
+                <div className="p-3 rounded-2xl bg-indigo-500/10 text-indigo-400 group-hover:bg-indigo-600 group-hover:text-slate-900 dark:text-white transition-all shadow-lg">
                   <Icon className="w-5 h-5" />
                 </div>
               </div>
-              <div className="text-2xl sm:text-3xl font-black text-white mb-1 tracking-tight">
+              <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mb-1 tracking-tight">
                 {card.value}
               </div>
               <p className="text-[11px] font-medium text-slate-500">
@@ -363,15 +363,15 @@ export const Dashboard = ({ globalQuery }) => {
           return (
             <div
               key={i}
-              className="p-4 sm:p-5 rounded-2xl bg-white/5 border border-white/5 space-y-2"
+              className="p-4 sm:p-5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 space-y-2"
             >
               <div className="flex items-center justify-between text-xs">
-                <span className="font-semibold text-slate-400">{card.title}</span>
-                <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-white/10 text-slate-300">
+                <span className="font-semibold text-slate-500 dark:text-slate-400">{card.title}</span>
+                <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-200 dark:bg-white/10 text-slate-600 dark:text-slate-300">
                   {card.badge}
                 </span>
               </div>
-              <div className="text-lg sm:text-xl font-bold text-white">{card.value}</div>
+              <div className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">{card.value}</div>
               <div className="text-[10px] text-slate-500">{card.subText}</div>
             </div>
           );
@@ -381,13 +381,13 @@ export const Dashboard = ({ globalQuery }) => {
       {/* Main Content Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Branch Rankings Chart */}
-        <div className="lg:col-span-2 p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-[#121214] border border-white/5 shadow-xl space-y-6">
+        <div className="lg:col-span-2 p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 shadow-xl space-y-6">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-base font-bold text-white">
+              <h2 className="text-base font-bold text-slate-900 dark:text-white">
                 Filiallar Reytingi Tahlili
               </h2>
-              <p className="text-xs text-slate-400 mt-0.5">
+              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                 Barcha filiallarning o'rtacha ballar bo'yicha o'rni
               </p>
             </div>
@@ -420,9 +420,9 @@ export const Dashboard = ({ globalQuery }) => {
         </div>
 
         {/* Recent Ratings Timeline */}
-        <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-[#121214] border border-white/5 shadow-xl space-y-6">
+        <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 shadow-xl space-y-6">
           <div className="flex items-center justify-between">
-            <h2 className="text-base font-bold text-white">
+            <h2 className="text-base font-bold text-slate-900 dark:text-white">
               Oxirgi Baholar
             </h2>
             <button
@@ -437,13 +437,13 @@ export const Dashboard = ({ globalQuery }) => {
             {recentRatings.map((rating) => (
               <div
                 key={rating.id}
-                className="p-3.5 rounded-2xl bg-white/5 border border-white/5 space-y-2 text-xs"
+                className="p-3.5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 space-y-2 text-xs"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-bold text-white">{rating.employeeName}</span>
+                  <span className="font-bold text-slate-900 dark:text-white">{rating.employeeName}</span>
                   <StarRating value={rating.stars} readonly size="sm" />
                 </div>
-                <div className="text-slate-400 text-[11px] truncate">
+                <div className="text-slate-500 dark:text-slate-400 text-[11px] truncate">
                   "{rating.comment || 'Izoh yo\'q'}"
                 </div>
                 <div className="flex items-center justify-between text-[10px] text-slate-500 pt-1">
