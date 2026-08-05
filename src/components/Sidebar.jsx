@@ -79,11 +79,11 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
         <div className="flex items-center gap-3 overflow-hidden">
           {(!collapsed || mobileOpen) ? (
             <div className="flex items-center justify-center w-full mt-2">
-              <Logo className="w-14 h-auto drop-shadow-sm" />
+              <Logo className="h-16 w-auto drop-shadow-sm" />
             </div>
           ) : (
             <div className="flex items-center justify-center w-full">
-              <Logo iconOnly className="w-8 h-auto drop-shadow-sm" />
+              <Logo iconOnly className="h-10 w-auto drop-shadow-sm" />
             </div>
           )}
         </div>

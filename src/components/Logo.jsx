@@ -3,7 +3,7 @@ import React from 'react';
 export const Logo = ({ className = "w-24 h-32", iconOnly = false }) => {
   if (iconOnly) {
     return (
-      <svg viewBox="0 0 300 300" className={className} xmlns="http://www.w3.org/2000/svg">
+      <svg viewBox="60 60 180 230" className={className} xmlns="http://www.w3.org/2000/svg">
         <g stroke="#C6A45C" strokeWidth="14" strokeLinecap="round" strokeLinejoin="round" fill="none">
           <path d="M150 110 C150 70, 190 70, 190 70 C190 110, 150 110, 150 110 Z" fill="#C6A45C" />
           <path d="M115 150 C115 110, 150 110, 150 110 C150 150, 185 140, 185 150" />
@@ -16,7 +16,7 @@ export const Logo = ({ className = "w-24 h-32", iconOnly = false }) => {
   }
 
   return (
-    <svg viewBox="0 0 300 400" className={className} xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="40 60 220 330" className={className} xmlns="http://www.w3.org/2000/svg">
       <g stroke="#C6A45C" strokeWidth="12" strokeLinecap="round" strokeLinejoin="round" fill="none">
         <path d="M150 110 C150 70, 190 70, 190 70 C190 110, 150 110, 150 110 Z" fill="#C6A45C" />
         <path d="M115 150 C115 110, 150 110, 150 110 C150 150, 185 140, 185 150" />
@@ -27,7 +27,7 @@ export const Logo = ({ className = "w-24 h-32", iconOnly = false }) => {
       
       <text x="150" y="340" fontFamily="Arial, Helvetica, sans-serif" fontSize="72" fontWeight="900" fill="currentColor" className="text-[#0F4C3A] dark:text-emerald-400" textAnchor="middle" letterSpacing="12">SORA</text>
       
-      <text x="150" y="380" fontFamily="Arial, Helvetica, sans-serif" fontSize="22" fontWeight="700" fill="#C6A45C" textAnchor="middle" letterSpacing="5">CAKE &amp; BAKERY</text>
+      <text x="150" y="380" fontFamily="Arial, Helvetica, sans-serif" fontSize="26" fontWeight="700" fill="#C6A45C" textAnchor="middle" letterSpacing="4">CAKE &amp; BAKERY</text>
     </svg>
   );
 };
