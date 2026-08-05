@@ -68,7 +68,7 @@ export const DailyRatingPage = () => {
         emps.forEach((emp) => {
           const existing = ratings.find((r) => r.employeeId === emp.id);
           drafts[emp.id] = {
-            stars: existing ? existing.stars : 5,
+            stars: existing ? existing.stars : 0,
             comment: existing ? existing.comment : '',
             submitting: false,
           };
@@ -114,7 +114,11 @@ export const DailyRatingPage = () => {
 
   const handleSaveRating = async (emp) => {
     const draft = ratingDrafts[emp.id];
-    if (!draft || !draft.comment.trim()) {
+    if (!draft || draft.stars === 0) {
+      addToast('warning', 'Iltimos, yulduzli bahoni tanlang!');
+      return;
+    }
+    if (!draft.comment.trim()) {
       addToast('warning', 'Iltimos, xodimga nisbatan izoh yozing!');
       return;
     }
@@ -247,7 +251,7 @@ export const DailyRatingPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filteredEmployees.map((emp) => {
             const existingRating = todayRatings.find((r) => r.employeeId === emp.id);
-            const draft = ratingDrafts[emp.id] || { stars: 5, comment: '', submitting: false };
+            const draft = ratingDrafts[emp.id] || { stars: 0, comment: '', submitting: false };
 
             return (
               <div
