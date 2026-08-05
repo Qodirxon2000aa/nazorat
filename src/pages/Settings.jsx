@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Settings as SettingsIcon, User, Lock, Moon, Sun, Save, ShieldAlert } from 'lucide-react';
+import { api } from '../services/api';
 import { useAuth } from '../context/AuthContext';
 import { useTheme } from '../context/ThemeContext';
 
@@ -16,23 +17,40 @@ export const SettingsPage = () => {
 
   const [savedMsg, setSavedMsg] = useState('');
 
-  const handleSaveProfile = (e) => {
+  const handleSaveProfile = async (e) => {
     e.preventDefault();
-    setSavedMsg("Profil ma'lumotlari saqlandi!");
-    setTimeout(() => setSavedMsg(''), 3000);
+    try {
+      await api.updateProfile({ name, surname });
+      setSavedMsg("Profil ma'lumotlari saqlandi!");
+      setTimeout(() => setSavedMsg(''), 3000);
+      
+      // Update local storage user data conditionally if needed, 
+      // but let's just let them see the success for now.
+      if (user) {
+        user.name = name;
+        user.surname = surname;
+      }
+    } catch (error) {
+      alert(error.message || "Xatolik yuz berdi");
+    }
   };
 
-  const handleSavePassword = (e) => {
+  const handleSavePassword = async (e) => {
     e.preventDefault();
     if (newPassword !== confirmPassword) {
       alert('Yangi parollar mos kelmadi!');
       return;
     }
-    setSavedMsg("Parol muvaffaqiyatli o'zgartirildi!");
-    setCurrentPassword('');
-    setNewPassword('');
-    setConfirmPassword('');
-    setTimeout(() => setSavedMsg(''), 3000);
+    try {
+      await api.updatePassword({ currentPassword, newPassword });
+      setSavedMsg("Parol muvaffaqiyatli o'zgartirildi!");
+      setCurrentPassword('');
+      setNewPassword('');
+      setConfirmPassword('');
+      setTimeout(() => setSavedMsg(''), 3000);
+    } catch (error) {
+      alert(error.message || "Parolni o'zgartirishda xatolik");
+    }
   };
 
   return (

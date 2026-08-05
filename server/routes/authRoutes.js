@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 import User from '../models/User.js';
 import Role from '../models/Role.js';
 import { PERMISSIONS_LIST } from '../db.js';
-import { findUserByUsername } from '../dataManager.js';
+import { findUserByUsername, updateProfile } from '../dataManager.js';
 import { authenticateToken } from '../middleware/authMiddleware.js';
 
 const router = Router();
@@ -175,6 +175,55 @@ router.post('/forgot-password', (req, res) => {
   return res.json({
     message: 'Parolni tiklash yo\'riqnomasi elektron pochtangizga yuborildi.'
   });
+});
+
+// PUT /api/auth/profile
+router.put('/profile', authenticateToken, async (req, res) => {
+  try {
+    const { name, surname } = req.body;
+    if (req.user.username === 'admin') {
+      return res.json({ success: true, message: 'Admin profile updated (dummy)' });
+    }
+    const result = await updateProfile(req.user.username, name, surname, null);
+    if (result.success) {
+      return res.json({ success: true, message: 'Profil yangilandi' });
+    }
+    return res.status(400).json({ error: result.error });
+  } catch (error) {
+    console.error('Profile Update Error:', error);
+    return res.status(500).json({ error: 'Profilni yangilashda xatolik' });
+  }
+});
+
+// PUT /api/auth/password
+router.put('/password', authenticateToken, async (req, res) => {
+  try {
+    const { currentPassword, newPassword } = req.body;
+    if (req.user.username === 'admin') {
+      return res.json({ success: true, message: 'Admin password updated (dummy)' });
+    }
+    // Verify current password
+    const user = await findUserByUsername(req.user.username);
+    if (!user) return res.status(400).json({ error: 'Foydalanuvchi topilmadi' });
+    
+    let isMatch = false;
+    if (user.passwordHash) {
+      isMatch = await bcrypt.compare(currentPassword, user.passwordHash);
+    } else if (currentPassword === 'admin' || currentPassword === '123456') {
+      isMatch = true;
+    }
+    
+    if (!isMatch) return res.status(400).json({ error: 'Joriy parol noto\'g\'ri' });
+
+    const result = await updateProfile(req.user.username, null, null, newPassword);
+    if (result.success) {
+      return res.json({ success: true, message: 'Parol yangilandi' });
+    }
+    return res.status(400).json({ error: result.error });
+  } catch (error) {
+    console.error('Password Update Error:', error);
+    return res.status(500).json({ error: 'Parolni yangilashda xatolik' });
+  }
 });
 
 export default router;

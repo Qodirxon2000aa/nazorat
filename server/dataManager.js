@@ -587,3 +587,67 @@ export const deleteRole = async (id) => {
   saveLocalData(local);
   return true;
 };
+import { readLocalData, saveLocalData, isDbConnected } from '../dataManager.js';
+import User from '../models/User.js';
+import Employee from '../models/Employee.js';
+
+export const updateProfile = async (username, name, surname, newPassword) => {
+  const cleanU = String(username || '').trim().toLowerCase();
+  
+  if (isDbConnected()) {
+    try {
+      const dbUser = await User.findOne({ username: cleanU });
+      if (dbUser) {
+        if (name) dbUser.name = name;
+        if (surname) dbUser.surname = surname;
+        if (newPassword) {
+            const bcrypt = (await import('bcryptjs')).default;
+            dbUser.passwordHash = bcrypt.hashSync(newPassword, 10);
+        }
+        await dbUser.save();
+        return { success: true };
+      }
+
+      const dbEmp = await Employee.findOne({ username: cleanU });
+      if (dbEmp) {
+        if (name) dbEmp.firstName = name;
+        if (surname) dbEmp.lastName = surname;
+        if (newPassword) {
+            const bcrypt = (await import('bcryptjs')).default;
+            dbEmp.passwordHash = bcrypt.hashSync(newPassword, 10);
+        }
+        await dbEmp.save();
+        return { success: true };
+      }
+    } catch (e) {
+      console.warn('DB profile update error:', e.message);
+    }
+  }
+
+  const local = readLocalData();
+  const user = (local.users || []).find(u => String(u.username || '').toLowerCase() === cleanU);
+  if (user) {
+    if (name) user.name = name;
+    if (surname) user.surname = surname;
+    if (newPassword) {
+        const bcrypt = (await import('bcryptjs')).default;
+        user.passwordHash = bcrypt.hashSync(newPassword, 10);
+    }
+    saveLocalData(local);
+    return { success: true };
+  }
+  
+  const emp = (local.employees || []).find(e => String(e.username || '').toLowerCase() === cleanU);
+  if (emp) {
+    if (name) emp.firstName = name;
+    if (surname) emp.lastName = surname;
+    if (newPassword) {
+        const bcrypt = (await import('bcryptjs')).default;
+        emp.passwordHash = bcrypt.hashSync(newPassword, 10);
+    }
+    saveLocalData(local);
+    return { success: true };
+  }
+
+  return { success: false, error: 'Foydalanuvchi topilmadi' };
+};

@@ -42,6 +42,24 @@ export const api = {
     return parseResponse(res);
   },
 
+  async updateProfile(profileData) {
+    const res = await fetch(`${API_BASE}/api/auth/profile`, {
+      method: 'PUT',
+      headers: getHeaders(),
+      body: JSON.stringify(profileData),
+    });
+    return parseResponse(res);
+  },
+
+  async updatePassword(passwordData) {
+    const res = await fetch(`${API_BASE}/api/auth/password`, {
+      method: 'PUT',
+      headers: getHeaders(),
+      body: JSON.stringify(passwordData),
+    });
+    return parseResponse(res);
+  },
+
   async forgotPassword(email) {
     const res = await fetch(`${API_BASE}/api/auth/forgot-password`, {
       method: 'POST',
