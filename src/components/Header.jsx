@@ -56,12 +56,12 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
   };
 
   return (
-    <header className="sticky top-0 z-30 flex items-center justify-between h-16 sm:h-20 px-3 sm:px-6 lg:px-8 bg-slate-50 dark:bg-[#09090b]/90 backdrop-blur-xl border-b border-slate-200 dark:border-white/10 transition-colors">
+    <header className="sticky top-0 z-30 flex items-center justify-between h-16 sm:h-20 px-3 sm:px-6 lg:px-8 bg-slate-50 dark:bg-[#020617]/90 backdrop-blur-xl border-b border-slate-200 dark:border-slate-700 transition-colors">
       {/* Mobile Hamburger & Welcome / Search */}
       <div className="flex items-center gap-2 sm:gap-4 flex-1 max-w-xl">
         <button
           onClick={onToggleMobileSidebar}
-          className="md:hidden p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:bg-white/10 border border-slate-200 dark:border-white/10 transition-colors shrink-0"
+          className="md:hidden p-2 rounded-xl text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:bg-white/10 border border-slate-200 dark:border-slate-700 transition-colors shrink-0"
           title="Menyu"
         >
           <Menu className="w-5 h-5" />
@@ -83,7 +83,7 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
             value={globalQuery || ''}
             onChange={(e) => setGlobalQuery && setGlobalQuery(e.target.value)}
             placeholder="Qidiruv..."
-            className="w-full pl-8 sm:pl-10 pr-3 py-1.5 sm:py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-blue-500/50 rounded-full text-slate-100 placeholder-slate-500 focus:outline-none transition-all"
+            className="w-full pl-8 sm:pl-10 pr-3 py-1.5 sm:py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 focus:border-blue-500/50 rounded-full text-slate-100 placeholder-slate-500 focus:outline-none transition-all"
           />
         </div>
       </div>
@@ -101,7 +101,7 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
         {/* Theme Toggle Button */}
         <button
           onClick={toggleTheme}
-          className="p-2.5 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 transition-colors relative"
+          className="p-2.5 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-800 transition-colors relative"
           title={theme === 'dark' ? "Yorug' rejim" : 'Qorong\'u rejim'}
         >
           {theme === 'dark' ? (
@@ -115,17 +115,17 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
         <div className="relative">
           <button
             onClick={() => setShowNotifs(!showNotifs)}
-            className="p-2.5 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 transition-colors relative"
+            className="p-2.5 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-800 transition-colors relative"
           >
             <Bell className="w-4 h-4" />
             {unreadCount > 0 && (
-              <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-blue-400 ring-2 ring-[#09090b]" />
+              <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-blue-400 ring-2 ring-[#020617]" />
             )}
           </button>
 
           {showNotifs && (
-            <div className="absolute right-0 mt-3 w-80 bg-white dark:bg-[#121214] rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10 z-50 overflow-hidden">
-              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-white/10 bg-slate-100 dark:bg-white/5">
+            <div className="absolute right-0 mt-3 w-80 bg-white dark:bg-[#0f172a] rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 z-50 overflow-hidden">
+              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-white/5">
                 <span className="text-xs font-bold text-slate-900 dark:text-white">
                   Bildirishnomalar
                 </span>
@@ -180,7 +180,7 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
         <div className="relative">
           <button
             onClick={() => setShowProfileMenu(!showProfileMenu)}
-            className="flex items-center gap-3 p-1.5 rounded-2xl hover:bg-slate-100 dark:bg-white/5 border border-transparent hover:border-slate-200 dark:border-white/10 transition-colors"
+            className="flex items-center gap-3 p-1.5 rounded-2xl hover:bg-slate-100 dark:bg-white/5 border border-transparent hover:border-slate-200 dark:border-slate-700 transition-colors"
           >
             <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-500 to-teal-400 text-black font-extrabold flex items-center justify-center text-xs shadow-md shadow-blue-500/20">
               {user?.name?.[0] || 'U'}
@@ -197,8 +197,8 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
           </button>
 
           {showProfileMenu && (
-            <div className="absolute right-0 mt-3 w-56 bg-white dark:bg-[#121214] rounded-2xl shadow-2xl border border-slate-200 dark:border-white/10 z-50 p-2 space-y-1">
-              <div className="p-3 border-b border-slate-200 dark:border-white/10">
+            <div className="absolute right-0 mt-3 w-56 bg-white dark:bg-[#0f172a] rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 z-50 p-2 space-y-1">
+              <div className="p-3 border-b border-slate-200 dark:border-slate-700">
                 <div className="text-xs font-bold text-slate-900 dark:text-white">
                   {user?.name} {user?.surname}
                 </div>

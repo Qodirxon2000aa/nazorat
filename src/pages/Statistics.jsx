@@ -97,7 +97,7 @@ export const Statistics = () => {
       </div>
 
       {/* Filter Bar */}
-      <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 shadow-xl space-y-4">
+      <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xl space-y-4">
         {/* Quick Filter Pills */}
         <div className="flex items-center gap-2 overflow-x-auto pb-1 custom-scrollbar">
           {quickFilterButtons.map((btn) => (
@@ -116,17 +116,17 @@ export const Statistics = () => {
         </div>
 
         {/* Dropdowns & Custom Date Inputs */}
-        <div className="flex flex-wrap items-center gap-4 pt-3 border-t border-slate-200 dark:border-white/10">
+        <div className="flex flex-wrap items-center gap-4 pt-3 border-t border-slate-200 dark:border-slate-700">
           <div className="flex items-center gap-2">
             <Building2 className="w-4 h-4 text-blue-700 dark:text-blue-400" />
             <select
               value={selectedBranchId}
               onChange={(e) => setSelectedBranchId(e.target.value)}
-              className="px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white font-bold focus:outline-none"
+              className="px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white font-bold focus:outline-none"
             >
-              <option value="" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Barcha Filiallar</option>
+              <option value="" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Barcha Filiallar</option>
               {branches.map((b) => (
-                <option key={b.id} value={b.id} className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">
+                <option key={b.id} value={b.id} className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">
                   {b.name}
                 </option>
               ))}
@@ -140,14 +140,14 @@ export const Statistics = () => {
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="px-3 py-1.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:outline-none"
+                className="px-3 py-1.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:outline-none"
               />
               <span className="text-xs text-slate-700 dark:text-slate-300 font-bold">—</span>
               <input
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                className="px-3 py-1.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:outline-none"
+                className="px-3 py-1.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:outline-none"
               />
             </div>
           )}
@@ -161,7 +161,7 @@ export const Statistics = () => {
         <div className="space-y-8">
           {/* Leaders Showcase Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 hover:border-blue-500/30 transition-all text-slate-900 dark:text-white shadow-xl group">
+            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 hover:border-blue-500/30 transition-all text-slate-900 dark:text-white shadow-xl group">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Eng Yuqori Xodim</span>
                 <div className="p-2 rounded-xl bg-blue-500/10 text-blue-700 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
@@ -178,7 +178,7 @@ export const Statistics = () => {
               </div>
             </div>
 
-            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 hover:border-blue-500/30 transition-all text-slate-900 dark:text-white shadow-xl group">
+            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 hover:border-blue-500/30 transition-all text-slate-900 dark:text-white shadow-xl group">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Eng Past Xodim</span>
                 <div className="p-2 rounded-xl bg-blue-500/10 text-blue-700 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
@@ -195,7 +195,7 @@ export const Statistics = () => {
               </div>
             </div>
 
-            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 hover:border-blue-500/30 transition-all text-slate-900 dark:text-white shadow-xl group">
+            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 hover:border-blue-500/30 transition-all text-slate-900 dark:text-white shadow-xl group">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Eng Yaxshi Filial</span>
                 <div className="p-2 rounded-xl bg-blue-500/10 text-blue-700 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
@@ -212,7 +212,7 @@ export const Statistics = () => {
               </div>
             </div>
 
-            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 hover:border-blue-500/30 transition-all text-slate-900 dark:text-white shadow-xl group">
+            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 hover:border-blue-500/30 transition-all text-slate-900 dark:text-white shadow-xl group">
               <div className="flex items-center justify-between mb-2">
                 <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Eng Sust Filial</span>
                 <div className="p-2 rounded-xl bg-blue-500/10 text-blue-700 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
@@ -232,7 +232,7 @@ export const Statistics = () => {
 
           {/* Charts Row 1: Line Chart & Pie Chart */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className="lg:col-span-2 p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 shadow-xl">
+            <div className="lg:col-span-2 p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xl">
               <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1">
                 Oylik va Dinamik O'rtacha Reyting (Area Chart)
               </h3>
@@ -275,7 +275,7 @@ export const Statistics = () => {
             </div>
 
             {/* Rating Distribution Pie Chart */}
-            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 shadow-xl flex flex-col items-center justify-between">
+            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xl flex flex-col items-center justify-between">
               <div className="w-full text-left">
                 <h3 className="text-base font-bold text-slate-900 dark:text-white">
                   Baholar Taqsimoti (Pie Chart)
@@ -333,7 +333,7 @@ export const Statistics = () => {
           {/* Leaderboards Tables */}
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Top 10 Employees */}
-            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 shadow-xl">
+            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xl">
               <h3 className="text-base font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                 <Award className="w-5 h-5 text-amber-400" />
                 <span>Top 10 Xodimlar Reytingi</span>
@@ -384,7 +384,7 @@ export const Statistics = () => {
             </div>
 
             {/* Branch Rating Performance */}
-            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 shadow-xl">
+            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xl">
               <h3 className="text-base font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
                 <Building2 className="w-5 h-5 text-blue-700 dark:text-blue-400" />
                 <span>Filiallar Reytingi</span>
@@ -417,8 +417,8 @@ export const Statistics = () => {
           </div>
 
           {/* Section: Umumiy Jamlangan Ballar (Accumulated Total Points Leaderboard) */}
-          <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-blue-500/20 shadow-2xl space-y-4">
-            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 dark:border-white/10 pb-4">
+          <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-blue-500/20 shadow-2xl space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 dark:border-slate-700 pb-4">
               <div>
                 <h3 className="text-lg font-black text-slate-900 dark:text-white flex items-center gap-2">
                   <Trophy className="w-6 h-6 text-amber-400" />
@@ -435,7 +435,7 @@ export const Statistics = () => {
 
             <div className="overflow-x-auto custom-scrollbar">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-white/10">
+                <thead className="bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-slate-700">
                   <tr>
                     <th className="px-4 py-3">O'rin</th>
                     <th className="px-4 py-3">Xodim</th>

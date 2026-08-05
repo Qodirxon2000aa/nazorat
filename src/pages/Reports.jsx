@@ -217,7 +217,7 @@ export const Reports = () => {
 
           <button
             onClick={exportToCSV}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:bg-slate-200 dark:bg-white/10 text-slate-900 dark:text-white font-bold text-xs transition-all cursor-pointer"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 hover:bg-slate-200 dark:bg-white/10 text-slate-900 dark:text-white font-bold text-xs transition-all cursor-pointer"
           >
             <Download className="w-4 h-4" />
             <span>CSV</span>
@@ -225,7 +225,7 @@ export const Reports = () => {
 
           <button
             onClick={handlePrint}
-            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white font-semibold text-xs hover:bg-slate-200 dark:bg-white/10 transition-all cursor-pointer"
+            className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:text-white font-semibold text-xs hover:bg-slate-200 dark:bg-white/10 transition-all cursor-pointer"
           >
             <Printer className="w-4 h-4" />
             <span>Chop etish</span>
@@ -234,7 +234,7 @@ export const Reports = () => {
       </div>
 
       {/* Report Options & Filter Controls */}
-      <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 shadow-xl space-y-4">
+      <div className="p-4 sm:p-5 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xl space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div>
             <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5">
@@ -243,13 +243,13 @@ export const Reports = () => {
             <select
               value={reportType}
               onChange={(e) => setReportType(e.target.value)}
-              className="w-full px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white font-bold focus:outline-none cursor-pointer"
+              className="w-full px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white font-bold focus:outline-none cursor-pointer"
             >
-              <option value="daily" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Kunlik Hisobot</option>
-              <option value="weekly" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Haftalik Hisobot</option>
-              <option value="monthly" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Oylik Hisobot</option>
-              <option value="yearly" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Yillik Hisobot</option>
-              <option value="custom" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Ixtiyoriy sana oralig'i</option>
+              <option value="daily" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Kunlik Hisobot</option>
+              <option value="weekly" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Haftalik Hisobot</option>
+              <option value="monthly" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Oylik Hisobot</option>
+              <option value="yearly" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Yillik Hisobot</option>
+              <option value="custom" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Ixtiyoriy sana oralig'i</option>
             </select>
           </div>
 
@@ -260,11 +260,11 @@ export const Reports = () => {
             <select
               value={selectedBranchId}
               onChange={(e) => setSelectedBranchId(e.target.value)}
-              className="w-full px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white font-bold focus:outline-none cursor-pointer"
+              className="w-full px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white font-bold focus:outline-none cursor-pointer"
             >
-              <option value="" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Barcha Filiallar</option>
+              <option value="" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Barcha Filiallar</option>
               {branches.map((b) => (
-                <option key={b.id} value={b.id} className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">
+                <option key={b.id} value={b.id} className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">
                   {b.name}
                 </option>
               ))}
@@ -282,14 +282,14 @@ export const Reports = () => {
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
                 placeholder="Xodim yoki filial nomi..."
-                className="w-full pl-10 pr-4 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-blue-500/50 rounded-xl text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none"
+                className="w-full pl-10 pr-4 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 focus:border-blue-500/50 rounded-xl text-slate-900 dark:text-white placeholder-slate-500 focus:outline-none"
               />
             </div>
           </div>
         </div>
 
         {reportType === 'custom' && (
-          <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-200 dark:border-white/10">
+          <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-200 dark:border-slate-700">
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4 text-blue-700 dark:text-blue-400" />
               <span className="text-xs text-slate-700 dark:text-slate-300 font-bold">Boshlanish:</span>
@@ -297,7 +297,7 @@ export const Reports = () => {
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
-                className="px-3 py-1.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:outline-none"
+                className="px-3 py-1.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:outline-none"
               />
             </div>
             <span className="text-xs text-slate-700 dark:text-slate-300 font-bold">—</span>
@@ -307,7 +307,7 @@ export const Reports = () => {
                 type="date"
                 value={endDate}
                 onChange={(e) => setEndDate(e.target.value)}
-                className="px-3 py-1.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:outline-none"
+                className="px-3 py-1.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:outline-none"
               />
             </div>
           </div>
@@ -320,8 +320,8 @@ export const Reports = () => {
       ) : reportRows.length === 0 ? (
         <EmptyState description="Ushbu davr bo'yicha hisobot ma'lumotlari topilmadi." />
       ) : (
-        <div className="bg-white dark:bg-[#121214] rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-white/5 shadow-xl overflow-hidden printable-area">
-          <div className="p-4 bg-slate-100 dark:bg-white/5 border-b border-slate-200 dark:border-white/5 flex flex-wrap items-center justify-between gap-2 text-xs font-bold text-slate-600 dark:text-slate-300">
+        <div className="bg-white dark:bg-[#0f172a] rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl overflow-hidden printable-area">
+          <div className="p-4 bg-slate-100 dark:bg-white/5 border-b border-slate-200 dark:border-slate-800 flex flex-wrap items-center justify-between gap-2 text-xs font-bold text-slate-600 dark:text-slate-300">
             <span>
               Hisobot Yozuvlari Soni: {reportRows.length} ta yozuv
             </span>
@@ -336,7 +336,7 @@ export const Reports = () => {
 
           <div className="overflow-x-auto custom-scrollbar">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-white/5">
+              <thead className="bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-slate-800">
                 <tr>
                   <th className="px-4 py-3">№</th>
                   <th className="px-4 py-3">Sana</th>

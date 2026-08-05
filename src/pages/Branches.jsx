@@ -166,7 +166,7 @@ export const Branches = ({ globalQuery }) => {
       </div>
 
       {/* Search & Filters */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-[#121214] p-4 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-white/5 shadow-xl">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 bg-white dark:bg-[#0f172a] p-4 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl">
         <div className="relative w-full sm:w-80">
           <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700 dark:text-slate-300 font-bold" />
           <input
@@ -174,7 +174,7 @@ export const Branches = ({ globalQuery }) => {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Filial nomi yoki rahbari bo'yicha qidirish..."
-            className="w-full pl-10 pr-4 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-blue-500/50 rounded-full text-slate-100 placeholder-slate-500 focus:outline-none"
+            className="w-full pl-10 pr-4 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 focus:border-blue-500/50 rounded-full text-slate-100 placeholder-slate-500 focus:outline-none"
           />
         </div>
 
@@ -183,11 +183,11 @@ export const Branches = ({ globalQuery }) => {
           <select
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
-            className="px-3 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:outline-none font-bold"
+            className="px-3 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl text-slate-900 dark:text-white focus:outline-none font-bold"
           >
-            <option value="barchasi" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Barchasi</option>
-            <option value="Faol" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Faol</option>
-            <option value="Nofaol" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Nofaol</option>
+            <option value="barchasi" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Barchasi</option>
+            <option value="Faol" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Faol</option>
+            <option value="Nofaol" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Nofaol</option>
           </select>
         </div>
       </div>
@@ -210,7 +210,7 @@ export const Branches = ({ globalQuery }) => {
           {filteredBranches.map((b) => (
             <div
               key={b.id}
-              className="group relative rounded-2xl sm:rounded-3xl p-5 sm:p-6 bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 hover:border-blue-500/30 shadow-xl transition-all duration-300 flex flex-col justify-between"
+              className="group relative rounded-2xl sm:rounded-3xl p-5 sm:p-6 bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 hover:border-blue-500/30 shadow-xl transition-all duration-300 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-start justify-between gap-2 mb-3">
@@ -245,7 +245,7 @@ export const Branches = ({ globalQuery }) => {
                   </span>
                 </div>
 
-                <div className="space-y-2 py-3 border-y border-slate-200 dark:border-white/5 my-3 text-xs">
+                <div className="space-y-2 py-3 border-y border-slate-200 dark:border-slate-800 my-3 text-xs">
                   <div className="flex items-center justify-between text-slate-700 dark:text-slate-300 font-bold">
                     <span className="flex items-center gap-1.5">
                       <Users className="w-3.5 h-3.5 text-slate-700 font-bold" /> Xodimlar:
@@ -316,7 +316,7 @@ export const Branches = ({ globalQuery }) => {
               value={formData.name}
               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
               placeholder="masalan: Toshkent Markaziy Filiali"
-              className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
+              className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
             />
           </div>
 
@@ -330,7 +330,7 @@ export const Branches = ({ globalQuery }) => {
               value={formData.address}
               onChange={(e) => setFormData({ ...formData, address: e.target.value })}
               placeholder="Toshkent sh., Yunusobod t., Amir Temur ko'chasi 108"
-              className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
+              className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
             />
           </div>
 
@@ -345,14 +345,14 @@ export const Branches = ({ globalQuery }) => {
               onChange={(e) =>
                 setFormData({ ...formData, status: e.target.value })
               }
-              className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none text-slate-900 dark:text-white font-bold"
+              className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none text-slate-900 dark:text-white font-bold"
             >
-              <option value="Faol" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Faol</option>
-              <option value="Nofaol" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Nofaol</option>
+              <option value="Faol" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Faol</option>
+              <option value="Nofaol" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Nofaol</option>
             </select>
           </div>
 
-          <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-200 dark:border-white/10">
+          <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-700">
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}

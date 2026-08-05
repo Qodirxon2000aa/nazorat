@@ -320,7 +320,7 @@ export const Dashboard = ({ globalQuery }) => {
 
           <button
             onClick={() => navigate('/employees')}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:bg-white/10 border border-slate-200 dark:border-white/10 text-slate-900 dark:text-white font-semibold text-xs transition-all cursor-pointer"
+            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:bg-white/10 border border-slate-200 dark:border-slate-700 text-slate-900 dark:text-white font-semibold text-xs transition-all cursor-pointer"
           >
             <Plus className="w-4 h-4" />
             <span>Xodim qo'shish</span>
@@ -336,7 +336,7 @@ export const Dashboard = ({ globalQuery }) => {
             <div
               key={i}
               onClick={() => navigate(card.link)}
-              className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 hover:border-blue-500/30 transition-all shadow-xl cursor-pointer group"
+              className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 hover:border-blue-500/30 transition-all shadow-xl cursor-pointer group"
             >
               <div className="flex items-center justify-between mb-4">
                 <span className="text-xs font-bold text-slate-700 dark:text-slate-300 font-bold group-hover:text-slate-900 dark:text-white transition-colors">
@@ -363,7 +363,7 @@ export const Dashboard = ({ globalQuery }) => {
           return (
             <div
               key={i}
-              className="p-4 sm:p-5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 space-y-2"
+              className="p-4 sm:p-5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-800 space-y-2"
             >
               <div className="flex items-center justify-between text-xs">
                 <span className="font-semibold text-slate-700 dark:text-slate-300 font-bold">{card.title}</span>
@@ -381,7 +381,7 @@ export const Dashboard = ({ globalQuery }) => {
       {/* Main Content Layout */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Branch Rankings Chart */}
-        <div className="lg:col-span-2 p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 shadow-xl space-y-6">
+        <div className="lg:col-span-2 p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xl space-y-6">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-base font-bold text-slate-900 dark:text-white">
@@ -420,7 +420,7 @@ export const Dashboard = ({ globalQuery }) => {
         </div>
 
         {/* Recent Ratings Timeline */}
-        <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 shadow-xl space-y-6">
+        <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xl space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-base font-bold text-slate-900 dark:text-white">
               Oxirgi Baholar
@@ -437,7 +437,7 @@ export const Dashboard = ({ globalQuery }) => {
             {recentRatings.map((rating) => (
               <div
                 key={rating.id}
-                className="p-3.5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 space-y-2 text-xs"
+                className="p-3.5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-800 space-y-2 text-xs"
               >
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-slate-900 dark:text-white">{rating.employeeName}</span>

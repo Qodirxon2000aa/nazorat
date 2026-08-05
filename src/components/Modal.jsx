@@ -49,9 +49,9 @@ export const Modal = ({
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ type: 'spring', duration: 0.3, bounce: 0 }}
-            className={`relative w-full ${widthClasses[maxWidth]} bg-white dark:bg-[#121214] rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-200 dark:border-white/10 overflow-hidden z-10 my-4 sm:my-8`}
+            className={`relative w-full ${widthClasses[maxWidth]} bg-white dark:bg-[#0f172a] rounded-2xl sm:rounded-3xl shadow-2xl border border-slate-200 dark:border-slate-700 overflow-hidden z-10 my-4 sm:my-8`}
           >
-            <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-5 border-b border-slate-200 dark:border-white/10">
+            <div className="flex items-center justify-between px-4 sm:px-6 py-3.5 sm:py-5 border-b border-slate-200 dark:border-slate-700">
               <div>
                 <h3 className="text-base sm:text-lg font-bold text-slate-900 dark:text-white">
                   {title}

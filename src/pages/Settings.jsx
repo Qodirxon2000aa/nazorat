@@ -58,7 +58,7 @@ export const SettingsPage = () => {
 
       <div className="space-y-6">
         {/* Profile Card */}
-        <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 shadow-xl space-y-6">
+        <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xl space-y-6">
           <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <User className="w-5 h-5 text-blue-700 dark:text-blue-400" />
             <span>Shaxsiy Ma'lumotlar</span>
@@ -74,7 +74,7 @@ export const SettingsPage = () => {
                   type="text"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white"
+                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white"
                 />
               </div>
 
@@ -86,7 +86,7 @@ export const SettingsPage = () => {
                   type="text"
                   value={surname}
                   onChange={(e) => setSurname(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white"
+                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white"
                 />
               </div>
             </div>
@@ -100,7 +100,7 @@ export const SettingsPage = () => {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white"
+                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white"
                 />
               </div>
 
@@ -112,7 +112,7 @@ export const SettingsPage = () => {
                   type="text"
                   value={phone}
                   onChange={(e) => setPhone(e.target.value)}
-                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white"
+                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white"
                 />
               </div>
             </div>
@@ -128,7 +128,7 @@ export const SettingsPage = () => {
             </div>
           </form>
 
-          <hr className="border-slate-200 dark:border-white/5" />
+          <hr className="border-slate-200 dark:border-slate-800" />
 
           {/* Change Password */}
           <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
@@ -147,7 +147,7 @@ export const SettingsPage = () => {
                 value={currentPassword}
                 onChange={(e) => setCurrentPassword(e.target.value)}
                 placeholder="••••••••"
-                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
+                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
               />
             </div>
 
@@ -162,7 +162,7 @@ export const SettingsPage = () => {
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
+                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
                 />
               </div>
 
@@ -176,7 +176,7 @@ export const SettingsPage = () => {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
+                  className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
                 />
               </div>
             </div>
@@ -195,7 +195,7 @@ export const SettingsPage = () => {
 
         {/* System & Theme Preferences */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 shadow-xl space-y-4">
+          <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#0f172a] border border-slate-200 dark:border-slate-800 shadow-xl space-y-4">
             <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <Sun className="w-4 h-4 text-amber-400" />
               <span>Mavzu Rejimi</span>
@@ -203,10 +203,10 @@ export const SettingsPage = () => {
 
             <button
               onClick={toggleTheme}
-              className="w-full p-3 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:bg-white/10 text-slate-900 dark:text-white flex items-center justify-between transition-all border border-slate-200 dark:border-white/10 cursor-pointer group"
+              className="w-full p-3 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:bg-white/10 text-slate-900 dark:text-white flex items-center justify-between transition-all border border-slate-200 dark:border-slate-700 cursor-pointer group"
             >
               <div className="flex items-center gap-3 overflow-hidden">
-                <div className="p-2 bg-white dark:bg-[#121214] rounded-lg shadow-sm border border-slate-200 dark:border-white/5 group-hover:scale-105 transition-transform shrink-0">
+                <div className="p-2 bg-white dark:bg-[#0f172a] rounded-lg shadow-sm border border-slate-200 dark:border-slate-800 group-hover:scale-105 transition-transform shrink-0">
                   {theme === 'dark' ? <Moon className="w-4 h-4 text-blue-700 dark:text-blue-400" /> : <Sun className="w-4 h-4 text-amber-400" />}
                 </div>
                 <div className="text-left truncate">

@@ -72,9 +72,9 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
   ];
 
   const sidebarContent = (
-    <div className="flex flex-col h-full bg-slate-50 dark:bg-[#09090b] text-slate-100 border-r border-slate-200 dark:border-white/10 select-none">
+    <div className="flex flex-col h-full bg-slate-50 dark:bg-[#020617] text-slate-100 border-r border-slate-200 dark:border-slate-700 select-none">
       {/* Brand Header */}
-      <div className={`relative flex items-center h-20 border-b border-slate-200 dark:border-white/10 shrink-0 transition-all ${collapsed && !mobileOpen ? 'justify-center' : 'px-5 justify-between'}`}>
+      <div className={`relative flex items-center h-20 border-b border-slate-200 dark:border-slate-700 shrink-0 transition-all ${collapsed && !mobileOpen ? 'justify-center' : 'px-5 justify-between'}`}>
         <div className="flex items-center gap-3 overflow-hidden">
           <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-blue-500 text-black font-black text-xl italic shadow-lg shadow-blue-500/20 shrink-0">
             F
@@ -96,7 +96,7 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
           onClick={() => setCollapsed(!collapsed)}
           className={`hidden md:flex items-center justify-center rounded-lg text-slate-700 dark:text-slate-300 font-bold hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:bg-white/10 transition-colors ${
             collapsed && !mobileOpen
-              ? 'absolute -right-3 top-7 w-6 h-6 bg-slate-50 dark:bg-[#09090b] border border-slate-200 dark:border-white/10 z-50 rounded-full shadow-md'
+              ? 'absolute -right-3 top-7 w-6 h-6 bg-slate-50 dark:bg-[#020617] border border-slate-200 dark:border-slate-700 z-50 rounded-full shadow-md'
               : 'p-1.5'
           }`}
           title={collapsed ? 'Kengaytirish' : 'Yig\'ish'}
@@ -130,7 +130,7 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs transition-all relative ${
                     isActive
-                      ? 'bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-blue-700 dark:text-blue-400 font-bold shadow-sm'
+                      ? 'bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 text-blue-700 dark:text-blue-400 font-bold shadow-sm'
                       : 'text-slate-700 dark:text-slate-300 font-bold hover:text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:bg-white/5'
                   }`
                 }
