@@ -118,10 +118,6 @@ export const DailyRatingPage = () => {
       addToast('warning', 'Iltimos, yulduzli bahoni tanlang!');
       return;
     }
-    if (!draft.comment.trim()) {
-      addToast('warning', 'Iltimos, xodimga nisbatan izoh yozing!');
-      return;
-    }
 
     setRatingDrafts((prev) => ({
       ...prev,
@@ -132,7 +128,7 @@ export const DailyRatingPage = () => {
       const newRating = await api.createRating({
         employeeId: emp.id,
         stars: draft.stars,
-        comment: draft.comment,
+        comment: draft.comment.trim() || 'Izoh yozilmadi',
         date: selectedDate,
       });
 
@@ -325,7 +321,7 @@ export const DailyRatingPage = () => {
                     <div>
                       <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5 flex items-center gap-1">
                         <MessageSquare className="w-3.5 h-3.5 text-blue-700 dark:text-blue-400" />
-                        <span>2. Izoh qoldiring (Majburiy) *</span>
+                        <span>2. Izoh qoldiring (Ixtiyoriy)</span>
                       </label>
                       <textarea
                         rows={2}
