@@ -372,7 +372,7 @@ export const Employees = ({ globalQuery }) => {
         maxWidth="xl"
       >
         <form onSubmit={handleSubmit} className="space-y-4">
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
                 Ism *
@@ -444,7 +444,7 @@ export const Employees = ({ globalQuery }) => {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
+            <div className="sm:col-span-2">
               <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
                 Telefon *
               </label>
@@ -457,23 +457,6 @@ export const Employees = ({ globalQuery }) => {
                 className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
               />
             </div>
-          </div>
-
-          <div>
-            <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
-              Holati
-            </label>
-            <select
-              value={formData.status}
-              onChange={(e) =>
-                setFormData({ ...formData, status: e.target.value })
-              }
-              className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none text-slate-900 dark:text-white font-bold"
-            >
-              <option value="Faol" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Faol</option>
-              <option value="Ta'tilda" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Ta'tilda</option>
-              <option value="Nofaol" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Nofaol</option>
-            </select>
           </div>
 
           <div className="flex items-center justify-end gap-3 pt-4 border-t border-slate-200 dark:border-slate-700">
