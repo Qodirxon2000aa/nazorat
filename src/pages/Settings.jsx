@@ -36,7 +36,7 @@ export const SettingsPage = () => {
   };
 
   return (
-    <div className="p-4 sm:p-6 md:p-8 max-w-5xl mx-auto space-y-8">
+    <div className="p-4 sm:p-4 md:p-6 w-full max-w-[1600px] mx-auto space-y-6">
       {/* Header */}
       <div>
         <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
