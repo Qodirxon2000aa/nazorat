@@ -587,9 +587,7 @@ export const deleteRole = async (id) => {
   saveLocalData(local);
   return true;
 };
-import { readLocalData, saveLocalData, isDbConnected } from '../dataManager.js';
-import User from '../models/User.js';
-import Employee from '../models/Employee.js';
+
 
 export const updateProfile = async (username, name, surname, newPassword) => {
   const cleanU = String(username || '').trim().toLowerCase();
