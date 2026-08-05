@@ -432,14 +432,54 @@ export const Employees = ({ globalQuery }) => {
               <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
                 Lavozim *
               </label>
-              <input
-                type="text"
-                required
-                value={formData.position}
-                onChange={(e) => setFormData({ ...formData, position: e.target.value })}
-                placeholder="masalan: Katta sotuvchi menejer"
-                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
-              />
+              {(() => {
+                const selectedBranchObj = branches.find(b => b.id === formData.branchId);
+                const isZavod = selectedBranchObj?.type === 'Zavod';
+                
+                const ZAVOD_ROLES = [
+                  "Ish boshqaruvchi",
+                  "Bugalter",
+                  "Adel kadir",
+                  "Nazoratchi",
+                  "Bosh kanditor",
+                  "Yordamchi kanditor",
+                  "Kanditor",
+                  "Pishiriqchila",
+                  "Omborchi",
+                  "Shafyur",
+                  "Farrosh",
+                  "Povir",
+                  "Qorovul",
+                  "Apirator"
+                ];
+
+                if (isZavod) {
+                  return (
+                    <select
+                      required
+                      value={formData.position}
+                      onChange={(e) => setFormData({ ...formData, position: e.target.value })}
+                      className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none text-slate-900 dark:text-white font-bold"
+                    >
+                      <option value="" className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">Tanlang...</option>
+                      {ZAVOD_ROLES.map((role) => (
+                        <option key={role} value={role} className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">{role}</option>
+                      ))}
+                    </select>
+                  );
+                }
+
+                return (
+                  <input
+                    type="text"
+                    required
+                    value={formData.position}
+                    onChange={(e) => setFormData({ ...formData, position: e.target.value })}
+                    placeholder="masalan: Katta sotuvchi menejer"
+                    className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
+                  />
+                );
+              })()}
             </div>
           </div>
 
