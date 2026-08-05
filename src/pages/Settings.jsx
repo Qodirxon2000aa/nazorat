@@ -56,9 +56,9 @@ export const SettingsPage = () => {
         </div>
       )}
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="space-y-6">
         {/* Profile Card */}
-        <div className="md:col-span-2 p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 shadow-xl space-y-6">
+        <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 shadow-xl space-y-6">
           <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
             <User className="w-5 h-5 text-blue-700 dark:text-blue-400" />
             <span>Shaxsiy Ma'lumotlar</span>
@@ -194,15 +194,12 @@ export const SettingsPage = () => {
         </div>
 
         {/* System & Theme Preferences */}
-        <div className="space-y-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 shadow-xl space-y-4">
             <h3 className="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <Sun className="w-4 h-4 text-amber-400" />
               <span>Mavzu Rejimi</span>
             </h3>
-            <p className="text-xs text-slate-700 dark:text-slate-300 font-bold">
-              Qorong'u (Dark) yoki Yorug' (Light) dizayn rejimiga o'tish:
-            </p>
 
             <button
               onClick={toggleTheme}
@@ -226,9 +223,18 @@ export const SettingsPage = () => {
               <span>Tizim Ma'lumotlari</span>
             </div>
             <div className="text-xs text-slate-600 dark:text-slate-300 space-y-1">
-              <div>Vazifangiz: <strong className="text-slate-900 dark:text-white">{user?.role}</strong></div>
-              <div>Biriktirilgan filial: <strong className="text-slate-900 dark:text-white">{user?.branchName || "Barcha filiallar"}</strong></div>
-              <div>Tizim versiyasi: <strong className="text-slate-900 dark:text-white">v2.4.0 Production</strong></div>
+              <div className="flex justify-between items-center">
+                <span>Vazifangiz:</span>
+                <strong className="text-slate-900 dark:text-white">{user?.role}</strong>
+              </div>
+              <div className="flex justify-between items-center">
+                <span>Biriktirilgan filial:</span>
+                <strong className="text-slate-900 dark:text-white">{user?.branchName || "Barcha filiallar"}</strong>
+              </div>
+              <div className="flex justify-between items-center">
+                <span>Tizim versiyasi:</span>
+                <strong className="text-slate-900 dark:text-white">v2.4.0 Production</strong>
+              </div>
             </div>
           </div>
         </div>
