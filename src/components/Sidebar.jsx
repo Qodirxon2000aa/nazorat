@@ -69,37 +69,31 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
   const sidebarContent = (
     <div className="flex flex-col h-full bg-slate-50 dark:bg-[#020617] text-slate-100 border-r border-slate-200 dark:border-slate-700 select-none">
       {/* Brand Header */}
-      <div className={`relative flex items-center h-20 border-b border-slate-200 dark:border-slate-700 shrink-0 transition-all ${collapsed && !mobileOpen ? 'justify-center' : 'px-5 justify-between'}`}>
-        <div className="flex items-center gap-3 overflow-hidden">
-          {(!collapsed || mobileOpen) ? (
-            <div className="flex items-center justify-center w-full mt-2">
-              <Logo className="h-16 w-auto drop-shadow-sm" />
-            </div>
-          ) : (
-            <div className="flex items-center justify-center w-full">
-              <Logo iconOnly className="h-10 w-auto drop-shadow-sm" />
-            </div>
-          )}
-        </div>
+      <div className={`relative flex items-center justify-center h-28 border-b border-slate-200 dark:border-slate-700 shrink-0 transition-all ${collapsed && !mobileOpen ? 'px-2' : 'px-4'}`}>
+        {(!collapsed || mobileOpen) ? (
+          <Logo className="h-20 w-auto" />
+        ) : (
+          <Logo iconOnly className="h-10 w-auto" />
+        )}
 
         {/* Desktop collapse button */}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className={`hidden md:flex items-center justify-center rounded-lg text-slate-700 dark:text-slate-300 font-bold hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:bg-white/10 transition-colors ${
+          className={`hidden md:flex items-center justify-center rounded-full text-slate-700 dark:text-slate-300 font-bold hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:bg-white/10 transition-colors ${
             collapsed && !mobileOpen
-              ? 'absolute -right-3 top-7 w-6 h-6 bg-slate-50 dark:bg-[#020617] border border-slate-200 dark:border-slate-700 z-50 rounded-full shadow-md'
-              : 'p-1.5'
+              ? 'absolute -right-3 top-11 w-6 h-6 bg-slate-50 dark:bg-[#020617] border border-slate-200 dark:border-slate-700 z-50 shadow-md'
+              : 'absolute -right-3 top-11 w-6 h-6 bg-slate-50 dark:bg-[#020617] border border-slate-200 dark:border-slate-700 z-50 shadow-md'
           }`}
           title={collapsed ? 'Kengaytirish' : 'Yig\'ish'}
         >
-          {collapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-4 h-4" />}
+          {collapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-3.5 h-3.5" />}
         </button>
 
         {/* Mobile close button */}
         {setMobileOpen && (
           <button
             onClick={() => setMobileOpen(false)}
-            className="md:hidden p-2 rounded-xl text-slate-700 dark:text-slate-300 font-bold hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:bg-white/10 transition-colors"
+            className="md:hidden absolute right-3 p-2 rounded-xl text-slate-700 dark:text-slate-300 font-bold hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:bg-white/10 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
