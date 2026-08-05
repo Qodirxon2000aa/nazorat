@@ -257,16 +257,16 @@ export const Branches = ({ globalQuery }) => {
                 </div>
               </div>
 
-              <div className="flex items-center justify-between pt-2">
-                <div className="flex items-center gap-1 text-xs font-bold text-amber-400">
+              <div className="flex flex-wrap items-center justify-between gap-3 pt-3 mt-auto">
+                <div className="flex items-center gap-1.5 text-xs font-bold text-amber-400 shrink-0">
                   <Star className="w-4 h-4 fill-amber-400" />
-                  <span>{b.averageRating || 0} ⭐ O'rtacha</span>
+                  <span className="whitespace-nowrap">{b.averageRating || 0} ⭐ O'rtacha</span>
                 </div>
 
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 shrink-0">
                   <button
                     onClick={() => handleViewBranchStaff(b)}
-                    className="p-2 text-blue-700 dark:text-blue-400 hover:bg-blue-500/10 rounded-xl transition-colors text-xs font-bold"
+                    className="px-3 py-1.5 text-blue-700 dark:text-blue-400 bg-blue-500/10 hover:bg-blue-500/20 rounded-xl transition-colors text-xs font-bold"
                     title="Xodimlarni ko'rish"
                   >
                     Xodimlar
@@ -275,7 +275,7 @@ export const Branches = ({ globalQuery }) => {
                   {hasPermission('filial_edit') && (
                     <button
                       onClick={() => handleOpenEditModal(b)}
-                      className="p-2 text-slate-700 dark:text-slate-300 font-bold hover:text-slate-900 dark:text-white hover:bg-slate-100 dark:bg-white/5 rounded-xl transition-colors"
+                      className="p-1.5 text-slate-700 dark:text-slate-300 font-bold hover:text-slate-900 dark:text-white hover:bg-slate-100 dark:bg-white/5 rounded-lg transition-colors"
                       title="Tahrirlash"
                     >
                       <Edit2 className="w-4 h-4" />
@@ -285,7 +285,7 @@ export const Branches = ({ globalQuery }) => {
                   {hasPermission('filial_delete') && (
                     <button
                       onClick={() => handleDelete(b.id)}
-                      className="p-2 text-slate-700 dark:text-slate-300 font-bold hover:text-rose-400 hover:bg-rose-500/10 rounded-xl transition-colors"
+                      className="p-1.5 text-slate-700 dark:text-slate-300 font-bold hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors"
                       title="O'chirish"
                     >
                       <Trash2 className="w-4 h-4" />
