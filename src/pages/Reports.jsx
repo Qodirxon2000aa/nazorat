@@ -94,6 +94,12 @@ export const Reports = () => {
 
   const reportRows = getFilteredReportData();
 
+  // Calculate employee totals for the current filtered period
+  const empTotals = {};
+  reportRows.forEach((r) => {
+    empTotals[r.employeeId] = (empTotals[r.employeeId] || 0) + r.stars;
+  });
+
   // Export Excel (.xlsx)
   const exportToExcel = () => {
     const excelData = reportRows.map((r, i) => ({
@@ -102,11 +108,25 @@ export const Reports = () => {
       'Xodim': r.employeeName,
       'Filial': r.branchName,
       'Baho (1-5)': `${r.stars} ⭐`,
+      "Davr bo'yicha jami ball": `${empTotals[r.employeeId]} ⭐`,
       'Izoh': r.comment,
       'Baholadi': r.ratedByName,
     }));
 
     const worksheet = XLSX.utils.json_to_sheet(excelData);
+    
+    // Set column widths for better formatting
+    worksheet['!cols'] = [
+      { wch: 5 },  // №
+      { wch: 15 }, // Sana
+      { wch: 30 }, // Xodim
+      { wch: 25 }, // Filial
+      { wch: 15 }, // Baho
+      { wch: 25 }, // Jami ball
+      { wch: 40 }, // Izoh
+      { wch: 20 }, // Baholadi
+    ];
+
     const workbook = XLSX.utils.book_new();
     XLSX.utils.book_append_sheet(workbook, worksheet, 'Hisobot');
     XLSX.writeFile(
@@ -117,7 +137,7 @@ export const Reports = () => {
 
   // Export CSV
   const exportToCSV = () => {
-    const headers = ['№,Sana,Xodim,Filial,Baho,Izoh,Baholadi\n'];
+    const headers = ['№,Sana,Xodim,Filial,Baho,Jami Ball,Izoh,Baholadi\n'];
     const rows = reportRows.map((r, i) =>
       [
         i + 1,
@@ -125,6 +145,7 @@ export const Reports = () => {
         `"${r.employeeName}"`,
         `"${r.branchName}"`,
         `"${r.stars}"`,
+        `"${empTotals[r.employeeId]}"`,
         `"${r.comment.replace(/"/g, '""')}"`,
         `"${r.ratedByName}"`,
       ].join(',')
@@ -144,35 +165,60 @@ export const Reports = () => {
 
   // Export PDF
   const exportToPDF = () => {
-    const doc = new jsPDF();
-    doc.setFontSize(16);
+    const doc = new jsPDF('landscape'); // use landscape for more columns
+    
+    // Header
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(18);
     doc.text('Filiallar Xodimlarini Baholash Hisoboti', 14, 20);
-    doc.setFontSize(10);
+    
+    doc.setFontSize(11);
     doc.text(`Yaratilgan sana: ${new Date().toLocaleDateString()}`, 14, 28);
 
     let y = 40;
-    doc.setFontSize(9);
+    
+    // Table Header (Bold)
+    doc.setFontSize(10);
     doc.text('№', 14, y);
     doc.text('Sana', 24, y);
     doc.text('Xodim', 50, y);
-    doc.text('Filial', 100, y);
-    doc.text('Baho', 150, y);
+    doc.text('Filial', 110, y);
+    doc.text('Baho', 160, y);
+    doc.text('Jami Ball', 180, y);
+    doc.text('Baholadi', 210, y);
 
-    y += 6;
-    doc.line(14, y, 195, y);
+    y += 4;
+    doc.setLineWidth(0.5);
+    doc.line(14, y, 280, y);
     y += 6;
 
+    // Table Content (Normal)
+    doc.setFont('helvetica', 'normal');
     reportRows.forEach((r, idx) => {
-      if (y > 270) {
+      if (y > 190) {
         doc.addPage();
-        y = 20;
+        doc.setFont('helvetica', 'bold');
+        doc.text('Filiallar Xodimlarini Baholash Hisoboti (Davomi)', 14, 20);
+        doc.setFont('helvetica', 'normal');
+        y = 30;
       }
       doc.text(`${idx + 1}`, 14, y);
       doc.text(r.date, 24, y);
-      doc.text(r.employeeName.substring(0, 22), 50, y);
-      doc.text(r.branchName.substring(0, 22), 100, y);
-      doc.text(`${r.stars} yulduz`, 150, y);
+      doc.text(r.employeeName.substring(0, 30), 50, y);
+      doc.text(r.branchName.substring(0, 25), 110, y);
+      
+      // Make rating text bold
+      doc.setFont('helvetica', 'bold');
+      doc.text(`${r.stars} yulduz`, 160, y);
+      doc.text(`${empTotals[r.employeeId]} ball`, 180, y);
+      doc.setFont('helvetica', 'normal');
+      
+      doc.text(r.ratedByName.substring(0, 25), 210, y);
+      
       y += 8;
+      doc.setDrawColor(200, 200, 200);
+      doc.setLineWidth(0.1);
+      doc.line(14, y - 5, 280, y - 5);
     });
 
     doc.save(`Hisobot_${new Date().toISOString().split('T')[0]}.pdf`);
@@ -343,6 +389,7 @@ export const Reports = () => {
                   <th className="px-4 py-3">Xodim</th>
                   <th className="px-4 py-3">Filial</th>
                   <th className="px-4 py-3">Qo'yilgan Baho</th>
+                  <th className="px-4 py-3">Davrdagi Jami Ball</th>
                   <th className="px-4 py-3">Menejer Izohi</th>
                   <th className="px-4 py-3">Baholadi</th>
                 </tr>
@@ -362,6 +409,9 @@ export const Reports = () => {
                       <span className="inline-flex items-center gap-1 font-bold text-amber-400 bg-amber-500/10 border border-amber-500/20 px-2 py-0.5 rounded-md">
                         {r.stars} ⭐
                       </span>
+                    </td>
+                    <td className="px-4 py-3 font-extrabold text-blue-700 dark:text-blue-400">
+                      {empTotals[r.employeeId]} ⭐
                     </td>
                     <td className="px-4 py-3 text-slate-600 dark:text-slate-300 italic max-w-xs truncate">
                       "{r.comment}"
