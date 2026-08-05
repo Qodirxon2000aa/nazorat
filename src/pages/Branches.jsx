@@ -33,8 +33,6 @@ export const Branches = ({ globalQuery }) => {
   const [formData, setFormData] = useState({
     name: '',
     address: '',
-    phone: '',
-    managerName: '',
     status: 'Faol',
   });
 
@@ -76,8 +74,6 @@ export const Branches = ({ globalQuery }) => {
     setFormData({
       name: '',
       address: '',
-      phone: '',
-      managerName: '',
       status: 'Faol',
     });
     setIsModalOpen(true);
@@ -88,8 +84,6 @@ export const Branches = ({ globalQuery }) => {
     setFormData({
       name: b.name,
       address: b.address,
-      phone: b.phone,
-      managerName: b.managerName,
       status: b.status,
     });
     setIsModalOpen(true);
@@ -254,24 +248,6 @@ export const Branches = ({ globalQuery }) => {
                 <div className="space-y-2 py-3 border-y border-slate-200 dark:border-white/5 my-3 text-xs">
                   <div className="flex items-center justify-between text-slate-700 dark:text-slate-300 font-bold">
                     <span className="flex items-center gap-1.5">
-                      <UserCheck className="w-3.5 h-3.5 text-slate-700 font-bold" /> Rahbar:
-                    </span>
-                    <span className="font-bold text-slate-900 dark:text-white">
-                      {b.managerName}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center justify-between text-slate-700 dark:text-slate-300 font-bold">
-                    <span className="flex items-center gap-1.5">
-                      <Phone className="w-3.5 h-3.5 text-slate-700 font-bold" /> Telefon:
-                    </span>
-                    <span className="font-bold text-slate-600 dark:text-slate-300">
-                      {b.phone}
-                    </span>
-                  </div>
-
-                  <div className="flex items-center justify-between text-slate-700 dark:text-slate-300 font-bold">
-                    <span className="flex items-center gap-1.5">
                       <Users className="w-3.5 h-3.5 text-slate-700 font-bold" /> Xodimlar:
                     </span>
                     <span className="font-bold text-blue-700 dark:text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded-md">
@@ -358,36 +334,7 @@ export const Branches = ({ globalQuery }) => {
             />
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div>
-              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
-                Telefon *
-              </label>
-              <input
-                type="text"
-                required
-                value={formData.phone}
-                onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                placeholder="+998 71 200 11 22"
-                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
-              />
-            </div>
-
-            <div>
-              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
-                Filial Rahbari
-              </label>
-              <input
-                type="text"
-                value={formData.managerName}
-                onChange={(e) =>
-                  setFormData({ ...formData, managerName: e.target.value })
-                }
-                placeholder="Ism Familiya"
-                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
-              />
-            </div>
-          </div>
+          {/* Removed phone and managerName fields */}
 
           <div>
             <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1">
