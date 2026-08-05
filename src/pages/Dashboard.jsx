@@ -24,6 +24,7 @@ export const Dashboard = ({ globalQuery }) => {
   const { user } = useAuth();
   const [loading, setLoading] = useState(true);
   const [stats, setStats] = useState(null);
+  const [typeFilters, setTypeFilters] = useState({ zavod: false, filial: false });
   const [recentRatings, setRecentRatings] = useState([]);
   const [myRatings, setMyRatings] = useState([]);
   const [branchRankings, setBranchRankings] = useState([]);
@@ -32,7 +33,11 @@ export const Dashboard = ({ globalQuery }) => {
     const loadDashboard = async () => {
       try {
         setLoading(true);
-        const data = await api.getStats({ period: 'ushbu_oy' });
+        let branchType = undefined;
+        if (typeFilters.zavod && !typeFilters.filial) branchType = 'Zavod';
+        if (!typeFilters.zavod && typeFilters.filial) branchType = 'Filial';
+
+        const data = await api.getStats({ period: 'ushbu_oy', branchType });
         setStats(data.overview);
         setBranchRankings(data.branchRankings || []);
 
@@ -55,7 +60,7 @@ export const Dashboard = ({ globalQuery }) => {
       }
     };
     loadDashboard();
-  }, [user]);
+  }, [user, typeFilters]);
 
   if (loading) {
     return (
@@ -236,9 +241,9 @@ export const Dashboard = ({ globalQuery }) => {
   // ==========================================
   const statCards = [
     {
-      title: 'Jami filiallar',
+      title: (!typeFilters.zavod && !typeFilters.filial) || (typeFilters.zavod && typeFilters.filial) ? "Jami tashkilotlar" : typeFilters.zavod ? "Jami zavodlar" : "Jami filiallar",
       value: stats?.totalBranches || 0,
-      subText: 'Faol filiallar tarmog\'i',
+      subText: (!typeFilters.zavod && !typeFilters.filial) || (typeFilters.zavod && typeFilters.filial) ? "Faol tashkilotlar tarmog'i" : typeFilters.zavod ? "Faol zavodlar tarmog'i" : "Faol filiallar tarmog'i",
       icon: Building2,
       link: '/branches',
     },
@@ -281,11 +286,11 @@ export const Dashboard = ({ globalQuery }) => {
       badge: 'Eng yuqori',
     },
     {
-      title: 'Top filial',
+      title: (!typeFilters.zavod && !typeFilters.filial) || (typeFilters.zavod && typeFilters.filial) ? "Top tashkilot" : typeFilters.zavod ? "Top zavod" : "Top filial",
       value: stats?.topBranch ? stats.topBranch.name : 'Mavjud emas',
       subText: stats?.topBranch ? `${stats.topBranch.rating} ⭐` : '-',
       icon: Building2,
-      badge: 'N 1 Filial',
+      badge: (!typeFilters.zavod && !typeFilters.filial) || (typeFilters.zavod && typeFilters.filial) ? "N 1 Tashkilot" : typeFilters.zavod ? "N 1 Zavod" : "N 1 Filial",
     },
     {
       title: 'Kutilayotgan baholar',
@@ -305,7 +310,7 @@ export const Dashboard = ({ globalQuery }) => {
             Boshqaruv Paneli
           </h1>
           <p className="text-xs text-slate-700 dark:text-slate-300 font-bold mt-1">
-            Filiallar faoliyati va xodimlarning kunlik baholash tahlili
+            {(!typeFilters.zavod && !typeFilters.filial) || (typeFilters.zavod && typeFilters.filial) ? "Tashkilotlar" : typeFilters.zavod ? "Zavodlar" : "Filiallar"} faoliyati va xodimlarning kunlik baholash tahlili
           </p>
         </div>
 
@@ -326,6 +331,27 @@ export const Dashboard = ({ globalQuery }) => {
             <span>Xodim qo'shish</span>
           </button>
         </div>
+      </div>
+
+      <div className="flex items-center gap-4 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl px-4 py-2 w-fit">
+        <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-900 dark:text-white">
+          <input
+            type="checkbox"
+            checked={typeFilters.zavod}
+            onChange={(e) => setTypeFilters({ ...typeFilters, zavod: e.target.checked })}
+            className="rounded border-slate-300 text-blue-500 focus:ring-blue-500 w-4 h-4 cursor-pointer"
+          />
+          Zavodlar statistikasi
+        </label>
+        <label className="flex items-center gap-2 cursor-pointer text-xs font-bold text-slate-900 dark:text-white">
+          <input
+            type="checkbox"
+            checked={typeFilters.filial}
+            onChange={(e) => setTypeFilters({ ...typeFilters, filial: e.target.checked })}
+            className="rounded border-slate-300 text-blue-500 focus:ring-blue-500 w-4 h-4 cursor-pointer"
+          />
+          Filiallar statistikasi
+        </label>
       </div>
 
       {/* Primary Animated Stat Cards Grid */}
@@ -385,10 +411,10 @@ export const Dashboard = ({ globalQuery }) => {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-base font-bold text-slate-900 dark:text-white">
-                Filiallar Reytingi Tahlili
+                {(!typeFilters.zavod && !typeFilters.filial) || (typeFilters.zavod && typeFilters.filial) ? "Tashkilotlar" : typeFilters.zavod ? "Zavodlar" : "Filiallar"} Reytingi Tahlili
               </h2>
               <p className="text-xs text-slate-700 dark:text-slate-300 font-bold mt-0.5">
-                Barcha filiallarning o'rtacha ballar bo'yicha o'rni
+                Barcha {(!typeFilters.zavod && !typeFilters.filial) || (typeFilters.zavod && typeFilters.filial) ? "tashkilotlarning" : typeFilters.zavod ? "zavodlarning" : "filiallarning"} o'rtacha ballar bo'yicha o'rni
               </p>
             </div>
           </div>
