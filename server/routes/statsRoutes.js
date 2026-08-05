@@ -6,11 +6,22 @@ const router = Router();
 
 router.get('/', authenticateToken, async (req, res) => {
   try {
-    const { branchId, period, startDate, endDate } = req.query;
+    const { branchId, branchType, period, startDate, endDate } = req.query;
 
-    const branches = await getBranches();
-    const employees = await getEmployees(branchId ? { branchId } : {});
-    let ratings = await getRatings(branchId ? { branchId } : {});
+    let branches = await getBranches();
+    if (branchId) {
+      branches = branches.filter(b => b.id === branchId);
+    } else if (branchType) {
+      branches = branches.filter(b => (b.type || 'Filial') === branchType);
+    }
+    
+    const validBranchIds = new Set(branches.map(b => String(b.id)));
+
+    let employees = await getEmployees();
+    employees = employees.filter(e => validBranchIds.has(String(e.branchId)));
+
+    let ratings = await getRatings();
+    ratings = ratings.filter(r => validBranchIds.has(String(r.branchId)));
 
     // Apply period filtering to ratings if period is supplied
     const now = new Date();
@@ -65,8 +76,9 @@ router.get('/', authenticateToken, async (req, res) => {
       const averageRating = empRatings.length > 0 ? Number((totalPoints / empRatings.length).toFixed(1)) : 0;
       return { ...e, averageRating, totalRatingsCount: empRatings.length };
     }).sort((a, b) => b.averageRating - a.averageRating);
-    const topEmployeeObj = sortedEmployees.length > 0 && sortedEmployees[0].averageRating > 0 ? sortedEmployees[0] : null;
-    const bottomEmployeeObj = sortedEmployees.length > 0 && sortedEmployees[sortedEmployees.length - 1].averageRating > 0 ? sortedEmployees[sortedEmployees.length - 1] : null;
+    const activeEmployees = sortedEmployees.filter(e => e.averageRating > 0);
+    const topEmployeeObj = activeEmployees.length > 0 ? activeEmployees[0] : null;
+    const bottomEmployeeObj = activeEmployees.length > 0 ? activeEmployees[activeEmployees.length - 1] : null;
 
     const branchRatingsMap = {};
     branches.forEach(b => {
