@@ -206,15 +206,17 @@ export const SettingsPage = () => {
 
             <button
               onClick={toggleTheme}
-              className="w-full py-3 px-4 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:bg-white/10 font-bold text-xs text-slate-900 dark:text-white flex items-center justify-between transition-colors border border-slate-200 dark:border-white/10 cursor-pointer"
+              className="w-full p-3 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:bg-white/10 text-slate-900 dark:text-white flex items-center justify-between transition-all border border-slate-200 dark:border-white/10 cursor-pointer group"
             >
-              <span className="flex items-center gap-2">
-                {theme === 'dark' ? <Moon className="w-4 h-4 text-blue-700 dark:text-blue-400" /> : <Sun className="w-4 h-4 text-amber-400" />}
-                {theme === 'dark' ? 'Qorong\'u (Dark Mode)' : 'Yorug\' (Light Mode)'}
-              </span>
-              <span className="text-[10px] text-blue-700 dark:text-blue-400 uppercase tracking-wider font-extrabold">
-                Almashtirish
-              </span>
+              <div className="flex items-center gap-3 overflow-hidden">
+                <div className="p-2 bg-white dark:bg-[#121214] rounded-lg shadow-sm border border-slate-200 dark:border-white/5 group-hover:scale-105 transition-transform shrink-0">
+                  {theme === 'dark' ? <Moon className="w-4 h-4 text-blue-700 dark:text-blue-400" /> : <Sun className="w-4 h-4 text-amber-400" />}
+                </div>
+                <div className="text-left truncate">
+                  <div className="text-xs font-extrabold truncate">{theme === 'dark' ? 'Qorong\'u Rejim' : 'Yorug\' Rejim'}</div>
+                  <div className="text-[10px] text-slate-600 dark:text-slate-400 font-bold mt-0.5 truncate">Tizim ko'rinishi</div>
+                </div>
+              </div>
             </button>
           </div>
 
