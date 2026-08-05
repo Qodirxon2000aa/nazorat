@@ -74,7 +74,7 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
   const sidebarContent = (
     <div className="flex flex-col h-full bg-slate-50 dark:bg-[#09090b] text-slate-100 border-r border-slate-200 dark:border-white/10 select-none">
       {/* Brand Header */}
-      <div className="flex items-center justify-between h-20 px-5 border-b border-slate-200 dark:border-white/10 shrink-0">
+      <div className={`relative flex items-center h-20 border-b border-slate-200 dark:border-white/10 shrink-0 transition-all ${collapsed && !mobileOpen ? 'justify-center' : 'px-5 justify-between'}`}>
         <div className="flex items-center gap-3 overflow-hidden">
           <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-emerald-500 text-black font-black text-xl italic shadow-lg shadow-emerald-500/20 shrink-0">
             F
@@ -94,10 +94,14 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
         {/* Desktop collapse button */}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="hidden md:flex p-1.5 rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white hover:bg-slate-100 dark:bg-white/5 transition-colors"
+          className={`hidden md:flex items-center justify-center rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:bg-white/10 transition-colors ${
+            collapsed && !mobileOpen
+              ? 'absolute -right-3 top-7 w-6 h-6 bg-slate-50 dark:bg-[#09090b] border border-slate-200 dark:border-white/10 z-50 rounded-full shadow-md'
+              : 'p-1.5'
+          }`}
           title={collapsed ? 'Kengaytirish' : 'Yig\'ish'}
         >
-          {collapsed ? <ChevronRight className="w-4 h-4" /> : <ChevronLeft className="w-4 h-4" />}
+          {collapsed ? <ChevronRight className="w-3.5 h-3.5" /> : <ChevronLeft className="w-4 h-4" />}
         </button>
 
         {/* Mobile close button */}
