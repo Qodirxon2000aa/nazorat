@@ -21,32 +21,8 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
   const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
-  const [notifications, setNotifications] = useState([]);
-  const [showNotifs, setShowNotifs] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
-  useEffect(() => {
-    const fetchNotifs = async () => {
-      try {
-        const notifs = await api.getNotifications();
-        setNotifications(notifs);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    fetchNotifs();
-  }, []);
-
-  const unreadCount = notifications.filter((n) => !n.read).length;
-
-  const handleMarkAllRead = async () => {
-    try {
-      await api.markAllNotificationsRead();
-      setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
-    } catch (e) {
-      console.error(e);
-    }
-  };
 
   const getUzbekDateString = () => {
     const d = new Date();
@@ -111,70 +87,7 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
           )}
         </button>
 
-        {/* Notifications Dropdown */}
-        <div className="relative">
-          <button
-            onClick={() => setShowNotifs(!showNotifs)}
-            className="p-2.5 rounded-full text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-800 transition-colors relative"
-          >
-            <Bell className="w-4 h-4" />
-            {unreadCount > 0 && (
-              <span className="absolute top-1.5 right-1.5 w-2.5 h-2.5 rounded-full bg-blue-400 ring-2 ring-[#020617]" />
-            )}
-          </button>
 
-          {showNotifs && (
-            <div className="absolute right-0 mt-3 w-80 bg-white dark:bg-[#0f172a] rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 z-50 overflow-hidden">
-              <div className="flex items-center justify-between px-4 py-3 border-b border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-white/5">
-                <span className="text-xs font-bold text-slate-900 dark:text-white">
-                  Bildirishnomalar
-                </span>
-                {unreadCount > 0 && (
-                  <button
-                    onClick={handleMarkAllRead}
-                    className="text-xs text-blue-700 dark:text-blue-400 hover:underline flex items-center gap-1 font-semibold"
-                  >
-                    <CheckCheck className="w-3.5 h-3.5" />
-                    O'qildi qilish
-                  </button>
-                )}
-              </div>
-              <div className="max-h-72 overflow-y-auto divide-y divide-white/5 custom-scrollbar">
-                {notifications.length === 0 ? (
-                  <div className="p-4 text-center text-xs text-slate-700 font-bold">
-                    Bildirishnomalar mavjud emas
-                  </div>
-                ) : (
-                  notifications.map((n) => (
-                    <div
-                      key={n.id}
-                      className={`p-3.5 text-xs transition-colors ${
-                        !n.read
-                          ? 'bg-blue-500/10'
-                          : 'hover:bg-slate-100 dark:bg-white/5'
-                      }`}
-                    >
-                      <div className="font-semibold text-slate-900 dark:text-white mb-0.5">
-                        {n.title}
-                      </div>
-                      <p className="text-slate-700 dark:text-slate-300 font-bold leading-relaxed">
-                        {n.message}
-                      </p>
-                      <div className="text-[10px] text-slate-700 font-bold mt-1">
-                        {new Date(n.timestamp).toLocaleTimeString([], {
-                          hour: '2-digit',
-                          minute: '2-digit',
-                        })}
-                      </div>
-                    </div>
-                  ))
-                )}
-              </div>
-            </div>
-          )}
-        </div>
-
-        <div className="h-6 w-px bg-slate-200 dark:bg-white/10 mx-1" />
 
         {/* User Profile Menu */}
         <div className="relative">
