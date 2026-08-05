@@ -7,6 +7,7 @@ const BranchSchema = new Schema({
   managerName: { type: String },
   managerId: { type: String },
   status: { type: String, enum: ['Faol', 'Nofaol'], default: 'Faol' },
+  type: { type: String, enum: ['Filial', 'Zavod'], default: 'Filial' },
   createdAt: { type: String, default: () => new Date().toISOString().split('T')[0] },
   employeeCount: { type: Number, default: 0 },
   averageRating: { type: Number, default: 0 },

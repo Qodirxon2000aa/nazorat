@@ -135,7 +135,8 @@ export const createBranch = async (data) => {
         address: data.address,
         phone: data.phone,
         managerName: data.managerName || 'Tayinlanmagan',
-        status: data.status || 'Faol'
+        status: data.status || 'Faol',
+        type: data.type || 'Filial'
       });
       return { ...newBranch.toObject(), id: String(newBranch._id) };
     } catch (e) {
@@ -150,6 +151,7 @@ export const createBranch = async (data) => {
     phone: data.phone || '',
     managerName: data.managerName || 'Tayinlanmagan',
     status: data.status || 'Faol',
+    type: data.type || 'Filial',
     createdAt: new Date().toISOString().split('T')[0]
   };
   local.branches = local.branches || [];
