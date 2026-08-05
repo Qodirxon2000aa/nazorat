@@ -23,11 +23,11 @@ export const ToastContainer = ({ toasts, onDismiss }) => {
             }`}
           >
             <div className="flex items-center gap-3">
-              {toast.type === 'success' && <CheckCircle2 className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0" />}
+              {toast.type === 'success' && <CheckCircle2 className="w-5 h-5 text-blue-600 dark:text-blue-700 dark:text-blue-400 shrink-0" />}
               {toast.type === 'error' && <XCircle className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0" />}
               {toast.type === 'warning' && <AlertTriangle className="w-5 h-5 text-amber-600 dark:text-amber-400 shrink-0" />}
-              {toast.type === 'info' && <Info className="w-5 h-5 text-blue-600 dark:text-blue-400 shrink-0" />}
-              <span className="text-sm font-medium">{toast.message}</span>
+              {toast.type === 'info' && <Info className="w-5 h-5 text-blue-600 dark:text-blue-700 dark:text-blue-400 shrink-0" />}
+              <span className="text-sm font-bold">{toast.message}</span>
             </div>
             <button
               onClick={() => onDismiss(toast.id)}

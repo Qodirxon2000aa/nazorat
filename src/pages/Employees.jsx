@@ -191,10 +191,10 @@ export const Employees = ({ globalQuery }) => {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-            <Users className="w-7 h-7 sm:w-8 sm:h-8 text-blue-400" />
+            <Users className="w-7 h-7 sm:w-8 sm:h-8 text-blue-700 dark:text-blue-400" />
             <span>Xodimlar Katalogi</span>
           </h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs text-slate-700 dark:text-slate-300 font-bold mt-1">
             Barcha filiallar xodimlari ro'yxati, lavozimlari va shaxsiy kartochkalari
           </p>
         </div>
@@ -213,7 +213,7 @@ export const Employees = ({ globalQuery }) => {
       {/* Filters Bar */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 bg-white dark:bg-[#121214] p-4 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-white/5 shadow-xl">
         <div className="relative">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700 dark:text-slate-300 font-bold" />
           <input
             type="text"
             value={search}
@@ -226,7 +226,7 @@ export const Employees = ({ globalQuery }) => {
         <select
           value={selectedBranchFilter}
           onChange={(e) => setSelectedBranchFilter(e.target.value)}
-          className="px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:outline-none font-medium"
+          className="px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:outline-none font-bold"
         >
           <option value="" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Barcha Filiallar</option>
           {branches.map((b) => (
@@ -239,7 +239,7 @@ export const Employees = ({ globalQuery }) => {
         <select
           value={selectedStatusFilter}
           onChange={(e) => setSelectedStatusFilter(e.target.value)}
-          className="px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:outline-none font-medium"
+          className="px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:outline-none font-bold"
         >
           <option value="" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Barcha Holatlar</option>
           <option value="Faol" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Faol</option>
@@ -265,7 +265,7 @@ export const Employees = ({ globalQuery }) => {
         <div className="bg-white dark:bg-[#121214] rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-white/5 shadow-xl overflow-hidden">
           <div className="overflow-x-auto custom-scrollbar">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-white/10">
+              <thead className="bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-white/10">
                 <tr>
                   <th className="px-5 py-4">Xodim</th>
                   <th className="px-5 py-4">Filial</th>
@@ -276,7 +276,7 @@ export const Employees = ({ globalQuery }) => {
                   <th className="px-5 py-4 text-right">Amallar</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/5 font-medium text-slate-700 dark:text-slate-200">
+              <tbody className="divide-y divide-white/5 font-bold text-slate-700 dark:text-slate-200">
                 {filteredEmployees.map((emp) => (
                   <tr
                     key={emp.id}
@@ -284,14 +284,14 @@ export const Employees = ({ globalQuery }) => {
                   >
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-3">
-                        <div className="w-9 h-9 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center font-bold text-sm shrink-0">
+                        <div className="w-9 h-9 rounded-xl bg-blue-600/20 text-blue-700 dark:text-blue-400 border border-blue-500/30 flex items-center justify-center font-bold text-sm shrink-0">
                           {emp.firstName ? emp.firstName[0].toUpperCase() : 'X'}
                         </div>
                         <div>
                           <div className="font-bold text-slate-900 dark:text-white">
                             {emp.firstName} {emp.lastName}
                           </div>
-                          <div className="text-[10px] text-slate-500 dark:text-slate-400">
+                          <div className="text-[10px] text-slate-700 dark:text-slate-300 font-bold">
                             {emp.middleName}
                           </div>
                         </div>
@@ -300,19 +300,19 @@ export const Employees = ({ globalQuery }) => {
 
                     <td className="px-5 py-3.5">
                       <span className="inline-flex items-center gap-1 text-slate-600 dark:text-slate-300">
-                        <Building2 className="w-3.5 h-3.5 text-blue-400" />
+                        <Building2 className="w-3.5 h-3.5 text-blue-700 dark:text-blue-400" />
                         {emp.branchName}
                       </span>
                     </td>
 
                     <td className="px-5 py-3.5">
                       <span className="inline-flex items-center gap-1 font-semibold text-slate-600 dark:text-slate-300">
-                        <Briefcase className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
+                        <Briefcase className="w-3.5 h-3.5 text-slate-700 dark:text-slate-300 font-bold" />
                         {emp.position}
                       </span>
                     </td>
 
-                    <td className="px-5 py-3.5 text-slate-500 dark:text-slate-400 font-mono">
+                    <td className="px-5 py-3.5 text-slate-700 dark:text-slate-300 font-bold font-mono">
                       {emp.phone}
                     </td>
 
@@ -327,7 +327,7 @@ export const Employees = ({ globalQuery }) => {
                       <span
                         className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-bold ${
                           emp.status === 'Faol'
-                            ? 'bg-blue-500/10 text-blue-400 border border-blue-500/20'
+                            ? 'bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20'
                             : emp.status === "Ta'tilda"
                             ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
                             : 'bg-rose-500/10 text-rose-400 border border-rose-500/20'
@@ -344,7 +344,7 @@ export const Employees = ({ globalQuery }) => {
                       <div className="flex items-center justify-end gap-1">
                         <button
                           onClick={() => handleViewProfile(emp)}
-                          className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors"
+                          className="p-1.5 text-slate-700 dark:text-slate-300 font-bold hover:text-blue-700 dark:text-blue-400 hover:bg-blue-500/10 rounded-lg transition-colors"
                           title="Profil va baholar"
                         >
                           <Eye className="w-4 h-4" />
@@ -353,7 +353,7 @@ export const Employees = ({ globalQuery }) => {
                         {hasPermission('xodim_edit') && (
                           <button
                             onClick={() => handleOpenEditModal(emp)}
-                            className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white hover:bg-slate-100 dark:bg-white/5 rounded-lg transition-colors"
+                            className="p-1.5 text-slate-700 dark:text-slate-300 font-bold hover:text-slate-900 dark:text-white hover:bg-slate-100 dark:bg-white/5 rounded-lg transition-colors"
                             title="Tahrirlash"
                           >
                             <Edit2 className="w-4 h-4" />
@@ -363,7 +363,7 @@ export const Employees = ({ globalQuery }) => {
                         {hasPermission('xodim_delete') && (
                           <button
                             onClick={() => handleDelete(emp.id)}
-                            className="p-1.5 text-slate-500 dark:text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors"
+                            className="p-1.5 text-slate-700 dark:text-slate-300 font-bold hover:text-rose-400 hover:bg-rose-500/10 rounded-lg transition-colors"
                             title="O'chirish"
                           >
                             <Trash2 className="w-4 h-4" />
@@ -447,7 +447,7 @@ export const Employees = ({ globalQuery }) => {
                     branchName: br ? br.name : '',
                   });
                 }}
-                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none text-slate-900 dark:text-white font-medium"
+                className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none text-slate-900 dark:text-white font-bold"
               >
                 {branches.map((b) => (
                   <option key={b.id} value={b.id} className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">
@@ -537,7 +537,7 @@ export const Employees = ({ globalQuery }) => {
               onChange={(e) =>
                 setFormData({ ...formData, status: e.target.value })
               }
-              className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none text-slate-900 dark:text-white font-medium"
+              className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl focus:outline-none text-slate-900 dark:text-white font-bold"
             >
               <option value="Faol" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Faol</option>
               <option value="Ta'tilda" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Ta'tilda</option>
@@ -549,7 +549,7 @@ export const Employees = ({ globalQuery }) => {
             <button
               type="button"
               onClick={() => setIsModalOpen(false)}
-              className="px-4 py-2.5 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white hover:bg-slate-100 dark:bg-white/5 rounded-xl transition-colors"
+              className="px-4 py-2.5 text-xs font-semibold text-slate-700 dark:text-slate-300 font-bold hover:text-slate-900 dark:text-white hover:bg-slate-100 dark:bg-white/5 rounded-xl transition-colors"
             >
               Bekor qilish
             </button>
@@ -574,17 +574,17 @@ export const Employees = ({ globalQuery }) => {
         >
           <div className="space-y-6">
             <div className="flex items-center gap-4">
-              <div className="w-14 h-14 rounded-2xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center font-extrabold text-xl shrink-0">
+              <div className="w-14 h-14 rounded-2xl bg-blue-600/20 text-blue-700 dark:text-blue-400 border border-blue-500/30 flex items-center justify-center font-extrabold text-xl shrink-0">
                 {profileEmp.firstName ? profileEmp.firstName[0].toUpperCase() : 'X'}
               </div>
               <div className="space-y-1">
                 <div className="text-sm font-bold text-slate-900 dark:text-white">
                   {profileEmp.firstName} {profileEmp.lastName} {profileEmp.middleName}
                 </div>
-                <div className="text-xs text-blue-400 font-semibold">
+                <div className="text-xs text-blue-700 dark:text-blue-400 font-semibold">
                   {profileEmp.position} ({profileEmp.branchName})
                 </div>
-                <div className="flex items-center gap-3 text-xs text-slate-500 dark:text-slate-400">
+                <div className="flex items-center gap-3 text-xs text-slate-700 dark:text-slate-300 font-bold">
                   <span>📞 {profileEmp.phone}</span>
                   <span>📅 Ishga kirgan: {profileEmp.hireDate}</span>
                 </div>
@@ -610,12 +610,12 @@ export const Employees = ({ globalQuery }) => {
                       <div className="space-y-1">
                         <div className="flex items-center gap-2">
                           <StarRating value={r.stars} readonly size="sm" showLabel />
-                          <span className="text-[10px] text-slate-500 font-mono">({r.date})</span>
+                          <span className="text-[10px] text-slate-700 font-bold font-mono">({r.date})</span>
                         </div>
                         <p className="text-xs text-slate-600 dark:text-slate-300 italic">
                           "{r.comment}"
                         </p>
-                        <div className="text-[10px] text-slate-500 dark:text-slate-400">
+                        <div className="text-[10px] text-slate-700 dark:text-slate-300 font-bold">
                           Baholadi: {r.ratedByName}
                         </div>
                       </div>

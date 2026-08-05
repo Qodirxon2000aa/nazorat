@@ -52,7 +52,7 @@ export const Login = () => {
           <h1 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
             FILIALLAR NAZORATI
           </h1>
-          <p className="text-xs font-medium text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs font-bold text-slate-700 dark:text-slate-300 font-bold mt-1">
             Xodimlarni kunlik baholash va monitoring tizimi
           </p>
         </div>
@@ -63,13 +63,13 @@ export const Login = () => {
           className="mb-6 p-3.5 rounded-2xl bg-blue-950/50 border border-blue-500/30 text-blue-300 text-xs flex items-center justify-between cursor-pointer hover:bg-blue-900/40 transition-all group"
         >
           <div className="flex items-center gap-2.5">
-            <ShieldCheck className="w-4 h-4 text-blue-400 shrink-0" />
+            <ShieldCheck className="w-4 h-4 text-blue-700 dark:text-blue-400 shrink-0" />
             <div>
               <span className="font-semibold text-slate-700 dark:text-slate-200">Admin login/parol:</span>{' '}
               <code className="bg-blue-900/60 px-1.5 py-0.5 rounded text-amber-300 font-mono">admin</code> / <code className="bg-blue-900/60 px-1.5 py-0.5 rounded text-amber-300 font-mono">admin</code>
             </div>
           </div>
-          <span className="text-[10px] text-blue-400 group-hover:underline font-medium">Kiritish</span>
+          <span className="text-[10px] text-blue-700 dark:text-blue-400 group-hover:underline font-bold">Kiritish</span>
         </div>
 
         {error && (
@@ -84,7 +84,7 @@ export const Login = () => {
               Foydalanuvchi logini
             </label>
             <div className="relative">
-              <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+              <User className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700 font-bold" />
               <input
                 type="text"
                 required
@@ -101,7 +101,7 @@ export const Login = () => {
               Parol
             </label>
             <div className="relative">
-              <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+              <Lock className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700 font-bold" />
               <input
                 type={showPassword ? 'text' : 'password'}
                 required
@@ -113,7 +113,7 @@ export const Login = () => {
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-600 dark:text-slate-300 transition-colors"
+                className="absolute right-3.5 top-1/2 -translate-y-1/2 text-slate-700 font-bold hover:text-slate-600 dark:text-slate-300 transition-colors"
               >
                 {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
               </button>
@@ -121,14 +121,14 @@ export const Login = () => {
           </div>
 
           <div className="flex items-center justify-between text-xs pt-1">
-            <label className="flex items-center gap-2 cursor-pointer text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200">
+            <label className="flex items-center gap-2 cursor-pointer text-slate-700 dark:text-slate-300 font-bold hover:text-slate-700 dark:text-slate-200">
               <input type="checkbox" defaultChecked className="rounded border-slate-700 bg-slate-800 text-blue-600 focus:ring-0" />
               Eslab qolish
             </label>
             <button
               type="button"
               onClick={() => setShowForgotModal(true)}
-              className="text-blue-400 hover:underline font-semibold"
+              className="text-blue-700 dark:text-blue-400 hover:underline font-semibold"
             >
               Parolni unutdingizmi?
             </button>
@@ -156,18 +156,18 @@ export const Login = () => {
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-50 dark:bg-slate-950/80 backdrop-blur-sm">
           <div className="w-full max-w-sm bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-2xl text-left">
             <div className="flex items-center gap-3 mb-4">
-              <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-400">
+              <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-700 dark:text-blue-400">
                 <KeyRound className="w-5 h-5" />
               </div>
               <h3 className="text-base font-bold text-slate-900 dark:text-white">Parolni tiklash</h3>
             </div>
             {forgotMsg ? (
-              <div className="text-xs text-blue-400 bg-blue-500/10 p-3 rounded-xl border border-blue-500/20 mb-4">
+              <div className="text-xs text-blue-700 dark:text-blue-400 bg-blue-500/10 p-3 rounded-xl border border-blue-500/20 mb-4">
                 {forgotMsg}
               </div>
             ) : (
               <div className="space-y-4">
-                <p className="text-xs text-slate-500 dark:text-slate-400">
+                <p className="text-xs text-slate-700 dark:text-slate-300 font-bold">
                   Tizimda ro'yxatdan o'tgan e-mail manzilingizni kiriting.
                 </p>
                 <input
@@ -186,7 +186,7 @@ export const Login = () => {
                   setShowForgotModal(false);
                   setForgotMsg('');
                 }}
-                className="px-4 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white"
+                className="px-4 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 font-bold hover:text-slate-900 dark:text-white"
               >
                 Yopish
               </button>

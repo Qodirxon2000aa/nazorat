@@ -189,10 +189,10 @@ export const Reports = () => {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-            <FileSpreadsheet className="w-7 h-7 sm:w-8 sm:h-8 text-blue-400" />
+            <FileSpreadsheet className="w-7 h-7 sm:w-8 sm:h-8 text-blue-700 dark:text-blue-400" />
             <span>Tizim Hisobotlari Markazi</span>
           </h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs text-slate-700 dark:text-slate-300 font-bold mt-1">
             Kunlik, haftalik, oylik va yillik hisobotlarni shakllantirish va export qilish
           </p>
         </div>
@@ -243,7 +243,7 @@ export const Reports = () => {
             <select
               value={reportType}
               onChange={(e) => setReportType(e.target.value)}
-              className="w-full px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white font-medium focus:outline-none cursor-pointer"
+              className="w-full px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white font-bold focus:outline-none cursor-pointer"
             >
               <option value="daily" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Kunlik Hisobot</option>
               <option value="weekly" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Haftalik Hisobot</option>
@@ -260,7 +260,7 @@ export const Reports = () => {
             <select
               value={selectedBranchId}
               onChange={(e) => setSelectedBranchId(e.target.value)}
-              className="w-full px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white font-medium focus:outline-none cursor-pointer"
+              className="w-full px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white font-bold focus:outline-none cursor-pointer"
             >
               <option value="" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Barcha Filiallar</option>
               {branches.map((b) => (
@@ -276,7 +276,7 @@ export const Reports = () => {
               Qidirish:
             </label>
             <div className="relative">
-              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400" />
+              <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700 dark:text-slate-300 font-bold" />
               <input
                 type="text"
                 value={search}
@@ -291,8 +291,8 @@ export const Reports = () => {
         {reportType === 'custom' && (
           <div className="flex flex-wrap items-center gap-3 pt-3 border-t border-slate-200 dark:border-white/10">
             <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-blue-400" />
-              <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Boshlanish:</span>
+              <Calendar className="w-4 h-4 text-blue-700 dark:text-blue-400" />
+              <span className="text-xs text-slate-700 dark:text-slate-300 font-bold">Boshlanish:</span>
               <input
                 type="date"
                 value={startDate}
@@ -300,9 +300,9 @@ export const Reports = () => {
                 className="px-3 py-1.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:outline-none"
               />
             </div>
-            <span className="text-xs text-slate-500 dark:text-slate-400">—</span>
+            <span className="text-xs text-slate-700 dark:text-slate-300 font-bold">—</span>
             <div className="flex items-center gap-2">
-              <span className="text-xs text-slate-500 dark:text-slate-400 font-medium">Tugash:</span>
+              <span className="text-xs text-slate-700 dark:text-slate-300 font-bold">Tugash:</span>
               <input
                 type="date"
                 value={endDate}
@@ -325,7 +325,7 @@ export const Reports = () => {
             <span>
               Hisobot Yozuvlari Soni: {reportRows.length} ta yozuv
             </span>
-            <span className="text-blue-400 font-mono">
+            <span className="text-blue-700 dark:text-blue-400 font-mono">
               O'rtacha Tizim Balli:{' '}
               {(
                 reportRows.reduce((s, r) => s + r.stars, 0) / reportRows.length
@@ -336,7 +336,7 @@ export const Reports = () => {
 
           <div className="overflow-x-auto custom-scrollbar">
             <table className="w-full text-left text-xs">
-              <thead className="bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-white/5">
+              <thead className="bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-white/5">
                 <tr>
                   <th className="px-4 py-3">№</th>
                   <th className="px-4 py-3">Sana</th>
@@ -347,10 +347,10 @@ export const Reports = () => {
                   <th className="px-4 py-3">Baholadi</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-white/5 font-medium text-slate-700 dark:text-slate-200">
+              <tbody className="divide-y divide-white/5 font-bold text-slate-700 dark:text-slate-200">
                 {reportRows.map((r, idx) => (
                   <tr key={r.id} className="hover:bg-slate-100 dark:bg-white/5 transition-colors">
-                    <td className="px-4 py-3 text-slate-500 font-mono">{idx + 1}</td>
+                    <td className="px-4 py-3 text-slate-700 font-bold font-mono">{idx + 1}</td>
                     <td className="px-4 py-3 font-semibold text-slate-600 dark:text-slate-300">
                       {r.date}
                     </td>
@@ -366,7 +366,7 @@ export const Reports = () => {
                     <td className="px-4 py-3 text-slate-600 dark:text-slate-300 italic max-w-xs truncate">
                       "{r.comment}"
                     </td>
-                    <td className="px-4 py-3 text-slate-500 dark:text-slate-400">{r.ratedByName}</td>
+                    <td className="px-4 py-3 text-slate-700 dark:text-slate-300 font-bold">{r.ratedByName}</td>
                   </tr>
                 ))}
               </tbody>

@@ -57,14 +57,14 @@ export const Modal = ({
                   {title}
                 </h3>
                 {subtitle && (
-                  <p className="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                  <p className="text-[11px] sm:text-xs text-slate-700 dark:text-slate-300 font-bold mt-0.5">
                     {subtitle}
                   </p>
                 )}
               </div>
               <button
                 onClick={onClose}
-                className="p-1.5 sm:p-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white rounded-xl hover:bg-slate-100 dark:bg-white/5 transition-colors"
+                className="p-1.5 sm:p-2 text-slate-700 dark:text-slate-300 font-bold hover:text-slate-900 dark:text-white rounded-xl hover:bg-slate-100 dark:bg-white/5 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>

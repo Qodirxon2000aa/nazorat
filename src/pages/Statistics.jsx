@@ -87,10 +87,10 @@ export const Statistics = () => {
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
           <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-            <BarChart3 className="w-7 h-7 sm:w-8 sm:h-8 text-blue-400" />
+            <BarChart3 className="w-7 h-7 sm:w-8 sm:h-8 text-blue-700 dark:text-blue-400" />
             <span>Tahliliy Statistika va Reytinglar</span>
           </h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs text-slate-700 dark:text-slate-300 font-bold mt-1">
             Xodimlar va filiallar ko'rsatkichlarining chuqurlashtirilgan grafik diagrammalari
           </p>
         </div>
@@ -118,11 +118,11 @@ export const Statistics = () => {
         {/* Dropdowns & Custom Date Inputs */}
         <div className="flex flex-wrap items-center gap-4 pt-3 border-t border-slate-200 dark:border-white/10">
           <div className="flex items-center gap-2">
-            <Building2 className="w-4 h-4 text-blue-400" />
+            <Building2 className="w-4 h-4 text-blue-700 dark:text-blue-400" />
             <select
               value={selectedBranchId}
               onChange={(e) => setSelectedBranchId(e.target.value)}
-              className="px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white font-medium focus:outline-none"
+              className="px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white font-bold focus:outline-none"
             >
               <option value="" className="bg-white dark:bg-[#121214] text-slate-900 dark:text-white">Barcha Filiallar</option>
               {branches.map((b) => (
@@ -135,14 +135,14 @@ export const Statistics = () => {
 
           {period === 'custom' && (
             <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4 text-blue-400" />
+              <Calendar className="w-4 h-4 text-blue-700 dark:text-blue-400" />
               <input
                 type="date"
                 value={startDate}
                 onChange={(e) => setStartDate(e.target.value)}
                 className="px-3 py-1.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl text-slate-900 dark:text-white focus:outline-none"
               />
-              <span className="text-xs text-slate-500 dark:text-slate-400">—</span>
+              <span className="text-xs text-slate-700 dark:text-slate-300 font-bold">—</span>
               <input
                 type="date"
                 value={endDate}
@@ -163,13 +163,13 @@ export const Statistics = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
             <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-blue-950/40 border border-blue-500/20 text-slate-900 dark:text-white shadow-xl">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold text-blue-400">Eng Yuqori Xodim</span>
+                <span className="text-xs font-semibold text-blue-700 dark:text-blue-400">Eng Yuqori Xodim</span>
                 <Award className="w-5 h-5 text-amber-400" />
               </div>
               <div className="text-base sm:text-lg font-black truncate">
                 {statsData.overview?.topEmployee?.name || 'Mavjud emas'}
               </div>
-              <div className="text-xs font-medium text-blue-300 mt-1">
+              <div className="text-xs font-bold text-blue-300 mt-1">
                 {statsData.overview?.topEmployee
                   ? `${statsData.overview.topEmployee.rating} ⭐ (${statsData.overview.topEmployee.branch})`
                   : '-'}
@@ -184,7 +184,7 @@ export const Statistics = () => {
               <div className="text-base sm:text-lg font-black truncate">
                 {statsData.overview?.bottomEmployee?.name || 'Mavjud emas'}
               </div>
-              <div className="text-xs font-medium text-rose-300 mt-1">
+              <div className="text-xs font-bold text-rose-300 mt-1">
                 {statsData.overview?.bottomEmployee
                   ? `${statsData.overview.bottomEmployee.rating} ⭐ (${statsData.overview.bottomEmployee.branch})`
                   : '-'}
@@ -199,7 +199,7 @@ export const Statistics = () => {
               <div className="text-base sm:text-lg font-black truncate">
                 {statsData.overview?.topBranch?.name || 'Mavjud emas'}
               </div>
-              <div className="text-xs font-medium text-cyan-300 mt-1">
+              <div className="text-xs font-bold text-cyan-300 mt-1">
                 {statsData.overview?.topBranch
                   ? `${statsData.overview.topBranch.rating} ⭐ O'rtacha`
                   : '-'}
@@ -214,7 +214,7 @@ export const Statistics = () => {
               <div className="text-base sm:text-lg font-black truncate">
                 {statsData.overview?.weakestBranch?.name || 'Mavjud emas'}
               </div>
-              <div className="text-xs font-medium text-amber-300 mt-1">
+              <div className="text-xs font-bold text-amber-300 mt-1">
                 {statsData.overview?.weakestBranch
                   ? `${statsData.overview.weakestBranch.rating} ⭐ O'rtacha`
                   : '-'}
@@ -228,7 +228,7 @@ export const Statistics = () => {
               <h3 className="text-base font-bold text-slate-900 dark:text-white mb-1">
                 Oylik va Dinamik O'rtacha Reyting (Area Chart)
               </h3>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mb-6">
+              <p className="text-xs text-slate-700 dark:text-slate-300 font-bold mb-6">
                 Vaqt oralig'ida tizim bo'yicha baholarning o'sish va pasayish dinamikasi
               </p>
 
@@ -272,7 +272,7 @@ export const Statistics = () => {
                 <h3 className="text-base font-bold text-slate-900 dark:text-white">
                   Baholar Taqsimoti (Pie Chart)
                 </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400">
+                <p className="text-xs text-slate-700 dark:text-slate-300 font-bold">
                   1 tadan 5 tagacha yulduzli baholar ulushi
                 </p>
               </div>
@@ -313,7 +313,7 @@ export const Statistics = () => {
                       className="w-2.5 h-2.5 rounded-full"
                       style={{ backgroundColor: PIE_COLORS[i % PIE_COLORS.length] }}
                     />
-                    <span className="text-slate-600 dark:text-slate-300 font-medium">
+                    <span className="text-slate-600 dark:text-slate-300 font-bold">
                       {d.name}: {d.count}
                     </span>
                   </div>
@@ -343,13 +343,13 @@ export const Statistics = () => {
                             ? 'bg-slate-300 text-black'
                             : rank === 2
                             ? 'bg-amber-700 text-slate-900 dark:text-white'
-                            : 'bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400'
+                            : 'bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 font-bold'
                         }`}
                       >
                         {rank + 1}
                       </span>
 
-                      <div className="w-9 h-9 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center font-bold text-sm shrink-0">
+                      <div className="w-9 h-9 rounded-xl bg-blue-600/20 text-blue-700 dark:text-blue-400 border border-blue-500/30 flex items-center justify-center font-bold text-sm shrink-0">
                         {emp.name ? emp.name[0].toUpperCase() : 'X'}
                       </div>
 
@@ -357,7 +357,7 @@ export const Statistics = () => {
                         <div className="text-xs font-bold text-slate-900 dark:text-white">
                           {emp.name}
                         </div>
-                        <div className="text-[10px] text-slate-500 dark:text-slate-400">{emp.branch}</div>
+                        <div className="text-[10px] text-slate-700 dark:text-slate-300 font-bold">{emp.branch}</div>
                       </div>
                     </div>
 
@@ -366,7 +366,7 @@ export const Statistics = () => {
                         <Star className="w-3.5 h-3.5 fill-amber-400" />
                         <span>{emp.averageRating} ⭐</span>
                       </div>
-                      <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
+                      <span className="text-[10px] text-slate-700 dark:text-slate-300 font-bold font-mono">
                         {emp.ratingCount || emp.count || 0} ta baho
                       </span>
                     </div>
@@ -378,7 +378,7 @@ export const Statistics = () => {
             {/* Branch Rating Performance */}
             <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 shadow-xl">
               <h3 className="text-base font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
-                <Building2 className="w-5 h-5 text-blue-400" />
+                <Building2 className="w-5 h-5 text-blue-700 dark:text-blue-400" />
                 <span>Filiallar Reytingi</span>
               </h3>
 
@@ -386,7 +386,7 @@ export const Statistics = () => {
                 {(statsData?.branchRankings || []).map((b, rank) => (
                   <div key={b.id || rank} className="py-3.5 flex items-center justify-between">
                     <div className="flex items-center gap-3">
-                      <span className="w-6 h-6 rounded-lg bg-blue-500/10 text-blue-400 flex items-center justify-center text-xs font-black">
+                      <span className="w-6 h-6 rounded-lg bg-blue-500/10 text-blue-700 dark:text-blue-400 flex items-center justify-center text-xs font-black">
                         {rank + 1}
                       </span>
                       <span className="text-xs font-bold text-slate-900 dark:text-white">
@@ -395,10 +395,10 @@ export const Statistics = () => {
                     </div>
 
                     <div className="text-right">
-                      <div className="text-xs font-extrabold text-blue-400">
+                      <div className="text-xs font-extrabold text-blue-700 dark:text-blue-400">
                         {b.averageRating} ⭐
                       </div>
-                      <span className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">
+                      <span className="text-[10px] text-slate-700 dark:text-slate-300 font-bold font-mono">
                         {b.count} ta baholash
                       </span>
                     </div>
@@ -416,7 +416,7 @@ export const Statistics = () => {
                   <Trophy className="w-6 h-6 text-amber-400" />
                   <span>Umumiy Jamlangan Ballar Reytingi</span>
                 </h3>
-                <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+                <p className="text-xs text-slate-700 dark:text-slate-300 font-bold mt-0.5">
                   Xodimlarning barcha kunlik olgan baholari yig'indisi (masalan: 5 + 4 = 9 ball)
                 </p>
               </div>
@@ -427,7 +427,7 @@ export const Statistics = () => {
 
             <div className="overflow-x-auto custom-scrollbar">
               <table className="w-full text-left text-xs">
-                <thead className="bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-white/10">
+                <thead className="bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider border-b border-slate-200 dark:border-white/10">
                   <tr>
                     <th className="px-4 py-3">O'rin</th>
                     <th className="px-4 py-3">Xodim</th>
@@ -437,7 +437,7 @@ export const Statistics = () => {
                     <th className="px-4 py-3 text-right">Baholar Soni</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-white/5 font-medium text-slate-700 dark:text-slate-200">
+                <tbody className="divide-y divide-white/5 font-bold text-slate-700 dark:text-slate-200">
                   {(statsData?.cumulativePointsLeaderboard || []).map((emp, index) => (
                     <tr key={emp.id || index} className="hover:bg-slate-100 dark:bg-white/5 transition-colors">
                       <td className="px-4 py-3.5">
@@ -449,7 +449,7 @@ export const Statistics = () => {
                               ? 'bg-slate-300 text-black'
                               : index === 2
                               ? 'bg-amber-700 text-slate-900 dark:text-white'
-                              : 'bg-slate-100 dark:bg-white/5 text-slate-500 dark:text-slate-400'
+                              : 'bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 font-bold'
                           }`}
                         >
                           {index + 1}
@@ -458,12 +458,12 @@ export const Statistics = () => {
 
                       <td className="px-4 py-3.5">
                         <div className="flex items-center gap-3">
-                          <div className="w-8 h-8 rounded-xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center font-bold text-xs shrink-0">
+                          <div className="w-8 h-8 rounded-xl bg-blue-600/20 text-blue-700 dark:text-blue-400 border border-blue-500/30 flex items-center justify-center font-bold text-xs shrink-0">
                             {emp.name ? emp.name[0].toUpperCase() : 'X'}
                           </div>
                           <div>
                             <div className="font-bold text-slate-900 dark:text-white text-xs">{emp.name}</div>
-                            <div className="text-[10px] text-slate-500 dark:text-slate-400">{emp.position}</div>
+                            <div className="text-[10px] text-slate-700 dark:text-slate-300 font-bold">{emp.position}</div>
                           </div>
                         </div>
                       </td>
@@ -473,7 +473,7 @@ export const Statistics = () => {
                       </td>
 
                       <td className="px-4 py-3.5 text-center">
-                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-400 font-black text-sm">
+                        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-xl bg-blue-500/10 border border-blue-500/30 text-blue-700 dark:text-blue-400 font-black text-sm">
                           <Star className="w-4 h-4 fill-blue-400" />
                           <span>{emp.totalPoints} BALL</span>
                         </span>
@@ -483,7 +483,7 @@ export const Statistics = () => {
                         {emp.averageRating} ⭐
                       </td>
 
-                      <td className="px-4 py-3.5 text-right font-mono text-slate-500 dark:text-slate-400">
+                      <td className="px-4 py-3.5 text-right font-mono text-slate-700 dark:text-slate-300 font-bold">
                         {emp.totalRatingsCount} marta
                       </td>
                     </tr>

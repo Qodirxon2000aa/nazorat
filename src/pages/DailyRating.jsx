@@ -165,7 +165,7 @@ export const DailyRatingPage = () => {
             <Star className="w-7 h-7 sm:w-8 sm:h-8 text-amber-400 fill-amber-400" />
             <span>Kunlik Baholash Tizimi</span>
           </h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs text-slate-700 dark:text-slate-300 font-bold mt-1">
             Filial xodimlari kunlik baholari va izohlari
           </p>
         </div>
@@ -173,7 +173,7 @@ export const DailyRatingPage = () => {
         {/* Date & Branch Selectors */}
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2 bg-white dark:bg-[#121214] px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 shadow-sm">
-            <Building2 className="w-4 h-4 text-blue-400" />
+            <Building2 className="w-4 h-4 text-blue-700 dark:text-blue-400" />
             <select
               value={selectedBranchId}
               onChange={(e) => setSelectedBranchId(e.target.value)}
@@ -188,7 +188,7 @@ export const DailyRatingPage = () => {
           </div>
 
           <div className="flex items-center gap-2 bg-white dark:bg-[#121214] px-3.5 py-2 rounded-xl border border-slate-200 dark:border-white/10 shadow-sm">
-            <Calendar className="w-4 h-4 text-blue-400" />
+            <Calendar className="w-4 h-4 text-blue-700 dark:text-blue-400" />
             <input
               type="date"
               value={selectedDate}
@@ -206,7 +206,7 @@ export const DailyRatingPage = () => {
             <span className="text-slate-600 dark:text-slate-300">
               Bugungi baholash jarayoni ({selectedDate}):
             </span>
-            <span className="text-blue-400 font-mono">
+            <span className="text-blue-700 dark:text-blue-400 font-mono">
               {ratedCount} / {totalEmps} xodim ({progressPercent}%)
             </span>
           </div>
@@ -219,7 +219,7 @@ export const DailyRatingPage = () => {
         </div>
 
         <div className="relative w-full md:w-72">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 dark:text-slate-400" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-700 dark:text-slate-300 font-bold" />
           <input
             type="text"
             value={search}
@@ -235,11 +235,11 @@ export const DailyRatingPage = () => {
         <TableSkeleton rows={4} />
       ) : filteredEmployees.length === 0 ? (
         <div className="p-12 text-center bg-white dark:bg-[#121214] rounded-3xl border border-slate-200 dark:border-white/5 shadow-xl">
-          <Sparkles className="w-8 h-8 text-blue-400 mx-auto mb-2" />
+          <Sparkles className="w-8 h-8 text-blue-700 dark:text-blue-400 mx-auto mb-2" />
           <h3 className="text-base font-bold text-slate-900 dark:text-white">
             Ushbu filialda faol xodimlar topilmadi
           </h3>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs text-slate-700 dark:text-slate-300 font-bold mt-1">
             "Xodimlar" bo'limidan filialga yangi xodimlarni biriktiring.
           </p>
         </div>
@@ -260,25 +260,25 @@ export const DailyRatingPage = () => {
               >
                 <div className="flex items-start justify-between gap-3 mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="w-11 h-11 rounded-2xl bg-blue-600/20 text-blue-400 border border-blue-500/30 flex items-center justify-center font-extrabold text-base shrink-0">
+                    <div className="w-11 h-11 rounded-2xl bg-blue-600/20 text-blue-700 dark:text-blue-400 border border-blue-500/30 flex items-center justify-center font-extrabold text-base shrink-0">
                       {emp.firstName ? emp.firstName[0].toUpperCase() : 'X'}
                     </div>
                     <div>
                       <h3 className="text-sm font-bold text-slate-900 dark:text-white">
                         {emp.firstName} {emp.lastName}
                       </h3>
-                      <p className="text-xs text-blue-400 font-semibold">
+                      <p className="text-xs text-blue-700 dark:text-blue-400 font-semibold">
                         {emp.position}
                       </p>
-                      <span className="text-[10px] text-slate-500 dark:text-slate-400">
+                      <span className="text-[10px] text-slate-700 dark:text-slate-300 font-bold">
                         O'rtacha reytingi: {emp.averageRating} ⭐
                       </span>
                     </div>
                   </div>
 
                   {existingRating ? (
-                    <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20 flex items-center gap-1">
-                      <CheckCircle2 className="w-3 h-3 text-blue-400" />
+                    <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20 flex items-center gap-1">
+                      <CheckCircle2 className="w-3 h-3 text-blue-700 dark:text-blue-400" />
                       Baholandi
                     </span>
                   ) : (
@@ -300,7 +300,7 @@ export const DailyRatingPage = () => {
                     <p className="text-slate-700 dark:text-slate-200 italic">
                       "{existingRating.comment}"
                     </p>
-                    <div className="text-[10px] text-slate-500 dark:text-slate-400 text-right">
+                    <div className="text-[10px] text-slate-700 dark:text-slate-300 font-bold text-right">
                       Baholadi: {existingRating.ratedByName}
                     </div>
                   </div>
@@ -320,7 +320,7 @@ export const DailyRatingPage = () => {
 
                     <div>
                       <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5 flex items-center gap-1">
-                        <MessageSquare className="w-3.5 h-3.5 text-blue-400" />
+                        <MessageSquare className="w-3.5 h-3.5 text-blue-700 dark:text-blue-400" />
                         <span>2. Izoh qoldiring (Majburiy) *</span>
                       </label>
                       <textarea

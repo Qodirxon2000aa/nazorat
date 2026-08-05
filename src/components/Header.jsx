@@ -71,13 +71,13 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
           <h2 className="text-sm font-bold text-slate-900 dark:text-white tracking-tight truncate">
             Xush kelibsiz, {user?.name || 'Foydalanuvchi'}!
           </h2>
-          <p className="text-[11px] text-slate-500 dark:text-slate-400">
+          <p className="text-[11px] text-slate-700 dark:text-slate-300 font-bold">
             {getUzbekDateString()}
           </p>
         </div>
 
         <div className="relative flex-1 max-w-xs sm:max-w-md">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-500 dark:text-slate-400" />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 sm:w-4 sm:h-4 text-slate-700 dark:text-slate-300 font-bold" />
           <input
             type="text"
             value={globalQuery || ''}
@@ -92,7 +92,7 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
       <div className="flex items-center gap-3">
         {/* Branch Info Badge */}
         {user?.branchName && (
-          <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-semibold text-blue-400">
+          <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-xs font-semibold text-blue-700 dark:text-blue-400">
             <Building2 className="w-3.5 h-3.5" />
             <span>{user.branchName}</span>
           </div>
@@ -132,7 +132,7 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
                 {unreadCount > 0 && (
                   <button
                     onClick={handleMarkAllRead}
-                    className="text-xs text-blue-400 hover:underline flex items-center gap-1 font-semibold"
+                    className="text-xs text-blue-700 dark:text-blue-400 hover:underline flex items-center gap-1 font-semibold"
                   >
                     <CheckCheck className="w-3.5 h-3.5" />
                     O'qildi qilish
@@ -141,7 +141,7 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
               </div>
               <div className="max-h-72 overflow-y-auto divide-y divide-white/5 custom-scrollbar">
                 {notifications.length === 0 ? (
-                  <div className="p-4 text-center text-xs text-slate-500">
+                  <div className="p-4 text-center text-xs text-slate-700 font-bold">
                     Bildirishnomalar mavjud emas
                   </div>
                 ) : (
@@ -157,10 +157,10 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
                       <div className="font-semibold text-slate-900 dark:text-white mb-0.5">
                         {n.title}
                       </div>
-                      <p className="text-slate-500 dark:text-slate-400 leading-relaxed">
+                      <p className="text-slate-700 dark:text-slate-300 font-bold leading-relaxed">
                         {n.message}
                       </p>
-                      <div className="text-[10px] text-slate-500 mt-1">
+                      <div className="text-[10px] text-slate-700 font-bold mt-1">
                         {new Date(n.timestamp).toLocaleTimeString([], {
                           hour: '2-digit',
                           minute: '2-digit',
@@ -189,11 +189,11 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
               <div className="text-xs font-bold text-slate-900 dark:text-white leading-none">
                 {user?.name} {user?.surname}
               </div>
-              <div className="text-[11px] font-medium text-blue-400 mt-0.5">
+              <div className="text-[11px] font-bold text-blue-700 dark:text-blue-400 mt-0.5">
                 {user?.role}
               </div>
             </div>
-            <ChevronDown className="w-4 h-4 text-slate-500 dark:text-slate-400" />
+            <ChevronDown className="w-4 h-4 text-slate-700 dark:text-slate-300 font-bold" />
           </button>
 
           {showProfileMenu && (
@@ -202,7 +202,7 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
                 <div className="text-xs font-bold text-slate-900 dark:text-white">
                   {user?.name} {user?.surname}
                 </div>
-                <div className="text-xs text-slate-500 dark:text-slate-400">
+                <div className="text-xs text-slate-700 dark:text-slate-300 font-bold">
                   {user?.email}
                 </div>
               </div>
@@ -212,9 +212,9 @@ export const Header = ({ globalQuery, setGlobalQuery, onToggleMobileSidebar }) =
                   setShowProfileMenu(false);
                   navigate('/settings');
                 }}
-                className="w-full flex items-center gap-2 px-3 py-2 text-xs font-medium text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:bg-white/5 hover:text-slate-900 dark:text-white rounded-xl transition-colors"
+                className="w-full flex items-center gap-2 px-3 py-2 text-xs font-bold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:bg-white/5 hover:text-slate-900 dark:text-white rounded-xl transition-colors"
               >
-                <SettingsIcon className="w-4 h-4 text-slate-500 dark:text-slate-400" />
+                <SettingsIcon className="w-4 h-4 text-slate-700 dark:text-slate-300 font-bold" />
                 Sozlamalar
               </button>
 

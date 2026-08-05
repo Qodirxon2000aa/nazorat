@@ -84,7 +84,7 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
               <span className="text-sm font-black tracking-tight text-slate-900 dark:text-white truncate">
                 FXBB Tizimi
               </span>
-              <span className="text-[10px] font-medium text-slate-500 dark:text-slate-400 truncate">
+              <span className="text-[10px] font-bold text-slate-700 dark:text-slate-300 font-bold truncate">
                 Filiallar & Xodimlar
               </span>
             </div>
@@ -94,7 +94,7 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
         {/* Desktop collapse button */}
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className={`hidden md:flex items-center justify-center rounded-lg text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:bg-white/10 transition-colors ${
+          className={`hidden md:flex items-center justify-center rounded-lg text-slate-700 dark:text-slate-300 font-bold hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:bg-white/10 transition-colors ${
             collapsed && !mobileOpen
               ? 'absolute -right-3 top-7 w-6 h-6 bg-slate-50 dark:bg-[#09090b] border border-slate-200 dark:border-white/10 z-50 rounded-full shadow-md'
               : 'p-1.5'
@@ -108,7 +108,7 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
         {setMobileOpen && (
           <button
             onClick={() => setMobileOpen(false)}
-            className="md:hidden p-2 rounded-xl text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:bg-white/10 transition-colors"
+            className="md:hidden p-2 rounded-xl text-slate-700 dark:text-slate-300 font-bold hover:text-slate-900 dark:text-white hover:bg-slate-200 dark:bg-white/10 transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -130,15 +130,15 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
                 className={({ isActive }) =>
                   `flex items-center gap-3 px-3.5 py-3 rounded-xl text-xs transition-all relative ${
                     isActive
-                      ? 'bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-blue-400 font-bold shadow-sm'
-                      : 'text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:bg-white/5'
+                      ? 'bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-blue-700 dark:text-blue-400 font-bold shadow-sm'
+                      : 'text-slate-700 dark:text-slate-300 font-bold hover:text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:bg-white/5'
                   }`
                 }
               >
                 <Icon className="w-5 h-5 shrink-0" />
                 {(!collapsed || mobileOpen) && <span className="truncate">{item.label}</span>}
                 {(!collapsed || mobileOpen) && item.badge && (
-                  <span className="ml-auto text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/30">
+                  <span className="ml-auto text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-blue-500/20 text-blue-700 dark:text-blue-400 border border-blue-500/30">
                     {item.badge}
                   </span>
                 )}
@@ -151,10 +151,10 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
       {(!collapsed || mobileOpen) && user && (
         <div className="p-4 m-3 rounded-2xl bg-blue-500/5 border border-blue-500/20 flex items-center justify-between shrink-0">
           <div>
-            <div className="text-[10px] uppercase tracking-wider font-bold text-slate-500 dark:text-slate-400">
+            <div className="text-[10px] uppercase tracking-wider font-bold text-slate-700 dark:text-slate-300 font-bold">
               Faol Rol
             </div>
-            <div className="text-xs font-extrabold text-blue-400 truncate mt-0.5">
+            <div className="text-xs font-extrabold text-blue-700 dark:text-blue-400 truncate mt-0.5">
               {user.role}
             </div>
           </div>

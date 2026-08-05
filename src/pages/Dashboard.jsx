@@ -94,7 +94,7 @@ export const Dashboard = ({ globalQuery }) => {
                   <h1 className="text-lg sm:text-xl md:text-2xl font-black text-slate-900 dark:text-white">
                     {user.name} {user.surname}
                   </h1>
-                  <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-400 border border-blue-500/20">
+                  <span className="px-3 py-1 rounded-full text-[10px] font-bold bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20">
                     Faol Xodim
                   </span>
                 </div>
@@ -102,7 +102,7 @@ export const Dashboard = ({ globalQuery }) => {
                   {user.position || 'Xodim'} — {user.branchName || 'Filial'}
                 </p>
                 {user.phone && (
-                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                  <p className="text-xs text-slate-700 dark:text-slate-300 font-bold">
                     📞 Telefon: {user.phone}
                   </p>
                 )}
@@ -115,7 +115,7 @@ export const Dashboard = ({ globalQuery }) => {
                   <span>{myAvgRating}</span>
                   <Star className="w-5 h-5 fill-amber-400" />
                 </div>
-                <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mt-0.5">
+                <div className="text-[10px] font-bold text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider mt-0.5">
                   O'rtacha baho
                 </div>
               </div>
@@ -124,7 +124,7 @@ export const Dashboard = ({ globalQuery }) => {
                 <div className="text-2xl font-black text-slate-900 dark:text-white">
                   {myRatings.length}
                 </div>
-                <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider mt-0.5">
+                <div className="text-[10px] font-bold text-slate-700 dark:text-slate-300 font-bold uppercase tracking-wider mt-0.5">
                   Jami baholar
                 </div>
               </div>
@@ -136,37 +136,37 @@ export const Dashboard = ({ globalQuery }) => {
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
           <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-xl space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">A'lo baholar (5 ⭐)</span>
+              <span className="text-xs font-bold text-slate-700 dark:text-slate-300 font-bold">A'lo baholar (5 ⭐)</span>
               <div className="p-2.5 rounded-xl bg-amber-500/10 text-amber-400">
                 <Award className="w-5 h-5" />
               </div>
             </div>
             <div className="text-2xl font-black text-slate-900 dark:text-white">{fiveStarCount} ta</div>
-            <div className="text-[11px] text-slate-500">Menejerlar tomonidan e'tirof etilgan</div>
+            <div className="text-[11px] text-slate-700 font-bold">Menejerlar tomonidan e'tirof etilgan</div>
           </div>
 
           <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-xl space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">Jami baholar soni</span>
-              <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-400">
+              <span className="text-xs font-bold text-slate-700 dark:text-slate-300 font-bold">Jami baholar soni</span>
+              <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-700 dark:text-blue-400">
                 <MessageSquare className="w-5 h-5" />
               </div>
             </div>
             <div className="text-2xl font-black text-slate-900 dark:text-white">{myRatings.length} ta</div>
-            <div className="text-[11px] text-slate-500">Kunlik baholash davri mobaynida</div>
+            <div className="text-[11px] text-slate-700 font-bold">Kunlik baholash davri mobaynida</div>
           </div>
 
           <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 shadow-xl space-y-2">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-bold text-slate-500 dark:text-slate-400">Oxirgi olgan bahoyim</span>
-              <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-400">
+              <span className="text-xs font-bold text-slate-700 dark:text-slate-300 font-bold">Oxirgi olgan bahoyim</span>
+              <div className="p-2.5 rounded-xl bg-blue-500/10 text-blue-700 dark:text-blue-400">
                 <CheckCircle2 className="w-5 h-5" />
               </div>
             </div>
-            <div className="text-2xl font-black text-blue-400">
+            <div className="text-2xl font-black text-blue-700 dark:text-blue-400">
               {myRatings.length > 0 ? `${myRatings[0].stars} ⭐` : 'Mavjud emas'}
             </div>
-            <div className="text-[11px] text-slate-500">
+            <div className="text-[11px] text-slate-700 font-bold">
               {myRatings.length > 0 ? `Sana: ${myRatings[0].date}` : 'Hali baho qo\'yilmagan'}
             </div>
           </div>
@@ -179,11 +179,11 @@ export const Dashboard = ({ globalQuery }) => {
               <h2 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">
                 Mening Baholarim va Izohlarim
               </h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              <p className="text-xs text-slate-700 dark:text-slate-300 font-bold mt-0.5">
                 Menejer va rahbariyat tomonidan berilgan kunlik baholar va bildirilgan izohlar
               </p>
             </div>
-            <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-blue-500/10 text-blue-400 border border-blue-500/20">
+            <span className="text-xs font-bold px-3 py-1.5 rounded-xl bg-blue-500/10 text-blue-700 dark:text-blue-400 border border-blue-500/20">
               {myRatings.length} ta baho
             </span>
           </div>
@@ -192,7 +192,7 @@ export const Dashboard = ({ globalQuery }) => {
             <div className="text-center py-12 border border-dashed border-slate-200 dark:border-slate-800 rounded-2xl p-6">
               <Star className="w-10 h-10 text-slate-600 mx-auto mb-3" />
               <h3 className="text-sm font-bold text-slate-900 dark:text-white">Sizga hali baho qo'yilmagan</h3>
-              <p className="text-xs text-slate-500 mt-1">
+              <p className="text-xs text-slate-700 font-bold mt-1">
                 Kunlik baholash natijalari berilishi bilan ushbu bo'limda aks etadi.
               </p>
             </div>
@@ -206,13 +206,13 @@ export const Dashboard = ({ globalQuery }) => {
                   <div className="flex items-center justify-between flex-wrap gap-2">
                     <div className="flex items-center gap-3">
                       <StarRating value={rating.stars} readonly size="md" showLabel />
-                      <span className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
-                        <Calendar className="w-3.5 h-3.5 text-slate-500" />
+                      <span className="text-xs text-slate-700 dark:text-slate-300 font-bold flex items-center gap-1">
+                        <Calendar className="w-3.5 h-3.5 text-slate-700 font-bold" />
                         {rating.date}
                       </span>
                     </div>
 
-                    <span className="text-xs text-slate-500 dark:text-slate-400 bg-white dark:bg-slate-900 px-3 py-1 rounded-xl border border-slate-200 dark:border-slate-800">
+                    <span className="text-xs text-slate-700 dark:text-slate-300 font-bold bg-white dark:bg-slate-900 px-3 py-1 rounded-xl border border-slate-200 dark:border-slate-800">
                       Baholadi: <strong className="text-slate-700 dark:text-slate-200">{rating.ratedByName || 'Menejer'}</strong>
                     </span>
                   </div>
@@ -304,7 +304,7 @@ export const Dashboard = ({ globalQuery }) => {
           <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
             Boshqaruv Paneli
           </h1>
-          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+          <p className="text-xs text-slate-700 dark:text-slate-300 font-bold mt-1">
             Filiallar faoliyati va xodimlarning kunlik baholash tahlili
           </p>
         </div>
@@ -339,17 +339,17 @@ export const Dashboard = ({ globalQuery }) => {
               className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 hover:border-blue-500/30 transition-all shadow-xl cursor-pointer group"
             >
               <div className="flex items-center justify-between mb-4">
-                <span className="text-xs font-bold text-slate-500 dark:text-slate-400 group-hover:text-slate-900 dark:text-white transition-colors">
+                <span className="text-xs font-bold text-slate-700 dark:text-slate-300 font-bold group-hover:text-slate-900 dark:text-white transition-colors">
                   {card.title}
                 </span>
-                <div className="p-3 rounded-2xl bg-blue-500/10 text-blue-400 group-hover:bg-blue-600 group-hover:text-slate-900 dark:text-white transition-all shadow-lg">
+                <div className="p-3 rounded-2xl bg-blue-500/10 text-blue-700 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-slate-900 dark:text-white transition-all shadow-lg">
                   <Icon className="w-5 h-5" />
                 </div>
               </div>
               <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mb-1 tracking-tight">
                 {card.value}
               </div>
-              <p className="text-[11px] font-medium text-slate-500">
+              <p className="text-[11px] font-bold text-slate-700 font-bold">
                 {card.subText}
               </p>
             </div>
@@ -366,13 +366,13 @@ export const Dashboard = ({ globalQuery }) => {
               className="p-4 sm:p-5 rounded-2xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/5 space-y-2"
             >
               <div className="flex items-center justify-between text-xs">
-                <span className="font-semibold text-slate-500 dark:text-slate-400">{card.title}</span>
+                <span className="font-semibold text-slate-700 dark:text-slate-300 font-bold">{card.title}</span>
                 <span className="px-2 py-0.5 rounded-md text-[10px] font-bold bg-slate-200 dark:bg-white/10 text-slate-600 dark:text-slate-300">
                   {card.badge}
                 </span>
               </div>
               <div className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">{card.value}</div>
-              <div className="text-[10px] text-slate-500">{card.subText}</div>
+              <div className="text-[10px] text-slate-700 font-bold">{card.subText}</div>
             </div>
           );
         })}
@@ -387,7 +387,7 @@ export const Dashboard = ({ globalQuery }) => {
               <h2 className="text-base font-bold text-slate-900 dark:text-white">
                 Filiallar Reytingi Tahlili
               </h2>
-              <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              <p className="text-xs text-slate-700 dark:text-slate-300 font-bold mt-0.5">
                 Barcha filiallarning o'rtacha ballar bo'yicha o'rni
               </p>
             </div>
@@ -427,7 +427,7 @@ export const Dashboard = ({ globalQuery }) => {
             </h2>
             <button
               onClick={() => navigate('/daily-rating')}
-              className="text-xs text-blue-400 hover:underline font-bold"
+              className="text-xs text-blue-700 dark:text-blue-400 hover:underline font-bold"
             >
               Barchasi
             </button>
@@ -443,10 +443,10 @@ export const Dashboard = ({ globalQuery }) => {
                   <span className="font-bold text-slate-900 dark:text-white">{rating.employeeName}</span>
                   <StarRating value={rating.stars} readonly size="sm" />
                 </div>
-                <div className="text-slate-500 dark:text-slate-400 text-[11px] truncate">
+                <div className="text-slate-700 dark:text-slate-300 font-bold text-[11px] truncate">
                   "{rating.comment || 'Izoh yo\'q'}"
                 </div>
-                <div className="flex items-center justify-between text-[10px] text-slate-500 pt-1">
+                <div className="flex items-center justify-between text-[10px] text-slate-700 font-bold pt-1">
                   <span>{rating.branchName}</span>
                   <span>{rating.date}</span>
                 </div>

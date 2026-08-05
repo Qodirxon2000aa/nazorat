@@ -42,16 +42,16 @@ export const SettingsPage = () => {
       {/* Header */}
       <div>
         <h1 className="text-xl sm:text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight flex items-center gap-2">
-          <SettingsIcon className="w-7 h-7 sm:w-8 sm:h-8 text-blue-400" />
+          <SettingsIcon className="w-7 h-7 sm:w-8 sm:h-8 text-blue-700 dark:text-blue-400" />
           <span>Tizim va Profil Sozlamalari</span>
         </h1>
-        <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
+        <p className="text-xs text-slate-700 dark:text-slate-300 font-bold mt-1">
           Shaxsiy profil, parol va interfeys ko'rinishlarini sozlash
         </p>
       </div>
 
       {savedMsg && (
-        <div className="p-4 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-400 text-xs font-bold shadow-sm">
+        <div className="p-4 rounded-2xl bg-blue-500/10 border border-blue-500/20 text-blue-700 dark:text-blue-400 text-xs font-bold shadow-sm">
           {savedMsg}
         </div>
       )}
@@ -60,7 +60,7 @@ export const SettingsPage = () => {
         {/* Profile Card */}
         <div className="md:col-span-2 p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 shadow-xl space-y-6">
           <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <User className="w-5 h-5 text-blue-400" />
+            <User className="w-5 h-5 text-blue-700 dark:text-blue-400" />
             <span>Shaxsiy Ma'lumotlar</span>
           </h3>
 
@@ -132,7 +132,7 @@ export const SettingsPage = () => {
 
           {/* Change Password */}
           <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
-            <Lock className="w-5 h-5 text-blue-400" />
+            <Lock className="w-5 h-5 text-blue-700 dark:text-blue-400" />
             <span>Parolni O'zgartirish</span>
           </h3>
 
@@ -200,7 +200,7 @@ export const SettingsPage = () => {
               <Sun className="w-4 h-4 text-amber-400" />
               <span>Mavzu Rejimi</span>
             </h3>
-            <p className="text-xs text-slate-500 dark:text-slate-400">
+            <p className="text-xs text-slate-700 dark:text-slate-300 font-bold">
               Qorong'u (Dark) yoki Yorug' (Light) dizayn rejimiga o'tish:
             </p>
 
@@ -209,17 +209,17 @@ export const SettingsPage = () => {
               className="w-full py-3 px-4 rounded-xl bg-slate-100 dark:bg-white/5 hover:bg-slate-200 dark:bg-white/10 font-bold text-xs text-slate-900 dark:text-white flex items-center justify-between transition-colors border border-slate-200 dark:border-white/10 cursor-pointer"
             >
               <span className="flex items-center gap-2">
-                {theme === 'dark' ? <Moon className="w-4 h-4 text-blue-400" /> : <Sun className="w-4 h-4 text-amber-400" />}
+                {theme === 'dark' ? <Moon className="w-4 h-4 text-blue-700 dark:text-blue-400" /> : <Sun className="w-4 h-4 text-amber-400" />}
                 {theme === 'dark' ? 'Qorong\'u (Dark Mode)' : 'Yorug\' (Light Mode)'}
               </span>
-              <span className="text-[10px] text-blue-400 uppercase tracking-wider font-extrabold">
+              <span className="text-[10px] text-blue-700 dark:text-blue-400 uppercase tracking-wider font-extrabold">
                 Almashtirish
               </span>
             </button>
           </div>
 
           <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-blue-950/20 border border-blue-500/20 space-y-3">
-            <div className="flex items-center gap-2 text-blue-400 font-bold text-xs">
+            <div className="flex items-center gap-2 text-blue-700 dark:text-blue-400 font-bold text-xs">
               <ShieldAlert className="w-4 h-4" />
               <span>Tizim Ma'lumotlari</span>
             </div>
