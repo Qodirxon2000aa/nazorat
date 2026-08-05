@@ -161,60 +161,68 @@ export const Statistics = () => {
         <div className="space-y-8">
           {/* Leaders Showcase Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
-            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-blue-950/40 border border-blue-500/20 text-slate-900 dark:text-white shadow-xl">
+            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 hover:border-blue-500/30 transition-all text-slate-900 dark:text-white shadow-xl group">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold text-blue-700 dark:text-blue-400">Eng Yuqori Xodim</span>
-                <Award className="w-5 h-5 text-amber-400" />
+                <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Eng Yuqori Xodim</span>
+                <div className="p-2 rounded-xl bg-blue-500/10 text-blue-700 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                  <Award className="w-4 h-4" />
+                </div>
               </div>
-              <div className="text-base sm:text-lg font-black truncate">
+              <div className="text-base sm:text-lg font-black truncate mt-1">
                 {statsData.overview?.topEmployee?.name || 'Mavjud emas'}
               </div>
-              <div className="text-xs font-bold text-blue-300 mt-1">
+              <div className="text-[11px] font-bold text-blue-700 dark:text-blue-400 mt-1">
                 {statsData.overview?.topEmployee
                   ? `${statsData.overview.topEmployee.rating} ⭐ (${statsData.overview.topEmployee.branch})`
                   : '-'}
               </div>
             </div>
 
-            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-rose-950/40 border border-rose-500/20 text-slate-900 dark:text-white shadow-xl">
+            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 hover:border-blue-500/30 transition-all text-slate-900 dark:text-white shadow-xl group">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold text-rose-400">Eng Past Xodim</span>
-                <TrendingDown className="w-5 h-5 text-rose-400" />
+                <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Eng Past Xodim</span>
+                <div className="p-2 rounded-xl bg-blue-500/10 text-blue-700 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                  <TrendingDown className="w-4 h-4" />
+                </div>
               </div>
-              <div className="text-base sm:text-lg font-black truncate">
+              <div className="text-base sm:text-lg font-black truncate mt-1">
                 {statsData.overview?.bottomEmployee?.name || 'Mavjud emas'}
               </div>
-              <div className="text-xs font-bold text-rose-300 mt-1">
+              <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 mt-1">
                 {statsData.overview?.bottomEmployee
                   ? `${statsData.overview.bottomEmployee.rating} ⭐ (${statsData.overview.bottomEmployee.branch})`
                   : '-'}
               </div>
             </div>
 
-            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-cyan-950/40 border border-cyan-500/20 text-slate-900 dark:text-white shadow-xl">
+            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 hover:border-blue-500/30 transition-all text-slate-900 dark:text-white shadow-xl group">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold text-cyan-400">Eng Yaxshi Filial</span>
-                <Building2 className="w-5 h-5 text-cyan-400" />
+                <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Eng Yaxshi Filial</span>
+                <div className="p-2 rounded-xl bg-blue-500/10 text-blue-700 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                  <Building2 className="w-4 h-4" />
+                </div>
               </div>
-              <div className="text-base sm:text-lg font-black truncate">
+              <div className="text-base sm:text-lg font-black truncate mt-1">
                 {statsData.overview?.topBranch?.name || 'Mavjud emas'}
               </div>
-              <div className="text-xs font-bold text-cyan-300 mt-1">
+              <div className="text-[11px] font-bold text-blue-700 dark:text-blue-400 mt-1">
                 {statsData.overview?.topBranch
                   ? `${statsData.overview.topBranch.rating} ⭐ O'rtacha`
                   : '-'}
               </div>
             </div>
 
-            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-amber-950/40 border border-amber-500/20 text-slate-900 dark:text-white shadow-xl">
+            <div className="p-5 sm:p-6 rounded-2xl sm:rounded-3xl bg-white dark:bg-[#121214] border border-slate-200 dark:border-white/5 hover:border-blue-500/30 transition-all text-slate-900 dark:text-white shadow-xl group">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-xs font-semibold text-amber-400">Eng Sust Filial</span>
-                <TrendingUp className="w-5 h-5 text-amber-400" />
+                <span className="text-xs font-bold text-slate-700 dark:text-slate-300">Eng Sust Filial</span>
+                <div className="p-2 rounded-xl bg-blue-500/10 text-blue-700 dark:text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                  <TrendingUp className="w-4 h-4" />
+                </div>
               </div>
-              <div className="text-base sm:text-lg font-black truncate">
+              <div className="text-base sm:text-lg font-black truncate mt-1">
                 {statsData.overview?.weakestBranch?.name || 'Mavjud emas'}
               </div>
-              <div className="text-xs font-bold text-amber-300 mt-1">
+              <div className="text-[11px] font-bold text-slate-500 dark:text-slate-400 mt-1">
                 {statsData.overview?.weakestBranch
                   ? `${statsData.overview.weakestBranch.rating} ⭐ O'rtacha`
                   : '-'}
