@@ -1,0 +1,6 @@
+#!/usr/bin/expect -f
+set timeout -1
+spawn ssh -o StrictHostKeyChecking=no root@95.111.226.90 "pm2 restart all"
+expect "password:"
+send "Bahodir2009\r"
+expect eof
