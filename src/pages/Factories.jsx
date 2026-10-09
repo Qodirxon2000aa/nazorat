@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
   Building2,
   Plus,
@@ -18,12 +18,15 @@ import { Modal } from '../components/Modal';
 import { TableSkeleton } from '../components/Skeleton';
 import { EmptyState } from '../components/EmptyState';
 import { useAuth } from '../context/AuthContext';
-import { subscribeToUpdates } from '../services/sse';
+import { useLiveData } from '../hooks/useLiveData';
+import { ErrorState } from '../components/ErrorState';
 
 export const Factories = ({ globalQuery }) => {
   const { hasPermission } = useAuth();
-  const [branches, setBranches] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const branchesQ = useLiveData(() => api.getBranches(), [], ['branches', 'employees']);
+  const branches = branchesQ.data || [];
+  const loading = branchesQ.loading;
+  const fetchBranches = branchesQ.refresh;
   const [search, setSearch] = useState('');
 
   // Modal State
@@ -38,34 +41,6 @@ export const Factories = ({ globalQuery }) => {
   const [selectedBranch, setSelectedBranch] = useState(null);
   const [branchEmployees, setBranchEmployees] = useState([]);
   const [drawerLoading, setDrawerLoading] = useState(false);
-
-  const fetchBranches = async () => {
-    try {
-      setLoading(true);
-      const data = await api.getBranches();
-      setBranches(data);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    fetchBranches();
-
-    const handleDataUpdate = (data) => {
-      if (data.type === 'branches' || data.type === 'employees') {
-        fetchBranches();
-      }
-    };
-
-    const unsubscribe = subscribeToUpdates(handleDataUpdate);
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
 
   const handleOpenAddModal = () => {
     setEditingBranch(null);
@@ -180,7 +155,9 @@ export const Factories = ({ globalQuery }) => {
       </div>
 
       {/* Branch Cards Grid */}
-      {loading ? (
+      {branchesQ.error ? (
+        <ErrorState message={branchesQ.error} onRetry={branchesQ.reload} />
+      ) : loading ? (
         <TableSkeleton rows={4} />
       ) : filteredBranches.length === 0 ? (
         <EmptyState

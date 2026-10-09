@@ -1,38 +1,31 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import {
   Star,
   CheckCircle2,
   Building2,
   Calendar,
   AlertCircle,
-  MessageSquare,
+  ListChecks,
   Sparkles,
   Search,
 } from 'lucide-react';
 import { api } from '../services/api';
 import { StarRating } from '../components/StarRating';
+import { RuleScoringModal } from '../components/RuleScoringModal';
+import { ErrorState } from '../components/ErrorState';
+import { RULES } from '../data/rules';
 import { TableSkeleton } from '../components/Skeleton';
 import { ToastContainer } from '../components/Toast';
 import { useAuth } from '../context/AuthContext';
-import { subscribeToUpdates } from '../services/sse';
+import { useLiveData } from '../hooks/useLiveData';
 
 export const DailyRatingPage = () => {
   const { user } = useAuth();
-  const [branches, setBranches] = useState([]);
-  const [selectedBranchId, setSelectedBranchId] = useState('');
   const [typeFilters, setTypeFilters] = useState({ zavod: false, filial: true });
-  const [selectedDate, setSelectedDate] = useState(
-    new Date().toISOString().split('T')[0]
-  );
-
-  const [employees, setEmployees] = useState([]);
-  const [todayRatings, setTodayRatings] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [selectedBranchId, setSelectedBranchId] = useState('');
+  const [selectedDate, setSelectedDate] = useState(new Date().toLocaleDateString('sv-SE'));
   const [search, setSearch] = useState('');
-
-  // Ratings draft state for form inputs
-  const [ratingDrafts, setRatingDrafts] = useState({});
-
+  const [scoringEmp, setScoringEmp] = useState(null);
   const [toasts, setToasts] = useState([]);
 
   const addToast = (type, message) => {
@@ -43,113 +36,55 @@ export const DailyRatingPage = () => {
     }, 4000);
   };
 
-  const loadData = async () => {
-    try {
-      setLoading(true);
-      const brs = await api.getBranches();
-      setBranches(brs);
+  // Filiallar ro'yxati (bir marta yuklanadi, o'zgarsa jim yangilanadi)
+  const branchesQ = useLiveData(() => api.getBranches(), [], ['branches']);
+  const branches = branchesQ.data || [];
 
-      // Default to manager's branch if applicable
-      const visibleBranches = brs.filter(b => {
+  const visibleBranches = useMemo(
+    () =>
+      branches.filter((b) => {
         if (typeFilters.zavod && typeFilters.filial) return true;
         if (typeFilters.zavod) return b.type === 'Zavod';
         if (typeFilters.filial) return b.type === 'Filial' || !b.type;
         return true;
-      });
+      }),
+    [branches, typeFilters]
+  );
 
-      const defaultBranch =
-        user?.branchId || (visibleBranches.length > 0 ? visibleBranches[0].id : '');
-      const activeBranchId = selectedBranchId || defaultBranch;
-      setSelectedBranchId(activeBranchId);
+  // Faol filial — tanlovdan HISOBLANADI (state + effect aylanmasi yo'q): tanlangan filial ro'yxatda
+  // bo'lmasa (masalan, Zavodga o'tilganda) birinchi mos filial olinadi.
+  const activeBranchId =
+    (selectedBranchId && visibleBranches.some((b) => b.id === selectedBranchId) && selectedBranchId) ||
+    user?.branchId ||
+    visibleBranches[0]?.id ||
+    '';
 
-      if (activeBranchId) {
-        const [emps, ratings] = await Promise.all([
-          api.getEmployees({ branchId: activeBranchId, status: 'Faol' }),
-          api.getRatings({ branchId: activeBranchId, date: selectedDate }),
-        ]);
+  // Tanlangan filial va sana bo'yicha xodimlar va baholar — bitta so'rovda, ikkalasi parallel
+  const dataQ = useLiveData(
+    async () => {
+      if (!activeBranchId) return { employees: [], ratings: [] };
+      const [employees, ratings] = await Promise.all([
+        api.getEmployees({ branchId: activeBranchId, status: 'Faol' }),
+        api.getRatings({ branchId: activeBranchId, date: selectedDate }),
+      ]);
+      return { employees, ratings };
+    },
+    [activeBranchId, selectedDate],
+    ['ratings', 'employees']
+  );
+  const employees = dataQ.data?.employees || [];
+  const todayRatings = dataQ.data?.ratings || [];
+  const loading = branchesQ.loading || dataQ.loading;
+  const loadError = branchesQ.error || dataQ.error;
 
-        setEmployees(emps);
-        setTodayRatings(ratings);
-
-        // Initialize drafts
-        const drafts = {};
-        emps.forEach((emp) => {
-          const existing = ratings.find((r) => r.employeeId === emp.id);
-          drafts[emp.id] = {
-            stars: existing ? existing.stars : 0,
-            comment: existing ? existing.comment : '',
-            submitting: false,
-          };
-        });
-        setRatingDrafts(drafts);
-      }
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    loadData();
-
-    const handleDataUpdate = (data) => {
-      if (data.type === 'ratings' || data.type === 'employees') {
-        loadData();
-      }
-    };
-
-    const unsubscribe = subscribeToUpdates(handleDataUpdate);
-
-    return () => {
-      unsubscribe();
-    };
-  }, [selectedBranchId, selectedDate, typeFilters]);
-
-  const handleStarChange = (empId, stars) => {
-    setRatingDrafts((prev) => ({
-      ...prev,
-      [empId]: { ...prev[empId], stars },
+  const handleSubmitRating = async (payload) => {
+    const newRating = await api.createRating({ ...payload, date: selectedDate });
+    dataQ.setData((prev) => ({
+      employees: prev?.employees || [],
+      ratings: [...(prev?.ratings || []).filter((r) => r.employeeId !== payload.employeeId), newRating],
     }));
-  };
-
-  const handleCommentChange = (empId, comment) => {
-    setRatingDrafts((prev) => ({
-      ...prev,
-      [empId]: { ...prev[empId], comment },
-    }));
-  };
-
-  const handleSaveRating = async (emp) => {
-    const draft = ratingDrafts[emp.id];
-    if (!draft || draft.stars === 0) {
-      addToast('warning', 'Iltimos, yulduzli bahoni tanlang!');
-      return;
-    }
-
-    setRatingDrafts((prev) => ({
-      ...prev,
-      [emp.id]: { ...prev[emp.id], submitting: true },
-    }));
-
-    try {
-      const newRating = await api.createRating({
-        employeeId: emp.id,
-        stars: draft.stars,
-        comment: draft.comment.trim() || 'Izoh yozilmadi',
-        date: selectedDate,
-      });
-
-      setTodayRatings((prev) => [...prev.filter((r) => r.employeeId !== emp.id), newRating]);
-      addToast('success', `${emp.firstName} ${emp.lastName} uchun baho saqlandi!`);
-    } catch (err) {
-      addToast('error', err.message || 'Baho saqlashda xatolik yuz berdi');
-    } finally {
-      setRatingDrafts((prev) => ({
-        ...prev,
-        [emp.id]: { ...prev[emp.id], submitting: false },
-      }));
-    }
+    const emp = employees.find((e) => e.id === payload.employeeId);
+    addToast('success', `${emp ? `${emp.firstName} ${emp.lastName}` : 'Xodim'} uchun baho saqlandi!`);
   };
 
   const ratedCount = todayRatings.length;
@@ -195,7 +130,6 @@ export const DailyRatingPage = () => {
                 checked={typeFilters.filial}
                 onChange={(e) => {
                   setTypeFilters({ ...typeFilters, filial: e.target.checked });
-                  setSelectedBranchId('');
                 }}
                 className="rounded border-slate-300 text-blue-500 focus:ring-blue-500 w-4 h-4 cursor-pointer"
               />
@@ -207,7 +141,6 @@ export const DailyRatingPage = () => {
                 checked={typeFilters.zavod}
                 onChange={(e) => {
                   setTypeFilters({ ...typeFilters, zavod: e.target.checked });
-                  setSelectedBranchId('');
                 }}
                 className="rounded border-slate-300 text-blue-500 focus:ring-blue-500 w-4 h-4 cursor-pointer"
               />
@@ -218,18 +151,11 @@ export const DailyRatingPage = () => {
           <div className="flex items-center gap-2 bg-white dark:bg-[#0f172a] px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 shadow-sm">
             <Building2 className="w-4 h-4 text-blue-700 dark:text-blue-400" />
             <select
-              value={selectedBranchId}
+              value={activeBranchId}
               onChange={(e) => setSelectedBranchId(e.target.value)}
               className="bg-transparent text-xs font-bold text-slate-900 dark:text-white focus:outline-none cursor-pointer"
             >
-              {branches
-                .filter(b => {
-                  if (typeFilters.zavod && typeFilters.filial) return true;
-                  if (typeFilters.zavod) return b.type === 'Zavod';
-                  if (typeFilters.filial) return b.type === 'Filial' || !b.type;
-                  return true;
-                })
-                .map((b) => (
+              {visibleBranches.map((b) => (
                 <option key={b.id} value={b.id} className="bg-white dark:bg-[#0f172a] text-slate-900 dark:text-white">
                   {b.name}
                 </option>
@@ -281,7 +207,9 @@ export const DailyRatingPage = () => {
       </div>
 
       {/* Employee Cards Grid for Rating */}
-      {loading ? (
+      {loadError ? (
+        <ErrorState message={loadError} onRetry={() => { branchesQ.reload(); dataQ.reload(); }} />
+      ) : loading ? (
         <TableSkeleton rows={4} />
       ) : filteredEmployees.length === 0 ? (
         <div className="p-12 text-center bg-white dark:bg-[#0f172a] rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xl">
@@ -297,7 +225,6 @@ export const DailyRatingPage = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {filteredEmployees.map((emp) => {
             const existingRating = todayRatings.find((r) => r.employeeId === emp.id);
-            const draft = ratingDrafts[emp.id] || { stars: 0, comment: '', submitting: false };
 
             return (
               <div
@@ -347,6 +274,30 @@ export const DailyRatingPage = () => {
                       </span>
                       <StarRating value={existingRating.stars} readonly size="md" showLabel />
                     </div>
+                    {existingRating.percent !== undefined && (
+                      <div className="flex items-center justify-between">
+                        <span className="font-bold text-slate-600 dark:text-slate-300">
+                          Qoidalar bajarilishi:
+                        </span>
+                        <span className="font-extrabold font-mono text-blue-700 dark:text-blue-400">
+                          {existingRating.percent}%
+                        </span>
+                      </div>
+                    )}
+                    {(existingRating.rules || []).filter((r) => r.score < 2).length > 0 && (
+                      <ul className="space-y-1">
+                        {existingRating.rules
+                          .filter((r) => r.score < 2)
+                          .map((r) => (
+                            <li
+                              key={r.ruleId}
+                              className={`text-[11px] font-bold ${r.score === 0 ? 'text-red-500' : 'text-amber-500'}`}
+                            >
+                              {r.score === 0 ? '✗' : '½'} {r.ruleId}. {RULES.find((x) => x.id === r.ruleId)?.title}
+                            </li>
+                          ))}
+                      </ul>
+                    )}
                     <p className="text-slate-700 dark:text-slate-200 italic">
                       "{existingRating.comment}"
                     </p>
@@ -355,49 +306,14 @@ export const DailyRatingPage = () => {
                     </div>
                   </div>
                 ) : (
-                  <div className="space-y-4 pt-2">
-                    <div>
-                      <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-2">
-                        1. Yulduzli baho tanlang:
-                      </label>
-                      <StarRating
-                        value={draft.stars}
-                        onChange={(val) => handleStarChange(emp.id, val)}
-                        size="lg"
-                        showLabel
-                      />
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-slate-600 dark:text-slate-300 mb-1.5 flex items-center gap-1">
-                        <MessageSquare className="w-3.5 h-3.5 text-blue-700 dark:text-blue-400" />
-                        <span>2. Izoh qoldiring (Ixtiyoriy)</span>
-                      </label>
-                      <textarea
-                        rows={2}
-                        value={draft.comment}
-                        onChange={(e) => handleCommentChange(emp.id, e.target.value)}
-                        placeholder="masalan: Bugun mijozlar bilan mas'uliyatli ishladi..."
-                        className="w-full px-3.5 py-2 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
-                      />
-                    </div>
-
-                    <div className="flex justify-end">
-                      <button
-                        onClick={() => handleSaveRating(emp)}
-                        disabled={draft.submitting}
-                        className="px-5 py-2.5 text-xs font-extrabold text-black bg-blue-500 hover:bg-blue-400 rounded-xl shadow-lg shadow-blue-500/20 transition-all disabled:opacity-50 flex items-center gap-2 cursor-pointer"
-                      >
-                        {draft.submitting ? (
-                          <div className="w-4 h-4 border-2 border-black/30 border-t-black rounded-full animate-spin" />
-                        ) : (
-                          <>
-                            <Star className="w-4 h-4 fill-black" />
-                            <span>Bahoni Saqlash</span>
-                          </>
-                        )}
-                      </button>
-                    </div>
+                  <div className="pt-2 flex justify-end">
+                    <button
+                      onClick={() => setScoringEmp(emp)}
+                      className="px-5 py-2.5 text-xs font-extrabold text-black bg-blue-500 hover:bg-blue-400 rounded-xl shadow-lg shadow-blue-500/20 transition-all flex items-center gap-2 cursor-pointer"
+                    >
+                      <ListChecks className="w-4 h-4" />
+                      <span>Qoidalar bo'yicha baholash</span>
+                    </button>
                   </div>
                 )}
               </div>
@@ -405,6 +321,12 @@ export const DailyRatingPage = () => {
           })}
         </div>
       )}
+
+      <RuleScoringModal
+        employee={scoringEmp}
+        onClose={() => setScoringEmp(null)}
+        onSubmit={handleSubmitRating}
+      />
     </div>
   );
 };

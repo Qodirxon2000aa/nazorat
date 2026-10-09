@@ -19,13 +19,23 @@ import { TableSkeleton } from '../components/Skeleton';
 import { EmptyState } from '../components/EmptyState';
 import { StarRating } from '../components/StarRating';
 import { useAuth } from '../context/AuthContext';
-import { subscribeToUpdates } from '../services/sse';
+import { useLiveData } from '../hooks/useLiveData';
+import { ErrorState } from '../components/ErrorState';
 
 export const Employees = ({ globalQuery }) => {
   const { hasPermission } = useAuth();
-  const [employees, setEmployees] = useState([]);
-  const [branches, setBranches] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const dataQ = useLiveData(
+    async () => {
+      const [emps, brs] = await Promise.all([api.getEmployees(), api.getBranches()]);
+      return { emps, brs };
+    },
+    [],
+    ['employees', 'branches']
+  );
+  const employees = dataQ.data?.emps || [];
+  const branches = dataQ.data?.brs || [];
+  const loading = dataQ.loading;
+  const fetchData = dataQ.refresh;
 
   // Search & Filters
   const [search, setSearch] = useState('');
@@ -50,37 +60,13 @@ export const Employees = ({ globalQuery }) => {
   const [profileRatings, setProfileRatings] = useState([]);
   const [profileLoading, setProfileLoading] = useState(false);
 
-  const fetchData = async () => {
-    try {
-      setLoading(true);
-      const [emps, brs] = await Promise.all([api.getEmployees(), api.getBranches()]);
-      setEmployees(emps);
-      setBranches(brs);
-      if (brs.length > 0 && !formData.branchId) {
-        setFormData((prev) => ({ ...prev, branchId: brs[0].id, branchName: brs[0].name }));
-      }
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setLoading(false);
-    }
-  };
-
+  // Forma uchun birinchi filialni standart qilib qo'yish
   useEffect(() => {
-    fetchData();
-
-    const handleDataUpdate = (data) => {
-      if (data.type === 'employees' || data.type === 'branches') {
-        fetchData();
-      }
-    };
-
-    const unsubscribe = subscribeToUpdates(handleDataUpdate);
-
-    return () => {
-      unsubscribe();
-    };
-  }, []);
+    if (branches.length > 0 && !formData.branchId) {
+      setFormData((prev) => ({ ...prev, branchId: branches[0].id, branchName: branches[0].name }));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [branches]);
 
   const handleOpenAddModal = () => {
     setEditingEmp(null);
@@ -261,7 +247,9 @@ export const Employees = ({ globalQuery }) => {
       </div>
 
       {/* Employee Table */}
-      {loading ? (
+      {dataQ.error ? (
+        <ErrorState message={dataQ.error} onRetry={dataQ.reload} />
+      ) : loading ? (
         <TableSkeleton rows={5} />
       ) : filteredEmployees.length === 0 ? (
         <EmptyState

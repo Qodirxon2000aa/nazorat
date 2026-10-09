@@ -1,5 +1,31 @@
 const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
 
+const REQUEST_TIMEOUT = 20000;
+
+// fetch + vaqt chegarasi + tushunarli xato xabari. GET so'rov tarmoq xatosida bir marta qayta uriniladi.
+const http = async (url, options = {}, retried = false) => {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), REQUEST_TIMEOUT);
+  try {
+    return await fetch(url, { ...options, signal: ctrl.signal });
+  } catch (e) {
+    const isGet = !options.method || options.method === 'GET';
+    if (isGet && !retried) {
+      await new Promise((r) => setTimeout(r, 800));
+      return http(url, options, true);
+    }
+    const err = new Error(
+      e.name === 'AbortError'
+        ? 'Server javob bermadi (vaqt tugadi). Internetni tekshirib, qayta urinib ko\'ring'
+        : 'Serverga ulanib bo\'lmadi. Internetni tekshirib, qayta urinib ko\'ring'
+    );
+    err.network = true;
+    throw err;
+  } finally {
+    clearTimeout(timer);
+  }
+};
+
 const getHeaders = () => {
   const token = localStorage.getItem('filial_token');
   return {
@@ -19,7 +45,10 @@ const parseResponse = async (res) => {
     }
   }
   if (!res.ok) {
-    throw new Error(data.error || `Server xatosi (${res.status})`);
+    const looksLikeHtml = typeof data.error === 'string' && data.error.trim().startsWith('<');
+    const err = new Error(!looksLikeHtml && data.error ? data.error : `Server xatosi (${res.status})`);
+    err.status = res.status;
+    throw err;
   }
   return data;
 };
@@ -27,7 +56,7 @@ const parseResponse = async (res) => {
 export const api = {
   // Auth
   async login(username, password) {
-    const res = await fetch(`${API_BASE}/api/auth/login`, {
+    const res = await http(`${API_BASE}/api/auth/login`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ username, password }),
@@ -36,14 +65,14 @@ export const api = {
   },
 
   async getCurrentUser() {
-    const res = await fetch(`${API_BASE}/api/auth/me`, {
+    const res = await http(`${API_BASE}/api/auth/me`, {
       headers: getHeaders(),
     });
     return parseResponse(res);
   },
 
   async updateProfile(profileData) {
-    const res = await fetch(`${API_BASE}/api/auth/profile`, {
+    const res = await http(`${API_BASE}/api/auth/profile`, {
       method: 'PUT',
       headers: getHeaders(),
       body: JSON.stringify(profileData),
@@ -52,7 +81,7 @@ export const api = {
   },
 
   async updatePassword(passwordData) {
-    const res = await fetch(`${API_BASE}/api/auth/password`, {
+    const res = await http(`${API_BASE}/api/auth/password`, {
       method: 'PUT',
       headers: getHeaders(),
       body: JSON.stringify(passwordData),
@@ -61,7 +90,7 @@ export const api = {
   },
 
   async forgotPassword(email) {
-    const res = await fetch(`${API_BASE}/api/auth/forgot-password`, {
+    const res = await http(`${API_BASE}/api/auth/forgot-password`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email }),
@@ -71,17 +100,17 @@ export const api = {
 
   // Branches
   async getBranches() {
-    const res = await fetch(`${API_BASE}/api/branches`, { headers: getHeaders() });
+    const res = await http(`${API_BASE}/api/branches`, { headers: getHeaders() });
     return parseResponse(res);
   },
 
   async getBranchById(id) {
-    const res = await fetch(`${API_BASE}/api/branches/${id}`, { headers: getHeaders() });
+    const res = await http(`${API_BASE}/api/branches/${id}`, { headers: getHeaders() });
     return parseResponse(res);
   },
 
   async createBranch(branchData) {
-    const res = await fetch(`${API_BASE}/api/branches`, {
+    const res = await http(`${API_BASE}/api/branches`, {
       method: 'POST',
       headers: getHeaders(),
       body: JSON.stringify(branchData),
@@ -90,7 +119,7 @@ export const api = {
   },
 
   async updateBranch(id, branchData) {
-    const res = await fetch(`${API_BASE}/api/branches/${id}`, {
+    const res = await http(`${API_BASE}/api/branches/${id}`, {
       method: 'PUT',
       headers: getHeaders(),
       body: JSON.stringify(branchData),
@@ -99,7 +128,7 @@ export const api = {
   },
 
   async deleteBranch(id) {
-    const res = await fetch(`${API_BASE}/api/branches/${id}`, {
+    const res = await http(`${API_BASE}/api/branches/${id}`, {
       method: 'DELETE',
       headers: getHeaders(),
     });
@@ -114,17 +143,17 @@ export const api = {
     if (params?.search) url.searchParams.append('search', params.search);
     if (params?.status) url.searchParams.append('status', params.status);
 
-    const res = await fetch(url.toString(), { headers: getHeaders() });
+    const res = await http(url.toString(), { headers: getHeaders() });
     return parseResponse(res);
   },
 
   async getEmployeeById(id) {
-    const res = await fetch(`${API_BASE}/api/employees/${id}`, { headers: getHeaders() });
+    const res = await http(`${API_BASE}/api/employees/${id}`, { headers: getHeaders() });
     return parseResponse(res);
   },
 
   async createEmployee(empData) {
-    const res = await fetch(`${API_BASE}/api/employees`, {
+    const res = await http(`${API_BASE}/api/employees`, {
       method: 'POST',
       headers: getHeaders(),
       body: JSON.stringify(empData),
@@ -133,7 +162,7 @@ export const api = {
   },
 
   async updateEmployee(id, empData) {
-    const res = await fetch(`${API_BASE}/api/employees/${id}`, {
+    const res = await http(`${API_BASE}/api/employees/${id}`, {
       method: 'PUT',
       headers: getHeaders(),
       body: JSON.stringify(empData),
@@ -142,7 +171,7 @@ export const api = {
   },
 
   async deleteEmployee(id) {
-    const res = await fetch(`${API_BASE}/api/employees/${id}`, {
+    const res = await http(`${API_BASE}/api/employees/${id}`, {
       method: 'DELETE',
       headers: getHeaders(),
     });
@@ -157,12 +186,12 @@ export const api = {
     if (params?.branchId) url.searchParams.append('branchId', params.branchId);
     if (params?.date) url.searchParams.append('date', params.date);
 
-    const res = await fetch(url.toString(), { headers: getHeaders() });
+    const res = await http(url.toString(), { headers: getHeaders() });
     return parseResponse(res);
   },
 
   async createRating(ratingData) {
-    const res = await fetch(`${API_BASE}/api/ratings`, {
+    const res = await http(`${API_BASE}/api/ratings`, {
       method: 'POST',
       headers: getHeaders(),
       body: JSON.stringify(ratingData),
@@ -172,17 +201,17 @@ export const api = {
 
   // Roles & Permissions
   async getPermissions() {
-    const res = await fetch(`${API_BASE}/api/permissions`, { headers: getHeaders() });
+    const res = await http(`${API_BASE}/api/permissions`, { headers: getHeaders() });
     return parseResponse(res);
   },
 
   async getRoles() {
-    const res = await fetch(`${API_BASE}/api/roles`, { headers: getHeaders() });
+    const res = await http(`${API_BASE}/api/roles`, { headers: getHeaders() });
     return parseResponse(res);
   },
 
   async createRole(roleData) {
-    const res = await fetch(`${API_BASE}/api/roles`, {
+    const res = await http(`${API_BASE}/api/roles`, {
       method: 'POST',
       headers: getHeaders(),
       body: JSON.stringify(roleData),
@@ -191,7 +220,7 @@ export const api = {
   },
 
   async updateRole(id, roleData) {
-    const res = await fetch(`${API_BASE}/api/roles/${id}`, {
+    const res = await http(`${API_BASE}/api/roles/${id}`, {
       method: 'PUT',
       headers: getHeaders(),
       body: JSON.stringify(roleData),
@@ -200,7 +229,7 @@ export const api = {
   },
 
   async deleteRole(id) {
-    const res = await fetch(`${API_BASE}/api/roles/${id}`, {
+    const res = await http(`${API_BASE}/api/roles/${id}`, {
       method: 'DELETE',
       headers: getHeaders(),
     });
@@ -217,24 +246,24 @@ export const api = {
     if (params?.branchId) url.searchParams.append('branchId', params.branchId);
     if (params?.branchType) url.searchParams.append('branchType', params.branchType);
 
-    const res = await fetch(url.toString(), { headers: getHeaders() });
+    const res = await http(url.toString(), { headers: getHeaders() });
     return parseResponse(res);
   },
 
   // Activity Logs
   async getActivityLogs() {
-    const res = await fetch(`${API_BASE}/api/activity-logs`, { headers: getHeaders() });
+    const res = await http(`${API_BASE}/api/activity-logs`, { headers: getHeaders() });
     return parseResponse(res);
   },
 
   // Notifications
   async getNotifications() {
-    const res = await fetch(`${API_BASE}/api/notifications`, { headers: getHeaders() });
+    const res = await http(`${API_BASE}/api/notifications`, { headers: getHeaders() });
     return parseResponse(res);
   },
 
   async markNotificationRead(id) {
-    const res = await fetch(`${API_BASE}/api/notifications/${id}/read`, {
+    const res = await http(`${API_BASE}/api/notifications/${id}/read`, {
       method: 'PUT',
       headers: getHeaders(),
     });
@@ -242,7 +271,7 @@ export const api = {
   },
 
   async markAllNotificationsRead() {
-    const res = await fetch(`${API_BASE}/api/notifications/read-all`, {
+    const res = await http(`${API_BASE}/api/notifications/read-all`, {
       method: 'PUT',
       headers: getHeaders(),
     });

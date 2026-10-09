@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useLiveData } from '../hooks/useLiveData';
+import { ErrorState } from '../components/ErrorState';
 import {
   BarChart3,
   Calendar,
@@ -25,7 +27,6 @@ import {
 } from 'recharts';
 
 export const Statistics = () => {
-  const [branches, setBranches] = useState([]);
   const [selectedBranchId, setSelectedBranchId] = useState('');
   const [typeFilters, setTypeFilters] = useState({ zavod: false, filial: false });
   const [period, setPeriod] = useState('ushbu_oy');
@@ -33,46 +34,28 @@ export const Statistics = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
-  const [loading, setLoading] = useState(true);
-  const [statsData, setStatsData] = useState(null);
 
-  const fetchStats = async () => {
-    try {
-      setLoading(true);
+  const branchesQ = useLiveData(() => api.getBranches(), [], ['branches']);
+  const branches = branchesQ.data || [];
+
+  const statsQ = useLiveData(
+    () => {
       let branchType = undefined;
       if (typeFilters.zavod && !typeFilters.filial) branchType = 'Zavod';
       if (!typeFilters.zavod && typeFilters.filial) branchType = 'Filial';
-
-      const res = await api.getStats({
+      return api.getStats({
         period,
         startDate: period === 'custom' ? startDate : undefined,
         endDate: period === 'custom' ? endDate : undefined,
         branchId: selectedBranchId || undefined,
         branchType,
       });
-      setStatsData(res);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    const initBranches = async () => {
-      try {
-        const brs = await api.getBranches();
-        setBranches(brs);
-      } catch (e) {
-        console.error(e);
-      }
-    };
-    initBranches();
-  }, []);
-
-  useEffect(() => {
-    fetchStats();
-  }, [period, selectedBranchId, startDate, endDate, typeFilters]);
+    },
+    [period, selectedBranchId, startDate, endDate, typeFilters],
+    ['ratings', 'employees', 'branches']
+  );
+  const statsData = statsQ.data;
+  const loading = statsQ.loading;
 
   const quickFilterButtons = [
     { id: 'bugun', label: 'Bugun' },
@@ -193,7 +176,9 @@ export const Statistics = () => {
       </div>
 
       {/* Main Analytics Content */}
-      {loading || !statsData ? (
+      {statsQ.error ? (
+        <ErrorState message={statsQ.error} onRetry={statsQ.reload} />
+      ) : loading || !statsData ? (
         <CardSkeleton />
       ) : (
         <div className="space-y-8">

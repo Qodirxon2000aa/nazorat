@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
+import { useLiveData } from '../hooks/useLiveData';
+import { ErrorState } from '../components/ErrorState';
 import {
   FileSpreadsheet,
   Download,
@@ -19,35 +21,25 @@ export const Reports = () => {
   const [startDate, setStartDate] = useState('');
   const [endDate, setEndDate] = useState('');
 
-  const [branches, setBranches] = useState([]);
-  const [employees, setEmployees] = useState([]);
-  const [ratings, setRatings] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  const [search, setSearch] = useState('');
-  const [typeFilters, setTypeFilters] = useState({ zavod: false, filial: false });
-
-  const fetchData = async () => {
-    try {
-      setLoading(true);
-      const [brs, emps, rats] = await Promise.all([
+  const dataQ = useLiveData(
+    async () => {
+      const [branches, employees, ratings] = await Promise.all([
         api.getBranches(),
         api.getEmployees(),
         api.getRatings(),
       ]);
-      setBranches(brs);
-      setEmployees(emps);
-      setRatings(rats);
-    } catch (e) {
-      console.error(e);
-    } finally {
-      setLoading(false);
-    }
-  };
+      return { branches, employees, ratings };
+    },
+    [],
+    ['ratings', 'employees', 'branches']
+  );
+  const branches = dataQ.data?.branches || [];
+  const employees = dataQ.data?.employees || [];
+  const ratings = dataQ.data?.ratings || [];
+  const loading = dataQ.loading;
 
-  useEffect(() => {
-    fetchData();
-  }, []);
+  const [search, setSearch] = useState('');
+  const [typeFilters, setTypeFilters] = useState({ zavod: false, filial: false });
 
   // Filter ratings according to selected date criteria & branch
   const getFilteredReportData = () => {
@@ -472,7 +464,9 @@ export const Reports = () => {
       </div>
 
       {/* Report Table */}
-      {loading ? (
+      {dataQ.error ? (
+        <ErrorState message={dataQ.error} onRetry={dataQ.reload} />
+      ) : loading ? (
         <TableSkeleton rows={5} />
       ) : reportRows.length === 0 ? (
         <EmptyState description="Ushbu davr bo'yicha hisobot ma'lumotlari topilmadi." />

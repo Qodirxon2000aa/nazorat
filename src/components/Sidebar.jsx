@@ -8,6 +8,7 @@ import {
   BarChart3,
   FileSpreadsheet,
   Settings,
+  Scale,
   ChevronLeft,
   ChevronRight,
   X,
@@ -64,6 +65,12 @@ export const Sidebar = ({ mobileOpen, setMobileOpen }) => {
       show: hasPermission('hisobot_view'),
     },
 
+    {
+      to: '/rules',
+      label: 'Qoidalar',
+      icon: Scale,
+      show: true,
+    },
     {
       to: '/settings',
       label: 'Sozlamalar',

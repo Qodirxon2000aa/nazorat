@@ -10,18 +10,32 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const initAuth = async () => {
       const token = localStorage.getItem('filial_token');
-      if (token) {
-        try {
-          const res = await api.getCurrentUser();
-          // Assuming backend returns { user: {...} } or just {...}
-          setUser(res.user || res);
-        } catch (error) {
+      if (!token) {
+        setUser(null);
+        setLoading(false);
+        return;
+      }
+      try {
+        const res = await api.getCurrentUser();
+        const me = res.user || res;
+        setUser(me);
+        try { localStorage.setItem('filial_user', JSON.stringify(me)); } catch (e) { /* ignore */ }
+      } catch (error) {
+        if (error.status === 401 || error.status === 403) {
+          // Token haqiqatan yaroqsiz — chiqarib yuboramiz
           console.error('Session expired or invalid:', error);
           localStorage.removeItem('filial_token');
+          localStorage.removeItem('filial_user');
           setUser(null);
+        } else {
+          // Tarmoq/server vaqtinchalik ishlamayapti: foydalanuvchini tizimdan chiqarmaymiz,
+          // saqlangan profil bilan kiramiz (sahifalarda "Qayta urinish" ko'rinadi)
+          try {
+            setUser(JSON.parse(localStorage.getItem('filial_user') || 'null'));
+          } catch (e) {
+            setUser(null);
+          }
         }
-      } else {
-        setUser(null);
       }
       setLoading(false);
     };
@@ -32,6 +46,7 @@ export const AuthProvider = ({ children }) => {
     const res = await api.login(username, password);
     if (res && res.token) {
       localStorage.setItem('filial_token', res.token);
+      try { localStorage.setItem('filial_user', JSON.stringify(res.user)); } catch (e) { /* ignore */ }
       setUser(res.user);
     } else {
       throw new Error('Token olinmadi');
@@ -40,6 +55,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = () => {
     localStorage.removeItem('filial_token');
+    localStorage.removeItem('filial_user');
     setUser(null);
   };
 

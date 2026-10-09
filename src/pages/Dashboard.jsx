@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useMemo, useState } from 'react';
+import { useLiveData } from '../hooks/useLiveData';
+import { ErrorState } from '../components/ErrorState';
 import {
   Building2,
   Users,
@@ -22,46 +24,52 @@ import { ResponsiveContainer, BarChart, Bar, XAxis, YAxis, Tooltip, Cell } from 
 export const Dashboard = ({ globalQuery }) => {
   const navigate = useNavigate();
   const { user } = useAuth();
-  const [loading, setLoading] = useState(true);
-  const [stats, setStats] = useState(null);
   const [typeFilters, setTypeFilters] = useState({ zavod: false, filial: false });
-  const [recentRatings, setRecentRatings] = useState([]);
-  const [myRatings, setMyRatings] = useState([]);
-  const [branchRankings, setBranchRankings] = useState([]);
 
-  useEffect(() => {
-    const loadDashboard = async () => {
-      try {
-        setLoading(true);
-        let branchType = undefined;
-        if (typeFilters.zavod && !typeFilters.filial) branchType = 'Zavod';
-        if (!typeFilters.zavod && typeFilters.filial) branchType = 'Filial';
+  const dashQ = useLiveData(
+    async () => {
+      let branchType = undefined;
+      if (typeFilters.zavod && !typeFilters.filial) branchType = 'Zavod';
+      if (!typeFilters.zavod && typeFilters.filial) branchType = 'Filial';
+      const [data, ratings] = await Promise.all([
+        api.getStats({ period: 'ushbu_oy', branchType }),
+        api.getRatings(),
+      ]);
+      return { data, ratings };
+    },
+    [typeFilters],
+    ['ratings', 'employees', 'branches']
+  );
+  const loading = dashQ.loading;
+  const stats = dashQ.data?.data?.overview || null;
+  const branchRankings = dashQ.data?.data?.branchRankings || [];
+  const allRatings = dashQ.data?.ratings || [];
 
-        const data = await api.getStats({ period: 'ushbu_oy', branchType });
-        setStats(data.overview);
-        setBranchRankings(data.branchRankings || []);
+  const recentRatings = useMemo(
+    () =>
+      [...allRatings]
+        .sort((a, b) => new Date(b.createdAt || b.date) - new Date(a.createdAt || a.date))
+        .slice(0, 6),
+    [allRatings]
+  );
 
-        const ratings = await api.getRatings();
-        const sortedRatings = [...ratings].sort((a, b) => new Date(b.createdAt || b.date) - new Date(a.createdAt || a.date));
-        setRecentRatings(sortedRatings.slice(0, 6));
+  // Joriy xodimning o'z baholari
+  const myRatings = useMemo(() => {
+    if (!user) return [];
+    return allRatings.filter(
+      (r) =>
+        String(r.employeeId) === String(user.employeeId || user.id) ||
+        (r.employeeName && r.employeeName.toLowerCase().includes((user.name || '').toLowerCase()))
+    );
+  }, [allRatings, user]);
 
-        // Filter ratings for current employee if role === 'Xodim'
-        if (user) {
-          const userFullName = `${user.name || ''} ${user.surname || ''}`.trim().toLowerCase();
-          const filtered = ratings.filter(r => 
-            String(r.employeeId) === String(user.employeeId || user.id) ||
-            (r.employeeName && r.employeeName.toLowerCase().includes((user.name || '').toLowerCase()))
-          );
-          setMyRatings(filtered);
-        }
-      } catch (e) {
-        console.error('Dashboard load error:', e);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadDashboard();
-  }, [user, typeFilters]);
+  if (dashQ.error) {
+    return (
+      <div className="p-4 sm:p-6">
+        <ErrorState message={dashQ.error} onRetry={dashQ.reload} />
+      </div>
+    );
+  }
 
   if (loading) {
     return (

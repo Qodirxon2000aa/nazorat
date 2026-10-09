@@ -13,6 +13,7 @@ import { DailyRatingPage } from './pages/DailyRating';
 import { Statistics } from './pages/Statistics';
 import { Reports } from './pages/Reports';
 import { SettingsPage } from './pages/Settings';
+import { RulesPage } from './pages/Rules';
 import { initSSE } from './services/sse';
 
 const ProtectedLayout = () => {
@@ -57,6 +58,7 @@ const ProtectedLayout = () => {
             <Route path="/statistics" element={<Statistics />} />
             <Route path="/reports" element={<Reports />} />
 
+            <Route path="/rules" element={<RulesPage />} />
             <Route path="/settings" element={<SettingsPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
