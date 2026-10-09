@@ -6,6 +6,8 @@ const EmployeeSchema = new Schema({
   middleName: { type: String },
   phone: { type: String, required: true },
   position: { type: String, required: true },
+  assignedRules: { type: [Number], default: [] },
+
   branchId: { type: String, required: true },
   branchName: { type: String, required: true },
   avatar: { type: String },

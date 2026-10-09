@@ -18,6 +18,7 @@ import { Modal } from '../components/Modal';
 import { TableSkeleton } from '../components/Skeleton';
 import { EmptyState } from '../components/EmptyState';
 import { StarRating } from '../components/StarRating';
+import { RULES } from '../data/rules';
 import { useAuth } from '../context/AuthContext';
 import { useLiveData } from '../hooks/useLiveData';
 import { ErrorState } from '../components/ErrorState';
@@ -53,6 +54,7 @@ export const Employees = ({ globalQuery }) => {
     branchName: '',
     avatar: '',
     status: 'Faol',
+    assignedRules: [],
   });
 
   // Employee Profile Modal
@@ -79,6 +81,7 @@ export const Employees = ({ globalQuery }) => {
       branchName: branches[0]?.name || '',
       avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
       status: 'Faol',
+      assignedRules: [],
     });
     setIsModalOpen(true);
   };
@@ -94,6 +97,7 @@ export const Employees = ({ globalQuery }) => {
       branchName: emp.branchName,
       avatar: emp.avatar,
       status: emp.status,
+      assignedRules: emp.assignedRules || [],
     });
     setIsModalOpen(true);
   };
@@ -396,6 +400,44 @@ export const Employees = ({ globalQuery }) => {
                 placeholder="Narzullayev"
                 className="w-full px-3.5 py-2.5 text-xs bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl focus:outline-none focus:border-blue-500/50 text-slate-900 dark:text-white placeholder-slate-500"
               />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <div className="flex items-center justify-between">
+              <label className="block text-xs font-bold text-slate-600 dark:text-slate-300">
+                Baholash Qoidalari (Belgilangan qoidalar asosida baholanadi)
+              </label>
+              <button
+                type="button"
+                onClick={() => setFormData({ ...formData, assignedRules: RULES.map(r => r.id) })}
+                className="text-[10px] text-blue-500 hover:underline font-bold cursor-pointer"
+              >
+                Barchasini tanlash
+              </button>
+            </div>
+            <div className="max-h-48 overflow-y-auto p-3 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-slate-700 rounded-xl space-y-2 custom-scrollbar">
+              {RULES.map(r => (
+                <label key={r.id} className="flex items-start gap-2 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    className="mt-0.5 rounded border-slate-300 text-blue-500 shrink-0 w-3.5 h-3.5"
+                    checked={formData.assignedRules && formData.assignedRules.includes(r.id)}
+                    onChange={(e) => {
+                      const current = formData.assignedRules || [];
+                      if (e.target.checked) {
+                        setFormData({ ...formData, assignedRules: [...current, r.id] });
+                      } else {
+                        setFormData({ ...formData, assignedRules: current.filter(id => id !== r.id) });
+                      }
+                    }}
+                  />
+                  <span className="text-[11px] text-slate-700 dark:text-slate-300 font-semibold leading-snug">
+                    <span className="font-bold mr-1">{r.id}.</span>
+                    {r.title}
+                  </span>
+                </label>
+              ))}
             </div>
           </div>
 

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { MessageSquare, Star } from 'lucide-react';
 import { Modal } from './Modal';
 import { StarRating } from './StarRating';
-import { getApplicableRules, RULE_SCORES, calcScore } from '../data/rules';
+import { getApplicableRules, RULE_SCORES, calcScore, RULES } from '../data/rules';
 
 const scoreStyles = {
   2: 'bg-emerald-500 text-white border-emerald-500',
@@ -24,7 +24,7 @@ export const RuleScoringModal = ({ employee, onClose, onSubmit }) => {
     setError('');
   }, [employee?.id]);
 
-  const rules = employee ? getApplicableRules(employee.position, showAll) : [];
+  const rules = employee ? (employee.assignedRules && employee.assignedRules.length > 0 ? RULES.filter(r => employee.assignedRules.includes(r.id)) : getApplicableRules(employee.position, showAll)) : [];
   // Belgilanmagan qoida — "Bajarildi": baholovchi faqat kamchiliklarni belgilaydi
   const scoreOf = (id) => (scores[id] === undefined ? 2 : scores[id]);
   const { percent, stars } = calcScore(rules.map((r) => scoreOf(r.id)));
