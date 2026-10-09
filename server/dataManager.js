@@ -374,6 +374,8 @@ export const createRating = async (data, user) => {
         branchName: employee.branchName,
         ratedById: user ? user.id : 'sys',
         ratedByName: user ? `${user.name} ${user.surname}` : 'Tizim',
+        rules: data.rules || [],
+
         stars: data.stars,
         comment: data.comment,
         date: ratingDate

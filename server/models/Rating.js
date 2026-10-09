@@ -7,6 +7,8 @@ const RatingSchema = new Schema({
   branchName: { type: String, required: true },
   ratedById: { type: String, required: true },
   ratedByName: { type: String, required: true },
+  rules: { type: Array, default: [] },
+
   stars: { type: Number, required: true, min: 1, max: 5 },
   comment: { type: String, required: true },
   date: { type: String, required: true },
